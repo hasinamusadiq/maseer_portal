@@ -1,0 +1,16 @@
+# Jekyll configuration for GitHub Pages
+title: Maseer Portal
+description: AI-Powered Video Marketing Registration for Afghan Businesses
+baseurl: "/maseer-portal"
+url: "https://hasinamusadiq.github.io"
+
+# Build settings
+markdown: kramdown
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - .gitignore
+
+# Custom variables
+portal_version: "1.0.0"
