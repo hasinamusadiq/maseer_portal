@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maseer Portal - Brand Registration</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="24" cy="24" r="20" fill="#D32F2F"/>
+                    <path d="M24 12L27 21H36L28.5 27L31.5 36L24 30L16.5 36L19.5 27L12 21H21L24 12Z" fill="white"/>
+                </svg>
+                <h1>Maseer Portal</h1>
+            </div>
+            <p class="subtitle">AI-Powered Video Marketing for Afghan Businesses</p>
+            <div class="lang-toggle">
+                <button onclick="toggleLanguage()" class="btn-lang">
+                    <span id="lang-text">فارسی</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="form-container">
+            <form id="brandForm" onsubmit="handleSubmit(event)">
+                
+                <!-- Progress Bar -->
+                <div class="progress-bar">
+                    <div class="progress-step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-label" data-en="Brand Info" data-fa="اطلاعات برند">Brand Info</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-label" data-en="Visual Identity" data-fa="هویت بصری">Visual Identity</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-label" data-en="Marketing" data-fa="بازاریابی">Marketing</span>
+                    </div>
+                </div>
+
+                <!-- Step 1: Brand Information -->
+                <div class="form-step active" data-step="1">
+                    <h2 data-en="Brand Information" data-fa="اطلاعات برند">Brand Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="brandName" data-en="Brand Name (English) *" data-fa="نام برند (انگلیسی) *">
+                            Brand Name (English) *
+                        </label>
+                        <input type="text" id="brandName" name="brand_name" required 
+                               placeholder="e.g., Beryani Cafe">
+                        <span class="help-text" data-en="Official brand name in English" 
+                              data-fa="نام رسمی برند به انگلیسی">Official brand name in English</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="localName" data-en="Brand Name (Persian/Dari) *" data-fa="نام برند (فارسی/دری) *">
+                            Brand Name (Persian/Dari) *
+                        </label>
+                        <input type="text" id="localName" name="local_name" required 
+                               placeholder="مثال: بریانی کافه" dir="rtl" class="persian-input">
+                        <span class="help-text" data-en="Name as it appears in local market" 
+                              data-fa="نامی که در بازار محلی استفاده می‌شود">Name as it appears in local market</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="industry" data-en="Industry *" data-fa="صنعت *">Industry *</label>
+                        <select id="industry" name="industry" required>
+                            <option value="" data-en="Select Industry" data-fa="انتخاب صنعت">Select Industry</option>
+                            <option value="Café & Restaurant">Café & Restaurant</option>
+                            <option value="Food & Beverage">Food & Beverage</option>
+                            <option value="Fashion & Apparel">Fashion & Apparel</option>
+                            <option value="Education">Education</option>
+                            <option value="Travel Agency">Travel Agency</option>
+                            <option value="Real Estate">Real Estate</option>
+                            <option value="Logistics & Cargo">Logistics & Cargo</option>
+                            <option value="Consultancy">Consultancy</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location" data-en="Location *" data-fa="موقعیت *">Location *</label>
+                        <input type="text" id="location" name="location" required 
+                               value="Kabul, Afghanistan">
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn-next" onclick="nextStep(2)" 
+                                data-en="Next: Visual Identity" data-fa="بعدی: هویت بصری">
+                            Next: Visual Identity →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Visual Identity -->
+                <div class="form-step" data-step="2">
+                    <h2 data-en="Visual Identity" data-fa="هویت بصری">Visual Identity</h2>
+                    
+                    <div class="color-section">
+                        <div class="form-group color-picker-group">
+                            <label for="primaryColor" data-en="Primary Brand Color *" data-fa="رنگ اصلی برند *">
+                                Primary Brand Color *
+                            </label>
+                            <div class="color-input-wrapper">
+                                <input type="text" id="primaryColor" name="primary_color" 
+                                       class="coloris" value="#D32F2F" required>
+                                <div class="color-preview" id="primaryPreview" style="background: #D32F2F;"></div>
+                            </div>
+                            <span class="help-text" data-en="Main brand color used in logo and materials" 
+                                  data-fa="رنگ اصلی مورد استفاده در لوگو و مواد تبلیغاتی">Main brand color</span>
+                        </div>
+
+                        <div class="form-group color-picker-group">
+                            <label for="secondaryColor" data-en="Secondary Brand Color *" data-fa="رنگ ثانویه برند *">
+                                Secondary Brand Color *
+                            </label>
+                            <div class="color-input-wrapper">
+                                <input type="text" id="secondaryColor" name="secondary_color" 
+                                       class="coloris" value="#FFC107" required>
+                                <div class="color-preview" id="secondaryPreview" style="background: #FFC107;"></div>
+                            </div>
+                            <span class="help-text" data-en="Accent color for contrast and highlights" 
+                                  data-fa="رنگ تأکیدی برای کنتراست و برجسته‌سازی">Accent color</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="logoUrl" data-en="Logo URL *" data-fa="آدرس لوگو *">Logo URL *</label>
+                        <input type="url" id="logoUrl" name="logo_path" required 
+                               placeholder="https://example.com/logo.png">
+                        <span class="help-text">
+                            <span data-en="Direct link to logo image (PNG with transparency preferred). " 
+                                  data-fa="لینک مستقیم به تصویر لوگو (PNG با پس‌زمینه شفاف ترجیح داده می‌شود). ">
+                                Direct link to logo image (PNG with transparency preferred). 
+                            </span>
+                            <a href="#" onclick="showUploadHelp(); return false;" class="link-help" 
+                               data-en="How to upload?" data-fa="چگونه آپلود کنم؟">How to upload?</a>
+                        </span>
+                    </div>
+
+                    <div class="logo-preview-container" id="logoPreviewContainer" style="display: none;">
+                        <img id="logoPreview" src="" alt="Logo Preview">
+                        <button type="button" class="btn-remove-logo" onclick="removeLogo()">×</button>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn-prev" onclick="prevStep(1)" 
+                                data-en="← Back" data-fa="← قبلی">← Back</button>
+                        <button type="button" class="btn-next" onclick="nextStep(3)" 
+                                data-en="Next: Marketing" data-fa="بعدی: بازاریابی">
+                            Next: Marketing →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Marketing Details -->
+                <div class="form-step" data-step="3">
+                    <h2 data-en="Marketing Strategy" data-fa="استراتژی بازاریابی">Marketing Strategy</h2>
+                    
+                    <div class="form-group">
+                        <label for="targetAudience" data-en="Target Audience *" data-fa="مخاطب هدف *">
+                            Target Audience *
+                        </label>
+                        <input type="text" id="targetAudience" name="target_audience" required 
+                               placeholder="e.g., Young professionals, Families, Students">
+                        <span class="help-text" data-en="Who are your ideal customers?" 
+                              data-fa="مشتریان ایده‌آل شما چه کسانی هستند؟">Who are your ideal customers?</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="keyOfferings" data-en="Key Offerings *" data-fa="محصولات/خدمات کلیدی *">
+                            Key Offerings *
+                        </label>
+                        <textarea id="keyOfferings" name="key_offerings" rows="3" required 
+                                  placeholder="e.g., Authentic Kabul-style beryani, rich flavors, generous portions"></textarea>
+                        <span class="help-text" data-en="What makes your business special? (2-3 sentences)" 
+                              data-fa="چه چیزی کسب‌وکار شما را خاص می‌کند؟ (۲-۳ جمله)">What makes your business special?</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactInfo" data-en="Contact Information" data-fa="اطلاعات تماس">
+                            Contact Information
+                        </label>
+                        <input type="text" id="contactInfo" name="contact_info" 
+                               placeholder="Phone, WhatsApp, or Instagram">
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="urgent" value="true">
+                            <span class="checkmark"></span>
+                            <span data-en="Mark as urgent (process within 24 hours)" 
+                                  data-fa="فوری (پردازش ظرف ۲۴ ساعت)">Mark as urgent</span>
+                        </label>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn-prev" onclick="prevStep(2)" 
+                                data-en="← Back" data-fa="← قبلی">← Back</button>
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <span class="btn-text" data-en="Submit Brand" data-fa="ثبت برند">Submit Brand</span>
+                            <span class="btn-loader" style="display: none;">
+                                <svg class="spinner" width="20" height="20" viewBox="0 0 20 20">
+                                    <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" 
+                                            stroke-width="2" stroke-dasharray="31.416" stroke-dashoffset="10"/>
+                                </svg>
+                                <span data-en="Processing..." data-fa="در حال پردازش...">Processing...</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message" style="display: none;">
+                <div class="success-icon">✓</div>
+                <h2 data-en="Submission Successful!" data-fa="ثبت با موفقیت انجام شد!">Submission Successful!</h2>
+                <p data-en="Your brand has been registered. We'll create your marketing video within 6 hours." 
+                   data-fa="برند شما ثبت شد. ویدیوی تبلیغاتی شما ظرف ۶ ساعت آماده می‌شود.">
+                    Your brand has been registered. We'll create your marketing video within 6 hours.
+                </p>
+                <div class="success-details">
+                    <p data-en="Track progress:" data-fa="پیگیری پیشرفت:">Track progress:</p>
+                    <a id="issueLink" href="#" target="_blank" class="issue-link">View on GitHub</a>
+                </div>
+                <button onclick="resetForm()" class="btn-new" 
+                        data-en="Register Another Brand" data-fa="ثبت برند دیگر">Register Another Brand</button>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message" style="display: none;">
+                <div class="error-icon">✗</div>
+                <h2 data-en="Submission Failed" data-fa="ثبت ناموفق بود">Submission Failed</h2>
+                <p id="errorText" data-en="Please try again or contact support." 
+                   data-fa="لطفاً دوباره تلاش کنید یا با پشتیبانی تماس بگیرید.">
+                    Please try again or contact support.
+                </p>
+                <button onclick="retrySubmit()" class="btn-retry" 
+                        data-en="Try Again" data-fa="تلاش مجدد">Try Again</button>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p data-en="Powered by Maseer AI | Kabul, Afghanistan" 
+               data-fa="قدرت گرفته از هوش مصنوعی مسیر | کابل، افغانستان">
+                Powered by Maseer AI | Kabul, Afghanistan
+            </p>
+        </footer>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 data-en="How to Upload Your Logo" data-fa="چگونه لوگوی خود را آپلود کنید">How to Upload Your Logo</h3>
+            <ol>
+                <li data-en="Upload to Google Drive, Dropbox, or Imgur" 
+                    data-fa="در Google Drive، Dropbox یا Imgur آپلود کنید">Upload to Google Drive, Dropbox, or Imgur</li>
+                <li data-en="Get the direct image link (ends with .png or .jpg)" 
+                    data-fa="لینک مستقیم تصویر را دریافت کنید (با .png یا .jpg تمام شود)">Get the direct image link</li>
+                <li data-en="For Google Drive: Use 'Share' → 'Copy link' → convert to direct link" 
+                    data-fa="برای Google Drive: از 'اشتراک‌گذاری' → 'کپی لینک' → تبدیل به لینک مستقیم">For Google Drive: Use 'Share' → 'Copy link'</li>
+            </ol>
+            <div class="example-box">
+                <strong data-en="Example:" data-fa="مثال:">Example:</strong><br>
+                <code>https://drive.google.com/uc?export=download&id=YOUR_FILE_ID</code>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
