@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Successful - Maseer Portal</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container" style="text-align: center; padding: 3rem;">
+            <div class="success-icon" style="margin: 0 auto 1.5rem;">✓</div>
+            <h1>Submission Successful!</h1>
+            <p style="color: var(--text-secondary); margin: 1rem 0;">
+                Your brand has been registered successfully. We'll process your request and create your marketing video within 6 hours.
+            </p>
+            <div style="margin: 2rem 0; padding: 1.5rem; background: var(--background); border-radius: var(--radius);">
+                <p style="margin-bottom: 1rem;">Track your submission:</p>
+                <a id="issueLink" href="#" class="btn-next" style="display: inline-block; text-decoration: none;">
+                    View on GitHub
+                </a>
+            </div>
+            <a href="index.html" class="btn-prev" style="display: inline-block; margin-top: 1rem; text-decoration: none;">
+                ← Back to Form
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const issueNumber = urlParams.get('issue');
+        const username = 'hasinamusadiq'; // Change to your username
+        const repo = 'maseer_automation'; // Change to your repo name
+        
+        if (issueNumber) {
+            const link = document.getElementById('issueLink');
+            link.href = `https://github.com/${username}/${repo}/issues/${issueNumber}`;
+            link.textContent = `View Issue #${issueNumber}`;
+        }
+    </script>
+</body>
+</html>
