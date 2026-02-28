@@ -3,29 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maseer Portal - Broadcast TV Brand Registration</title>
+    <title>Ariana Coach - AI Video Marketing for Afghan Businesses</title>
     
     <!-- B Nazanin Bold for Persian -->
     <link href="https://db.onlinewebfonts.com/c/752209e187a9d84bf9fb3a07f2ccfae3?family=B+Nazanin+Bold" rel="stylesheet">
-    <!-- Impact/Anton for Latin -->
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Professional fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <div class="container">
-        <!-- Broadcast TV Header with Maseer Logo -->
-        <header class="broadcast-header">
+        <!-- Professional Header with Ariana Coach Branding -->
+        <header class="coach-header">
             <div class="logo-container">
-                <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w200" 
-                     alt="Maseer Logo" 
-                     class="maseer-logo"
-                     onerror="this.src='assets/images/maseer-logo-fallback.png'">
+                <div class="logo-badge">
+                    <span class="logo-icon">🎯</span>
+                </div>
             </div>
-            <h1 class="broadcast-title">MASEER</h1>
-            <p class="broadcast-subtitle">Maseer Media Inc.</p>
-            <p class="persian-tagline">سیستم تولید ویدیوهای تبلیغاتی با کیفیت تلویزیونی</p>
+            <h1 class="coach-title">ARIANA COACH</h1>
+            <p class="coach-subtitle">AI-Powered Marketing for Afghan Businesses</p>
+            <p class="persian-tagline">سیستم هوشمند تولید ویدیوهای تبلیغاتی برای کسب‌وکارهای افغانستانی</p>
             
             <div class="lang-toggle">
                 <button onclick="toggleLanguage()" class="btn-lang">
@@ -103,7 +102,7 @@
                     </div>
 
                     <div class="form-navigation">
-                        <button type="button" class="btn-next broadcast-btn" onclick="nextStep(2)" 
+                        <button type="button" class="btn-next coach-btn" onclick="nextStep(2)" 
                                 data-en="Next: Visual Identity →" data-fa="بعدی: هویت بصری →">
                             Next: Visual Identity →
                         </button>
@@ -121,11 +120,11 @@
                             </label>
                             <div class="color-input-wrapper">
                                 <input type="text" id="primaryColor" name="primary_color" 
-                                       class="coloris" value="#D32F2F" required>
-                                <div class="color-preview" id="primaryPreview" style="background: #D32F2F;"></div>
+                                       class="coloris" value="#6B21A8" required>
+                                <div class="color-preview" id="primaryPreview" style="background: #6B21A8;"></div>
                             </div>
-                            <span class="help-text" data-en="Main brand color for broadcast overlay" 
-                                  data-fa="رنگ اصلی برای پوشش تلویزیونی">Main brand color for broadcast overlay</span>
+                            <span class="help-text" data-en="Main brand color for video overlay" 
+                                  data-fa="رنگ اصلی برای پوشش ویدیویی">Main brand color for video overlay</span>
                         </div>
 
                         <div class="form-group color-picker-group">
@@ -134,11 +133,11 @@
                             </label>
                             <div class="color-input-wrapper">
                                 <input type="text" id="secondaryColor" name="secondary_color" 
-                                       class="coloris" value="#FFC107" required>
-                                <div class="color-preview" id="secondaryPreview" style="background: #FFC107;"></div>
+                                       class="coloris" value="#EAB308" required>
+                                <div class="color-preview" id="secondaryPreview" style="background: #EAB308;"></div>
                             </div>
-                            <span class="help-text" data-en="Accent color for TV graphics" 
-                                  data-fa="رنگ تأکیدی برای گرافیک تلویزیونی">Accent color for TV graphics</span>
+                            <span class="help-text" data-en="Accent color for graphics" 
+                                  data-fa="رنگ تأکیدی برای گرافیک">Accent color for graphics</span>
                         </div>
                     </div>
 
@@ -183,9 +182,9 @@
                         <input type="hidden" id="logoFileName" name="logo_filename">
                         
                         <span class="help-text logo-help">
-                            <span data-en="Upload your brand logo. Transparent PNG recommended for best broadcast quality." 
-                                  data-fa="لوگوی برند خود را آپلود کنید. PNG شفاف برای بهترین کیفیت پخش توصیه می‌شود.">
-                                Upload your brand logo. Transparent PNG recommended for best broadcast quality.
+                            <span data-en="Upload your brand logo. Transparent PNG recommended for best quality." 
+                                  data-fa="لوگوی برند خود را آپلود کنید. PNG شفاف برای بهترین کیفیت توصیه می‌شود.">
+                                Upload your brand logo. Transparent PNG recommended for best quality.
                             </span>
                         </span>
                     </div>
@@ -193,7 +192,7 @@
                     <div class="form-navigation">
                         <button type="button" class="btn-prev" onclick="prevStep(1)" 
                                 data-en="← Back" data-fa="← قبلی">← Back</button>
-                        <button type="button" class="btn-next broadcast-btn" onclick="nextStep(3)" 
+                        <button type="button" class="btn-next coach-btn" onclick="nextStep(3)" 
                                 data-en="Next: Marketing →" data-fa="بعدی: بازاریابی →">
                             Next: Marketing →
                         </button>
@@ -241,13 +240,13 @@
                         </label>
                     </div>
 
-                    <div class="broadcast-notice">
-                        <div class="notice-icon">📺</div>
+                    <div class="coach-notice">
+                        <div class="notice-icon">🎯</div>
                         <div class="notice-text">
-                            <strong data-en="Broadcast TV Quality" data-fa="کیفیت تلویزیونی">Broadcast TV Quality</strong>
-                            <span data-en="Your video will feature B Nazanin Bold text, dramatic zoom effects, and professional broadcast graphics." 
-                                  data-fa="ویدیوی شما با فونت بی نازنین، افکت‌های زوم دراماتیک و گرافیک حرفه‌ای تلویزیونی تولید می‌شود.">
-                                Your video will feature B Nazanin Bold text, dramatic zoom effects, and professional broadcast graphics.
+                            <strong data-en="Professional AI Marketing" data-fa="بازاریابی هوشمند حرفه‌ای">Professional AI Marketing</strong>
+                            <span data-en="Your video will feature professional typography, smooth animations, and branded graphics optimized for social media." 
+                                  data-fa="ویدیوی شما با تایپوگرافی حرفه‌ای، انیمیشن‌های روان و گرافیک برندشده برای شبکه‌های اجتماعی تولید می‌شود.">
+                                Your video will feature professional typography, smooth animations, and branded graphics optimized for social media.
                             </span>
                         </div>
                     </div>
@@ -255,8 +254,8 @@
                     <div class="form-navigation">
                         <button type="button" class="btn-prev" onclick="prevStep(2)" 
                                 data-en="← Back" data-fa="← قبلی">← Back</button>
-                        <button type="submit" class="btn-submit broadcast-btn" id="submitBtn">
-                            <span class="btn-text" data-en="📺 CREATE BROADCAST VIDEO" data-fa="📺 ساخت ویدیو تبلیغاتی">📺 CREATE BROADCAST VIDEO</span>
+                        <button type="submit" class="btn-submit coach-btn" id="submitBtn">
+                            <span class="btn-text" data-en="🎯 CREATE MARKETING VIDEO" data-fa="🎯 ساخت ویدیو تبلیغاتی">🎯 CREATE MARKETING VIDEO</span>
                             <span class="btn-loader" style="display: none;">
                                 <svg class="spinner" width="20" height="20" viewBox="0 0 20 20">
                                     <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" 
@@ -270,19 +269,19 @@
             </form>
 
             <!-- Success Message -->
-            <div id="successMessage" class="success-message broadcast-success" style="display: none;">
-                <div class="success-icon broadcast-icon">📺</div>
-                <h2 data-en="Broadcast Video Queued!" data-fa="ویدیو تبلیغاتی در صف تولید!">Broadcast Video Queued!</h2>
-                <p data-en="Your brand broadcast is being produced with B Nazanin Bold typography and TV-quality effects. Ready within 6 hours." 
-                   data-fa="ویدیوی تبلیغاتی برند شما با تایپوگرافی بی نازنین و افکت‌های تلویزیونی در حال تولید است. ظرف ۶ ساعت آماده می‌شود.">
-                    Your brand broadcast is being produced with B Nazanin Bold typography and TV-quality effects. Ready within 6 hours.
+            <div id="successMessage" class="success-message coach-success" style="display: none;">
+                <div class="success-icon coach-icon">🎯</div>
+                <h2 data-en="Video Queued Successfully!" data-fa="ویدیو با موفقیت در صف قرار گرفت!">Video Queued Successfully!</h2>
+                <p data-en="Your marketing video is being produced with professional AI technology. Ready within 6 hours." 
+                   data-fa="ویدیوی تبلیغاتی شما با تکنولوژی هوش مصنوعی حرفه‌ای در حال تولید است. ظرف ۶ ساعت آماده می‌شود.">
+                    Your marketing video is being produced with professional AI technology. Ready within 6 hours.
                 </p>
-                <div class="success-details broadcast-details">
+                <div class="success-details coach-details">
                     <p data-en="Track production:" data-fa="پیگیری تولید:">Track production:</p>
-                    <a id="issueLink" href="#" target="_blank" class="issue-link broadcast-link">View on GitHub</a>
+                    <a id="issueLink" href="#" target="_blank" class="issue-link coach-link">View on GitHub</a>
                 </div>
-                <button onclick="resetForm()" class="btn-new broadcast-btn" 
-                        data-en="🎬 Create Another Broadcast" data-fa="🎬 ساخت ویدیو دیگر">🎬 Create Another Broadcast</button>
+                <button onclick="resetForm()" class="btn-new coach-btn" 
+                        data-en="🎬 Create Another Video" data-fa="🎬 ساخت ویدیو دیگر">🎬 Create Another Video</button>
             </div>
 
             <!-- Error Message -->
@@ -293,19 +292,18 @@
                    data-fa="لطفاً دوباره تلاش کنید یا با پشتیبانی تماس بگیرید.">
                     Please try again or contact support.
                 </p>
-                <button onclick="retrySubmit()" class="btn-retry broadcast-btn" 
+                <button onclick="retrySubmit()" class="btn-retry coach-btn" 
                         data-en="Try Again" data-fa="تلاش مجدد">Try Again</button>
             </div>
         </main>
 
-        <footer class="broadcast-footer">
+        <footer class="coach-footer">
             <div class="footer-logo">
-                <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w60" 
-                     alt="Maseer" class="footer-logo-img">
+                <span class="footer-icon">🎯</span>
             </div>
-            <p data-en="Powered by Maseer Media Inc. | Kabul, Afghanistan" 
-               data-fa="قدرت گرفته از مسیر مدیا اینک | کابل، افغانستان">
-                Powered by Maseer Media Inc. | Kabul, Afghanistan
+            <p data-en="Powered by Ariana Coach | Kabul, Afghanistan" 
+               data-fa="قدرت گرفته از آریانا کوچ | کابل، افغانستان">
+                Powered by Ariana Coach | Kabul, Afghanistan
             </p>
         </footer>
     </div>
