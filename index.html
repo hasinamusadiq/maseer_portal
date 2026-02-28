@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maseer Media Inc. - AI Video Marketing</title>
     
-    <!-- B Nazanin Bold for Persian -->
+    <!-- Persian Font -->
     <link href="https://db.onlinewebfonts.com/c/752209e187a9d84bf9fb3a07f2ccfae3?family=B+Nazanin+Bold" rel="stylesheet">
-    <!-- Professional fonts -->
+    <!-- Latin Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Color Picker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <div class="container">
-        <!-- Maseer Header with Original Logo -->
+        <!-- Header -->
         <header class="maseer-header">
             <div class="logo-container">
                 <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w200" 
@@ -53,7 +56,9 @@
                 </div>
             </div>
 
+            <!-- Form -->
             <form id="brandForm" onsubmit="handleSubmit(event)">
+                
                 <!-- Step 1: Brand Information -->
                 <div class="form-step active" data-step="1">
                     <h2 data-en="Brand Information" data-fa="اطلاعات برند">Brand Information</h2>
@@ -142,7 +147,7 @@
                         </div>
                     </div>
 
-                    <!-- Logo Upload Section -->
+                    <!-- Logo Upload -->
                     <div class="form-group logo-upload-group">
                         <label data-en="Brand Logo *" data-fa="لوگوی برند *">Brand Logo *</label>
                         
@@ -164,7 +169,7 @@
                             </label>
                         </div>
 
-                        <!-- Logo Preview Area -->
+                        <!-- Preview -->
                         <div class="client-logo-preview" id="clientLogoPreview" style="display: none;">
                             <img id="previewImage" src="" alt="Logo Preview">
                             <div class="preview-overlay">
@@ -178,7 +183,7 @@
                             <div class="file-info" id="fileInfo"></div>
                         </div>
 
-                        <!-- Hidden input to store base64 for form submission -->
+                        <!-- Hidden inputs for submission -->
                         <input type="hidden" id="logoBase64" name="logo_base64">
                         <input type="hidden" id="logoFileName" name="logo_filename">
                         
@@ -281,6 +286,10 @@
                     <p data-en="Track production:" data-fa="پیگیری تولید:">Track production:</p>
                     <a id="issueLink" href="#" target="_blank" class="issue-link maseer-link">View on GitHub</a>
                 </div>
+                <div id="pollingStatus" class="polling-status">
+                    <p data-en="Checking status..." data-fa="بررسی وضعیت...">Checking status...</p>
+                    <div class="mini-progress"><div class="mini-progress-fill"></div></div>
+                </div>
                 <button onclick="resetForm()" class="btn-new maseer-btn" 
                         data-en="🎬 Create Another Video" data-fa="🎬 ساخت ویدیو دیگر">🎬 Create Another Video</button>
             </div>
@@ -298,7 +307,7 @@
             </div>
         </main>
 
-        <!-- Footer: Maseer Media Inc. + Powered by Ariana Coach -->
+        <!-- Footer -->
         <footer class="maseer-footer">
             <div class="footer-logo">
                 <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w60" 
@@ -313,6 +322,7 @@
         </footer>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
