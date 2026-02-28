@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submission Successful - Maseer Media Inc.</title>
     
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -22,11 +21,7 @@
             --font-latin: 'Plus Jakarta Sans', sans-serif;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: var(--font-latin);
@@ -50,9 +45,7 @@
             box-shadow: 0 20px 60px rgba(107, 33, 168, 0.3);
         }
         
-        .logo-container {
-            margin-bottom: 1.5rem;
-        }
+        .logo-container { margin-bottom: 1.5rem; }
         
         .maseer-logo {
             width: 100px;
@@ -83,11 +76,7 @@
             font-weight: 500;
         }
         
-        p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
+        p { color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem; }
         
         .track-box {
             background: var(--surface-light);
@@ -96,10 +85,7 @@
             margin: 2rem 0;
         }
         
-        .track-box p {
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
+        .track-box p { margin-bottom: 1rem; color: var(--text); }
         
         .btn-primary {
             display: inline-block;
@@ -171,23 +157,12 @@
             font-size: 0.9rem;
         }
         
-        .footer strong {
-            color: var(--text);
-        }
+        .footer strong { color: var(--text); }
         
         @media (max-width: 768px) {
-            .success-card {
-                padding: 2rem 1.5rem;
-            }
-            
-            h1 {
-                font-size: 1.4rem;
-            }
-            
-            .maseer-logo {
-                width: 80px;
-                height: 80px;
-            }
+            .success-card { padding: 2rem 1.5rem; }
+            h1 { font-size: 1.4rem; }
+            .maseer-logo { width: 80px; height: 80px; }
         }
     </style>
 </head>
@@ -225,6 +200,7 @@
     </div>
     
     <script>
+        // Parse URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const issueNumber = urlParams.get('issue');
         const username = 'hasinamusadiq';
