@@ -24,7 +24,7 @@
                      onerror="this.src='assets/images/maseer-logo-fallback.png'">
             </div>
             <h1 class="broadcast-title">MASEER</h1>
-            <p class="broadcast-subtitle">Broadcast TV Marketing System</p>
+            <p class="broadcast-subtitle">Maseer Media Inc.</p>
             <p class="persian-tagline">سیستم تولید ویدیوهای تبلیغاتی با کیفیت تلویزیونی</p>
             
             <div class="lang-toggle">
@@ -142,23 +142,52 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="logoUrl" data-en="Logo URL *" data-fa="آدرس لوگو *">Logo URL *</label>
-                        <input type="url" id="logoUrl" name="logo_path" required 
-                               placeholder="https://example.com/logo.png">
-                        <span class="help-text">
-                            <span data-en="Direct link to logo (PNG with transparency preferred)." 
-                                  data-fa="لینک مستقیم به لوگو (PNG با پس‌زمینه شفاف ترجیح داده می‌شود).">
-                                Direct link to logo (PNG with transparency preferred). 
-                            </span>
-                            <a href="#" onclick="showUploadHelp(); return false;" class="link-help" 
-                               data-en="How to upload?" data-fa="چگونه آپلود کنم؟">How to upload?</a>
-                        </span>
-                    </div>
+                    <!-- Logo Upload Section -->
+                    <div class="form-group logo-upload-group">
+                        <label data-en="Brand Logo *" data-fa="لوگوی برند *">Brand Logo *</label>
+                        
+                        <div class="logo-upload-container" id="logoUploadContainer">
+                            <input type="file" 
+                                   id="logoFile" 
+                                   name="logo_file" 
+                                   accept="image/png,image/jpeg,image/jpg,image/svg+xml" 
+                                   class="logo-file-input"
+                                   onchange="handleLogoUpload(this)"
+                                   required>
+                            
+                            <label for="logoFile" class="logo-upload-label">
+                                <div class="upload-icon">📁</div>
+                                <div class="upload-text">
+                                    <span data-en="Click to upload logo" data-fa="برای آپلود لوگو کلیک کنید">Click to upload logo</span>
+                                    <small data-en="PNG, JPG, SVG (Max 5MB)" data-fa="PNG، JPG، SVG (حداکثر ۵ مگابایت)">PNG, JPG, SVG (Max 5MB)</small>
+                                </div>
+                            </label>
+                        </div>
 
-                    <div class="logo-preview-container" id="logoPreviewContainer" style="display: none;">
-                        <img id="logoPreview" src="" alt="Logo Preview">
-                        <button type="button" class="btn-remove-logo" onclick="removeLogo()">×</button>
+                        <!-- Logo Preview Area -->
+                        <div class="client-logo-preview" id="clientLogoPreview" style="display: none;">
+                            <img id="previewImage" src="" alt="Logo Preview">
+                            <div class="preview-overlay">
+                                <button type="button" class="btn-change-logo" onclick="changeLogo()">
+                                    <span data-en="Change Logo" data-fa="تغییر لوگو">Change Logo</span>
+                                </button>
+                                <button type="button" class="btn-remove-logo-client" onclick="removeClientLogo()">
+                                    <span>×</span>
+                                </button>
+                            </div>
+                            <div class="file-info" id="fileInfo"></div>
+                        </div>
+
+                        <!-- Hidden input to store base64 for form submission -->
+                        <input type="hidden" id="logoBase64" name="logo_base64">
+                        <input type="hidden" id="logoFileName" name="logo_filename">
+                        
+                        <span class="help-text logo-help">
+                            <span data-en="Upload your brand logo. Transparent PNG recommended for best broadcast quality." 
+                                  data-fa="لوگوی برند خود را آپلود کنید. PNG شفاف برای بهترین کیفیت پخش توصیه می‌شود.">
+                                Upload your brand logo. Transparent PNG recommended for best broadcast quality.
+                            </span>
+                        </span>
                     </div>
 
                     <div class="form-navigation">
@@ -274,31 +303,11 @@
                 <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w60" 
                      alt="Maseer" class="footer-logo-img">
             </div>
-            <p data-en="Powered by Maseer AI Broadcast Engine | Kabul, Afghanistan" 
-               data-fa="قدرت گرفته از موتور پخش هوش مصنوعی مسیر | کابل، افغانستان">
-                Powered by Maseer AI Broadcast Engine | Kabul, Afghanistan
+            <p data-en="Powered by Maseer Media Inc. | Kabul, Afghanistan" 
+               data-fa="قدرت گرفته از مسیر مدیا اینک | کابل، افغانستان">
+                Powered by Maseer Media Inc. | Kabul, Afghanistan
             </p>
         </footer>
-    </div>
-
-    <!-- Help Modal -->
-    <div id="helpModal" class="modal" style="display: none;">
-        <div class="modal-content broadcast-modal">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h3 data-en="How to Upload Your Logo" data-fa="چگونه لوگوی خود را آپلود کنید">How to Upload Your Logo</h3>
-            <ol>
-                <li data-en="Upload to Google Drive, Dropbox, or Imgur" 
-                    data-fa="در Google Drive، Dropbox یا Imgur آپلود کنید">Upload to Google Drive, Dropbox, or Imgur</li>
-                <li data-en="Get the direct image link (ends with .png or .jpg)" 
-                    data-fa="لینک مستقیم تصویر را دریافت کنید (با .png یا .jpg تمام شود)">Get the direct image link</li>
-                <li data-en="For Google Drive: Use 'Share' → 'Copy link' → convert to direct link" 
-                    data-fa="برای Google Drive: از 'اشتراک‌گذاری' → 'کپی لینک' → تبدیل به لینک مستقیم">For Google Drive: Use 'Share' → 'Copy link'</li>
-            </ol>
-            <div class="example-box">
-                <strong data-en="Example:" data-fa="مثال:">Example:</strong><br>
-                <code>https://drive.google.com/uc?export=download&id=YOUR_FILE_ID</code>
-            </div>
-        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
