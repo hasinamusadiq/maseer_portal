@@ -383,43 +383,198 @@ body::before {
     border-color: var(--primary);
 }
 
-/* Logo Preview */
-.logo-preview-container {
+/* ============================================
+   LOGO UPLOAD STYLES
+   ============================================ */
+
+.logo-upload-group {
+    margin-top: 2rem;
+}
+
+.logo-upload-container {
     position: relative;
-    margin: 1rem 0;
-    padding: 1.5rem;
-    background: rgba(255,255,255,0.03);
-    border-radius: var(--radius);
     border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    background: rgba(255,255,255,0.02);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.logo-upload-container:hover {
+    border-color: var(--primary);
+    background: rgba(211, 47, 47, 0.05);
+    box-shadow: 0 0 30px rgba(211, 47, 47, 0.1);
+}
+
+.logo-upload-container.has-file {
+    border-color: var(--secondary);
+    background: rgba(255, 193, 7, 0.05);
+}
+
+.logo-file-input {
+    position: absolute;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.logo-upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+    transition: transform 0.3s ease;
+}
+
+.logo-upload-container:hover .upload-icon {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.upload-text {
     text-align: center;
 }
 
-.logo-preview-container img {
+.upload-text span {
+    display: block;
+    font-family: var(--font-persian);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+.upload-text small {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-family: var(--font-persian);
+}
+
+/* Client Logo Preview */
+.client-logo-preview {
+    position: relative;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 2px solid var(--primary);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(211, 47, 47, 0.2);
+    animation: fadeIn 0.4s ease-out;
+}
+
+.client-logo-preview img {
     max-width: 200px;
     max-height: 200px;
     object-fit: contain;
     filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+    border-radius: 8px;
 }
 
-.btn-remove-logo {
+.preview-overlay {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    background: var(--primary);
-    color: white;
-    border: none;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.5rem;
-    line-height: 1;
-    transition: all 0.3s;
+    display: flex;
+    gap: 0.5rem;
 }
 
-.btn-remove-logo:hover {
-    background: var(--primary-dark);
+.btn-change-logo,
+.btn-remove-logo-client {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    color: var(--text);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: var(--font-persian);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.btn-change-logo:hover {
+    background: var(--secondary);
+    border-color: var(--secondary);
+    color: #000;
+    transform: translateY(-2px);
+}
+
+.btn-remove-logo-client {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+    font-size: 1.2rem;
+    border-radius: 50%;
+}
+
+.btn-remove-logo-client:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
     transform: scale(1.1);
+}
+
+.file-info {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: var(--radius);
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.file-info .file-name {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.file-info .file-size {
+    color: var(--secondary);
+}
+
+.logo-help {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-help::before {
+    content: '💡';
+}
+
+/* Upload Progress Animation */
+.upload-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 0 0 0 var(--radius);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px var(--glow);
 }
 
 /* Checkbox */
@@ -765,6 +920,31 @@ body::before {
     .form-container {
         padding: 1.5rem;
     }
+    
+    /* Mobile Logo Upload Adjustments */
+    .logo-upload-label {
+        padding: 2rem 1.5rem;
+    }
+    
+    .upload-icon {
+        font-size: 2.5rem;
+    }
+    
+    .client-logo-preview img {
+        max-width: 150px;
+        max-height: 150px;
+    }
+    
+    .preview-overlay {
+        position: static;
+        margin-top: 1rem;
+        justify-content: center;
+    }
+    
+    .file-info {
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 /* RTL Support */
@@ -777,6 +957,16 @@ body::before {
 [dir="rtl"] .btn-submit {
     margin-left: 0;
     margin-right: auto;
+}
+
+[dir="rtl"] .preview-overlay {
+    right: auto;
+    left: 0.5rem;
+}
+
+[dir="rtl"] .lang-toggle {
+    right: auto;
+    left: 1.5rem;
 }
 
 /* Coloris Customization */
