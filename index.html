@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maseer Portal - Brand Registration</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Maseer Portal - Broadcast TV Brand Registration</title>
+    
+    <!-- B Nazanin Bold for Persian -->
+    <link href="https://db.onlinewebfonts.com/c/752209e187a9d84bf9fb3a07f2ccfae3?family=B+Nazanin+Bold" rel="stylesheet">
+    <!-- Impact/Anton for Latin -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <div class="logo">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="24" cy="24" r="20" fill="#D32F2F"/>
-                    <path d="M24 12L27 21H36L28.5 27L31.5 36L24 30L16.5 36L19.5 27L12 21H21L24 12Z" fill="white"/>
-                </svg>
-                <h1>Maseer Portal</h1>
+        <!-- Broadcast TV Header with Maseer Logo -->
+        <header class="broadcast-header">
+            <div class="logo-container">
+                <div class="logo-glow"></div>
+                <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w500" 
+                     alt="Maseer Logo" 
+                     class="maseer-logo"
+                     onerror="this.src='assets/images/maseer-logo-fallback.png'">
             </div>
-            <p class="subtitle">AI-Powered Video Marketing for Afghan Businesses</p>
+            <h1 class="broadcast-title">MASEER</h1>
+            <p class="broadcast-subtitle">Broadcast TV Marketing System</p>
+            <p class="persian-tagline">سیستم تولید ویدیوهای تبلیغاتی با کیفیت تلویزیونی</p>
+            
             <div class="lang-toggle">
                 <button onclick="toggleLanguage()" class="btn-lang">
                     <span id="lang-text">فارسی</span>
@@ -27,26 +36,25 @@
         </header>
 
         <main class="form-container">
-            <form id="brandForm" onsubmit="handleSubmit(event)">
-                
-                <!-- Progress Bar -->
-                <div class="progress-bar">
-                    <div class="progress-step active" data-step="1">
-                        <span class="step-number">1</span>
-                        <span class="step-label" data-en="Brand Info" data-fa="اطلاعات برند">Brand Info</span>
-                    </div>
-                    <div class="progress-line"></div>
-                    <div class="progress-step" data-step="2">
-                        <span class="step-number">2</span>
-                        <span class="step-label" data-en="Visual Identity" data-fa="هویت بصری">Visual Identity</span>
-                    </div>
-                    <div class="progress-line"></div>
-                    <div class="progress-step" data-step="3">
-                        <span class="step-number">3</span>
-                        <span class="step-label" data-en="Marketing" data-fa="بازاریابی">Marketing</span>
-                    </div>
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-step active" data-step="1">
+                    <span class="step-number">1</span>
+                    <span class="step-label" data-en="Brand Info" data-fa="اطلاعات برند">Brand Info</span>
                 </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2">
+                    <span class="step-number">2</span>
+                    <span class="step-label" data-en="Visual Identity" data-fa="هویت بصری">Visual Identity</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="3">
+                    <span class="step-number">3</span>
+                    <span class="step-label" data-en="Marketing" data-fa="بازاریابی">Marketing</span>
+                </div>
+            </div>
 
+            <form id="brandForm" onsubmit="handleSubmit(event)">
                 <!-- Step 1: Brand Information -->
                 <div class="form-step active" data-step="1">
                     <h2 data-en="Brand Information" data-fa="اطلاعات برند">Brand Information</h2>
@@ -96,8 +104,8 @@
                     </div>
 
                     <div class="form-navigation">
-                        <button type="button" class="btn-next" onclick="nextStep(2)" 
-                                data-en="Next: Visual Identity" data-fa="بعدی: هویت بصری">
+                        <button type="button" class="btn-next broadcast-btn" onclick="nextStep(2)" 
+                                data-en="Next: Visual Identity →" data-fa="بعدی: هویت بصری →">
                             Next: Visual Identity →
                         </button>
                     </div>
@@ -117,8 +125,8 @@
                                        class="coloris" value="#D32F2F" required>
                                 <div class="color-preview" id="primaryPreview" style="background: #D32F2F;"></div>
                             </div>
-                            <span class="help-text" data-en="Main brand color used in logo and materials" 
-                                  data-fa="رنگ اصلی مورد استفاده در لوگو و مواد تبلیغاتی">Main brand color</span>
+                            <span class="help-text" data-en="Main brand color for broadcast overlay" 
+                                  data-fa="رنگ اصلی برای پوشش تلویزیونی">Main brand color for broadcast overlay</span>
                         </div>
 
                         <div class="form-group color-picker-group">
@@ -130,8 +138,8 @@
                                        class="coloris" value="#FFC107" required>
                                 <div class="color-preview" id="secondaryPreview" style="background: #FFC107;"></div>
                             </div>
-                            <span class="help-text" data-en="Accent color for contrast and highlights" 
-                                  data-fa="رنگ تأکیدی برای کنتراست و برجسته‌سازی">Accent color</span>
+                            <span class="help-text" data-en="Accent color for TV graphics" 
+                                  data-fa="رنگ تأکیدی برای گرافیک تلویزیونی">Accent color for TV graphics</span>
                         </div>
                     </div>
 
@@ -140,9 +148,9 @@
                         <input type="url" id="logoUrl" name="logo_path" required 
                                placeholder="https://example.com/logo.png">
                         <span class="help-text">
-                            <span data-en="Direct link to logo image (PNG with transparency preferred). " 
-                                  data-fa="لینک مستقیم به تصویر لوگو (PNG با پس‌زمینه شفاف ترجیح داده می‌شود). ">
-                                Direct link to logo image (PNG with transparency preferred). 
+                            <span data-en="Direct link to logo (PNG with transparency preferred). " 
+                                  data-fa="لینک مستقیم به لوگو (PNG با پس‌زمینه شفاف ترجیح داده می‌شود). ">
+                                Direct link to logo (PNG with transparency preferred). 
                             </span>
                             <a href="#" onclick="showUploadHelp(); return false;" class="link-help" 
                                data-en="How to upload?" data-fa="چگونه آپلود کنم؟">How to upload?</a>
@@ -157,8 +165,8 @@
                     <div class="form-navigation">
                         <button type="button" class="btn-prev" onclick="prevStep(1)" 
                                 data-en="← Back" data-fa="← قبلی">← Back</button>
-                        <button type="button" class="btn-next" onclick="nextStep(3)" 
-                                data-en="Next: Marketing" data-fa="بعدی: بازاریابی">
+                        <button type="button" class="btn-next broadcast-btn" onclick="nextStep(3)" 
+                                data-en="Next: Marketing →" data-fa="بعدی: بازاریابی →">
                             Next: Marketing →
                         </button>
                     </div>
@@ -205,11 +213,22 @@
                         </label>
                     </div>
 
+                    <div class="broadcast-notice">
+                        <div class="notice-icon">📺</div>
+                        <div class="notice-text">
+                            <strong data-en="Broadcast TV Quality" data-fa="کیفیت تلویزیونی">Broadcast TV Quality</strong>
+                            <span data-en="Your video will feature B Nazanin Bold text, dramatic zoom effects, and professional broadcast graphics." 
+                                  data-fa="ویدیوی شما با فونت بی نازنین، افکت‌های زوم دراماتیک و گرافیک حرفه‌ای تلویزیونی تولید می‌شود.">
+                                Your video will feature B Nazanin Bold text, dramatic zoom effects, and professional broadcast graphics.
+                            </span>
+                        </div>
+                    </div>
+
                     <div class="form-navigation">
                         <button type="button" class="btn-prev" onclick="prevStep(2)" 
                                 data-en="← Back" data-fa="← قبلی">← Back</button>
-                        <button type="submit" class="btn-submit" id="submitBtn">
-                            <span class="btn-text" data-en="Submit Brand" data-fa="ثبت برند">Submit Brand</span>
+                        <button type="submit" class="btn-submit broadcast-btn" id="submitBtn">
+                            <span class="btn-text" data-en="📺 CREATE BROADCAST VIDEO" data-fa="📺 ساخت ویدیو تبلیغاتی">📺 CREATE BROADCAST VIDEO</span>
                             <span class="btn-loader" style="display: none;">
                                 <svg class="spinner" width="20" height="20" viewBox="0 0 20 20">
                                     <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" 
@@ -223,19 +242,19 @@
             </form>
 
             <!-- Success Message -->
-            <div id="successMessage" class="success-message" style="display: none;">
-                <div class="success-icon">✓</div>
-                <h2 data-en="Submission Successful!" data-fa="ثبت با موفقیت انجام شد!">Submission Successful!</h2>
-                <p data-en="Your brand has been registered. We'll create your marketing video within 6 hours." 
-                   data-fa="برند شما ثبت شد. ویدیوی تبلیغاتی شما ظرف ۶ ساعت آماده می‌شود.">
-                    Your brand has been registered. We'll create your marketing video within 6 hours.
+            <div id="successMessage" class="success-message broadcast-success" style="display: none;">
+                <div class="success-icon broadcast-icon">📺</div>
+                <h2 data-en="Broadcast Video Queued!" data-fa="ویدیو تبلیغاتی در صف تولید!">Broadcast Video Queued!</h2>
+                <p data-en="Your brand broadcast is being produced with B Nazanin Bold typography and TV-quality effects. Ready within 6 hours." 
+                   data-fa="ویدیوی تبلیغاتی برند شما با تایپوگرافی بی نازنین و افکت‌های تلویزیونی در حال تولید است. ظرف ۶ ساعت آماده می‌شود.">
+                    Your brand broadcast is being produced with B Nazanin Bold typography and TV-quality effects. Ready within 6 hours.
                 </p>
-                <div class="success-details">
-                    <p data-en="Track progress:" data-fa="پیگیری پیشرفت:">Track progress:</p>
-                    <a id="issueLink" href="#" target="_blank" class="issue-link">View on GitHub</a>
+                <div class="success-details broadcast-details">
+                    <p data-en="Track production:" data-fa="پیگیری تولید:">Track production:</p>
+                    <a id="issueLink" href="#" target="_blank" class="issue-link broadcast-link">View on GitHub</a>
                 </div>
-                <button onclick="resetForm()" class="btn-new" 
-                        data-en="Register Another Brand" data-fa="ثبت برند دیگر">Register Another Brand</button>
+                <button onclick="resetForm()" class="btn-new broadcast-btn" 
+                        data-en="🎬 Create Another Broadcast" data-fa="🎬 ساخت ویدیو دیگر">🎬 Create Another Broadcast</button>
             </div>
 
             <!-- Error Message -->
@@ -246,22 +265,26 @@
                    data-fa="لطفاً دوباره تلاش کنید یا با پشتیبانی تماس بگیرید.">
                     Please try again or contact support.
                 </p>
-                <button onclick="retrySubmit()" class="btn-retry" 
+                <button onclick="retrySubmit()" class="btn-retry broadcast-btn" 
                         data-en="Try Again" data-fa="تلاش مجدد">Try Again</button>
             </div>
         </main>
 
-        <footer class="footer">
-            <p data-en="Powered by Maseer AI | Kabul, Afghanistan" 
-               data-fa="قدرت گرفته از هوش مصنوعی مسیر | کابل، افغانستان">
-                Powered by Maseer AI | Kabul, Afghanistan
+        <footer class="broadcast-footer">
+            <div class="footer-logo">
+                <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w100" 
+                     alt="Maseer" class="footer-logo-img">
+            </div>
+            <p data-en="Powered by Maseer AI Broadcast Engine | Kabul, Afghanistan" 
+               data-fa="قدرت گرفته از موتور پخش هوش مصنوعی مسیر | کابل، افغانستان">
+                Powered by Maseer AI Broadcast Engine | Kabul, Afghanistan
             </p>
         </footer>
     </div>
 
     <!-- Help Modal -->
     <div id="helpModal" class="modal" style="display: none;">
-        <div class="modal-content">
+        <div class="modal-content broadcast-modal">
             <span class="close" onclick="closeModal()">&times;</span>
             <h3 data-en="How to Upload Your Logo" data-fa="چگونه لوگوی خود را آپلود کنید">How to Upload Your Logo</h3>
             <ol>
