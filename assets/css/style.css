@@ -1,26 +1,26 @@
-/* Ariana Coach - Professional Purple & Yellow Theme */
+/* Maseer Media Inc. - Purple & Yellow Professional Theme */
 :root {
-    /* Primary Purple Palette */
-    --primary: #6B21A8;           /* Deep Purple */
-    --primary-light: #9333EA;     /* Bright Purple */
-    --primary-dark: #581C87;      /* Dark Purple */
-    --primary-soft: #F3E8FF;      /* Lavender bg */
+    /* Purple Palette */
+    --primary: #6B21A8;
+    --primary-light: #9333EA;
+    --primary-dark: #581C87;
+    --primary-soft: #F3E8FF;
     
-    /* Secondary Yellow/Gold Palette */
-    --secondary: #EAB308;         /* Golden Yellow */
-    --secondary-light: #FDE047;     /* Bright Yellow */
-    --secondary-dark: #CA8A04;    /* Dark Gold */
+    /* Yellow/Gold Palette */
+    --secondary: #EAB308;
+    --secondary-light: #FDE047;
+    --secondary-dark: #CA8A04;
     
     /* Neutral Colors */
-    --background: #0F0A1A;        /* Deep purple-black */
-    --surface: #1A1025;             /* Dark purple surface */
-    --surface-light: #251a35;       /* Lighter surface */
-    --text: #FAFAFA;              /* Off-white */
-    --text-secondary: #A78BFA;    /* Light purple text */
-    --text-muted: #7C3AED;        /* Muted purple */
+    --background: #0F0A1A;
+    --surface: #1A1025;
+    --surface-light: #251a35;
+    --text: #FAFAFA;
+    --text-secondary: #A78BFA;
+    --text-muted: #7C3AED;
     
     /* Accents */
-    --border: #4C1D95;            /* Purple border */
+    --border: #4C1D95;
     --glow: rgba(107, 33, 168, 0.5);
     --glow-yellow: rgba(234, 179, 8, 0.3);
     --shadow: 0 0 40px rgba(107, 33, 168, 0.3);
@@ -29,7 +29,7 @@
     --radius: 12px;
     --radius-lg: 20px;
     --font-persian: 'B Nazanin Bold', 'Noto Naskh Arabic', 'Tahoma', serif;
-    --font-latin: 'Plus Jakarta Sans', 'Inter', 'Helvetica Neue', sans-serif;
+    --font-latin: 'Plus Jakarta Sans', 'Inter', sans-serif;
 }
 
 * {
@@ -45,10 +45,9 @@ body {
     color: var(--text);
     line-height: 1.6;
     overflow-x: hidden;
-    font-weight: 400;
 }
 
-/* Animated background with purple aurora effect */
+/* Animated background */
 body::before {
     content: '';
     position: fixed;
@@ -69,11 +68,14 @@ body::before {
     padding: 2rem 1rem;
 }
 
-/* Professional Header */
-.coach-header {
+/* ============================================
+   MASEER HEADER (Original Logo Kept)
+   ============================================ */
+
+.maseer-header {
     text-align: center;
     margin-bottom: 2rem;
-    padding: 3rem 2rem;
+    padding: 2.5rem 2rem;
     background: linear-gradient(135deg, rgba(26, 16, 37, 0.95), rgba(45, 27, 78, 0.9));
     border-radius: var(--radius-lg);
     border: 2px solid var(--primary);
@@ -82,7 +84,7 @@ body::before {
     overflow: hidden;
 }
 
-.coach-header::before {
+.maseer-header::before {
     content: '';
     position: absolute;
     top: -50%;
@@ -103,37 +105,35 @@ body::before {
     position: relative;
     display: inline-block;
     margin-bottom: 1.5rem;
+    padding: 0.5rem;
 }
 
-.logo-badge {
+/* Original Maseer Logo Styling */
+.maseer-logo {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 
-        0 0 0 4px rgba(234, 179, 8, 0.3),
-        0 0 30px rgba(107, 33, 168, 0.5),
-        inset 0 0 20px rgba(0,0,0,0.3);
-    animation: float 3s ease-in-out infinite;
+    object-fit: contain;
     position: relative;
-}
-
-.logo-badge::after {
-    content: '';
-    position: absolute;
-    inset: -8px;
+    z-index: 1;
     border-radius: 50%;
-    border: 2px solid var(--secondary);
-    opacity: 0.5;
-    animation: pulse 2s ease-in-out infinite;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+    padding: 8px;
+    box-shadow: 
+        0 0 0 2px var(--primary),
+        0 0 20px rgba(107, 33, 168, 0.4),
+        inset 0 0 20px rgba(0,0,0,0.5);
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite;
 }
 
-.logo-icon {
-    font-size: 3rem;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+.maseer-logo:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 
+        0 0 0 3px var(--secondary),
+        0 0 30px rgba(234, 179, 8, 0.6),
+        inset 0 0 20px rgba(0,0,0,0.3);
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.4));
 }
 
 @keyframes float {
@@ -141,12 +141,7 @@ body::before {
     50% { transform: translateY(-10px); }
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.05); opacity: 0.8; }
-}
-
-.coach-title {
+.maseer-title {
     font-family: var(--font-latin);
     font-size: 2.8rem;
     font-weight: 800;
@@ -158,22 +153,12 @@ body::before {
         0 0 20px rgba(107, 33, 168, 0.8),
         0 0 40px rgba(107, 33, 168, 0.4),
         2px 2px 4px rgba(0,0,0,0.3);
-    background: linear-gradient(90deg, #fff 0%, #EAB308 50%, #fff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 200% auto;
-    animation: shine 3s linear infinite;
 }
 
-@keyframes shine {
-    to { background-position: 200% center; }
-}
-
-.coach-subtitle {
+.maseer-subtitle {
     font-family: var(--font-latin);
     font-size: 1.1rem;
-    color: var(--text-secondary);
+    color: var(--secondary);
     letter-spacing: 2px;
     font-weight: 500;
     margin-bottom: 0.5rem;
@@ -184,7 +169,6 @@ body::before {
     font-size: 1.3rem;
     color: var(--text-secondary);
     margin-top: 0.5rem;
-    opacity: 0.9;
 }
 
 /* Language Toggle */
@@ -622,8 +606,8 @@ body::before {
     font-weight: bold;
 }
 
-/* Coach Notice (replaces broadcast-notice) */
-.coach-notice {
+/* Maseer Notice */
+.maseer-notice {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -699,8 +683,8 @@ body::before {
     background: rgba(255,255,255,0.05);
 }
 
-/* Coach Button (Purple/Yellow gradient) */
-.coach-btn {
+/* Maseer Button (Purple/Yellow) */
+.maseer-btn {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
     border: none;
@@ -709,7 +693,7 @@ body::before {
     overflow: hidden;
 }
 
-.coach-btn::before {
+.maseer-btn::before {
     content: '';
     position: absolute;
     top: 0;
@@ -720,12 +704,12 @@ body::before {
     transition: left 0.5s;
 }
 
-.coach-btn:hover {
+.maseer-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(107, 33, 168, 0.6);
 }
 
-.coach-btn:hover::before {
+.maseer-btn:hover::before {
     left: 100%;
 }
 
@@ -751,7 +735,7 @@ body::before {
 }
 
 /* Success/Error Messages */
-.coach-success {
+.maseer-success {
     text-align: center;
     padding: 3rem 2rem;
     background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
@@ -759,7 +743,7 @@ body::before {
     border: 2px solid #10B981;
 }
 
-.coach-icon {
+.maseer-icon {
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -773,14 +757,14 @@ body::before {
     animation: pulse 2s infinite;
 }
 
-.coach-success h2 {
+.maseer-success h2 {
     font-family: var(--font-latin);
     font-size: 2.2rem;
     color: #10B981;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-.coach-details {
+.maseer-details {
     margin: 2rem 0;
     padding: 1.5rem;
     background: var(--surface-light);
@@ -788,7 +772,7 @@ body::before {
     border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
-.coach-link {
+.maseer-link {
     display: inline-block;
     margin-top: 0.5rem;
     padding: 0.75rem 1.5rem;
@@ -800,7 +784,7 @@ body::before {
     transition: all 0.3s;
 }
 
-.coach-link:hover {
+.maseer-link:hover {
     background: var(--primary-light);
     box-shadow: 0 0 20px var(--glow);
 }
@@ -827,40 +811,67 @@ body::before {
     margin: 0 auto 1.5rem;
 }
 
-/* Footer */
-.coach-footer {
+/* ============================================
+   FOOTER: Maseer Media Inc. + Powered by Ariana Coach
+   ============================================ */
+
+.maseer-footer {
     text-align: center;
     margin-top: 3rem;
-    padding: 2rem;
-    color: var(--text-secondary);
+    padding: 2.5rem 2rem;
+    background: linear-gradient(135deg, rgba(26, 16, 37, 0.8), rgba(45, 27, 78, 0.6));
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--primary);
+    box-shadow: var(--shadow);
 }
 
 .footer-logo {
     margin-bottom: 1rem;
 }
 
-.footer-icon {
-    font-size: 2rem;
-    display: inline-block;
-    animation: float 3s ease-in-out infinite;
+.footer-logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 50%;
+    opacity: 0.9;
+    box-shadow: 0 0 20px rgba(107, 33, 168, 0.4);
+    transition: all 0.3s ease;
 }
 
-.coach-footer p {
+.footer-logo-img:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(234, 179, 8, 0.5);
+}
+
+.footer-main {
+    font-family: var(--font-latin);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+}
+
+.footer-powered {
     font-family: var(--font-persian);
     font-size: 1rem;
     color: var(--text-secondary);
+    margin-top: 0.5rem;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .coach-title {
+    .maseer-title {
         font-size: 2rem;
         letter-spacing: 3px;
     }
     
-    .logo-badge {
+    .maseer-logo {
         width: 80px;
         height: 80px;
+        padding: 6px;
     }
     
     .color-section {
@@ -878,6 +889,20 @@ body::before {
     .client-logo-preview img {
         max-width: 150px;
         max-height: 150px;
+    }
+    
+    .preview-overlay {
+        position: static;
+        margin-top: 1rem;
+        justify-content: center;
+    }
+    
+    .maseer-footer {
+        padding: 2rem 1.5rem;
+    }
+    
+    .footer-main {
+        font-size: 1.1rem;
     }
 }
 
