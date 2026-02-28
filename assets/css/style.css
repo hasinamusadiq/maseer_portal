@@ -1,19 +1,35 @@
-/* Maseer Broadcast Portal - TV Style CSS */
+/* Ariana Coach - Professional Purple & Yellow Theme */
 :root {
-    --primary: #D32F2F;
-    --primary-dark: #B71C1C;
-    --secondary: #FFC107;
-    --background: #0a0a0f;
-    --surface: #14141f;
-    --text: #ffffff;
-    --text-secondary: #a0a0b0;
-    --border: #2a2a3a;
-    --glow: rgba(211, 47, 47, 0.5);
-    --shadow: 0 0 40px rgba(211, 47, 47, 0.3);
+    /* Primary Purple Palette */
+    --primary: #6B21A8;           /* Deep Purple */
+    --primary-light: #9333EA;     /* Bright Purple */
+    --primary-dark: #581C87;      /* Dark Purple */
+    --primary-soft: #F3E8FF;      /* Lavender bg */
+    
+    /* Secondary Yellow/Gold Palette */
+    --secondary: #EAB308;         /* Golden Yellow */
+    --secondary-light: #FDE047;     /* Bright Yellow */
+    --secondary-dark: #CA8A04;    /* Dark Gold */
+    
+    /* Neutral Colors */
+    --background: #0F0A1A;        /* Deep purple-black */
+    --surface: #1A1025;             /* Dark purple surface */
+    --surface-light: #251a35;       /* Lighter surface */
+    --text: #FAFAFA;              /* Off-white */
+    --text-secondary: #A78BFA;    /* Light purple text */
+    --text-muted: #7C3AED;        /* Muted purple */
+    
+    /* Accents */
+    --border: #4C1D95;            /* Purple border */
+    --glow: rgba(107, 33, 168, 0.5);
+    --glow-yellow: rgba(234, 179, 8, 0.3);
+    --shadow: 0 0 40px rgba(107, 33, 168, 0.3);
+    
+    /* Layout */
     --radius: 12px;
     --radius-lg: 20px;
     --font-persian: 'B Nazanin Bold', 'Noto Naskh Arabic', 'Tahoma', serif;
-    --font-latin: 'Anton', 'Impact', 'Helvetica Neue', sans-serif;
+    --font-latin: 'Plus Jakarta Sans', 'Inter', 'Helvetica Neue', sans-serif;
 }
 
 * {
@@ -24,14 +40,15 @@
 
 body {
     font-family: var(--font-latin);
-    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+    background: linear-gradient(135deg, #0F0A1A 0%, #1A1025 50%, #2D1B4E 100%);
     min-height: 100vh;
     color: var(--text);
     line-height: 1.6;
     overflow-x: hidden;
+    font-weight: 400;
 }
 
-/* Animated background */
+/* Animated background with purple aurora effect */
 body::before {
     content: '';
     position: fixed;
@@ -40,8 +57,8 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 50%, rgba(211, 47, 47, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 193, 7, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(107, 33, 168, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(234, 179, 8, 0.08) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
 }
@@ -52,28 +69,28 @@ body::before {
     padding: 2rem 1rem;
 }
 
-/* Broadcast Header with Logo */
-.broadcast-header {
+/* Professional Header */
+.coach-header {
     text-align: center;
     margin-bottom: 2rem;
-    padding: 2.5rem 2rem;
-    background: rgba(20, 20, 31, 0.8);
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, rgba(26, 16, 37, 0.95), rgba(45, 27, 78, 0.9));
     border-radius: var(--radius-lg);
     border: 2px solid var(--primary);
-    box-shadow: var(--shadow), inset 0 0 60px rgba(211, 47, 47, 0.1);
+    box-shadow: var(--shadow), inset 0 0 60px rgba(107, 33, 168, 0.1);
     position: relative;
     overflow: hidden;
 }
 
-.broadcast-header::before {
+.coach-header::before {
     content: '';
     position: absolute;
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 193, 7, 0.1), transparent);
-    animation: shimmer 6s infinite;
+    background: linear-gradient(45deg, transparent, rgba(234, 179, 8, 0.05), transparent);
+    animation: shimmer 8s infinite;
     pointer-events: none;
 }
 
@@ -86,34 +103,37 @@ body::before {
     position: relative;
     display: inline-block;
     margin-bottom: 1.5rem;
-    padding: 0.5rem;
 }
 
-.maseer-logo {
+.logo-badge {
     width: 100px;
     height: 100px;
-    object-fit: contain;
-    position: relative;
-    z-index: 1;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
-    padding: 8px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 
-        0 0 0 2px var(--primary),
-        0 0 20px rgba(211, 47, 47, 0.4),
-        inset 0 0 20px rgba(0,0,0,0.5);
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-    transition: all 0.3s ease;
+        0 0 0 4px rgba(234, 179, 8, 0.3),
+        0 0 30px rgba(107, 33, 168, 0.5),
+        inset 0 0 20px rgba(0,0,0,0.3);
     animation: float 3s ease-in-out infinite;
+    position: relative;
 }
 
-.maseer-logo:hover {
-    transform: scale(1.05) translateY(-5px);
-    box-shadow: 
-        0 0 0 3px var(--secondary),
-        0 0 30px rgba(255, 193, 7, 0.6),
-        inset 0 0 20px rgba(0,0,0,0.3);
-    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.4));
+.logo-badge::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px solid var(--secondary);
+    opacity: 0.5;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.logo-icon {
+    font-size: 3rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
 @keyframes float {
@@ -121,41 +141,50 @@ body::before {
     50% { transform: translateY(-10px); }
 }
 
-.broadcast-title {
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+.coach-title {
     font-family: var(--font-latin);
-    font-size: 3.5rem;
-    font-weight: 700;
+    font-size: 2.8rem;
+    font-weight: 800;
     color: #fff;
     text-transform: uppercase;
-    letter-spacing: 8px;
+    letter-spacing: 6px;
     margin: 0.5rem 0;
     text-shadow: 
-        0 0 10px var(--primary),
-        0 0 20px var(--primary),
-        0 0 40px var(--primary),
-        4px 4px 0 rgba(0,0,0,0.5);
-    animation: textGlow 2s ease-in-out infinite alternate;
+        0 0 20px rgba(107, 33, 168, 0.8),
+        0 0 40px rgba(107, 33, 168, 0.4),
+        2px 2px 4px rgba(0,0,0,0.3);
+    background: linear-gradient(90deg, #fff 0%, #EAB308 50%, #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: shine 3s linear infinite;
 }
 
-@keyframes textGlow {
-    from { text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 40px var(--primary), 4px 4px 0 rgba(0,0,0,0.5); }
-    to { text-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary), 0 0 60px var(--primary), 4px 4px 0 rgba(0,0,0,0.5); }
+@keyframes shine {
+    to { background-position: 200% center; }
 }
 
-.broadcast-subtitle {
+.coach-subtitle {
     font-family: var(--font-latin);
     font-size: 1.1rem;
-    color: var(--secondary);
-    letter-spacing: 4px;
-    text-transform: uppercase;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+    font-weight: 500;
     margin-bottom: 0.5rem;
 }
 
 .persian-tagline {
     font-family: var(--font-persian);
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: var(--text-secondary);
     margin-top: 0.5rem;
+    opacity: 0.9;
 }
 
 /* Language Toggle */
@@ -167,8 +196,8 @@ body::before {
 
 .btn-lang {
     background: transparent;
-    border: 2px solid var(--primary);
-    color: var(--primary);
+    border: 2px solid var(--primary-light);
+    color: var(--primary-light);
     padding: 0.5rem 1rem;
     border-radius: var(--radius);
     cursor: pointer;
@@ -178,7 +207,7 @@ body::before {
 }
 
 .btn-lang:hover {
-    background: var(--primary);
+    background: var(--primary-light);
     color: #fff;
     box-shadow: 0 0 20px var(--glow);
 }
@@ -226,7 +255,8 @@ body::before {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: var(--border);
+    background: var(--surface-light);
+    border: 2px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -234,7 +264,6 @@ body::before {
     font-size: 1.3rem;
     font-weight: 700;
     transition: all 0.3s;
-    border: 2px solid transparent;
 }
 
 .step-label {
@@ -245,7 +274,7 @@ body::before {
 }
 
 .progress-step.active .step-label {
-    color: var(--primary);
+    color: var(--primary-light);
     font-weight: 700;
 }
 
@@ -281,12 +310,12 @@ body::before {
 
 .form-step h2 {
     font-family: var(--font-latin);
-    font-size: 2rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
     margin-bottom: 1.5rem;
     color: var(--secondary);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 /* Form Groups */
@@ -308,7 +337,7 @@ body::before {
 .form-group textarea {
     width: 100%;
     padding: 1rem 1.25rem;
-    background: rgba(255,255,255,0.05);
+    background: var(--surface-light);
     border: 2px solid var(--border);
     border-radius: var(--radius);
     color: var(--text);
@@ -321,9 +350,9 @@ body::before {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 20px rgba(211, 47, 47, 0.2);
-    background: rgba(255,255,255,0.08);
+    border-color: var(--primary-light);
+    box-shadow: 0 0 20px rgba(107, 33, 168, 0.3);
+    background: rgba(107, 33, 168, 0.1);
 }
 
 .persian-input {
@@ -338,17 +367,6 @@ body::before {
     font-family: var(--font-persian);
     font-size: 0.9rem;
     color: var(--text-secondary);
-}
-
-.link-help {
-    color: var(--secondary);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.link-help:hover {
-    text-decoration: underline;
-    color: var(--primary);
 }
 
 /* Color Section */
@@ -380,13 +398,10 @@ body::before {
 
 .color-preview:hover {
     transform: scale(1.1);
-    border-color: var(--primary);
+    border-color: var(--primary-light);
 }
 
-/* ============================================
-   LOGO UPLOAD STYLES
-   ============================================ */
-
+/* Logo Upload Styles */
 .logo-upload-group {
     margin-top: 2rem;
 }
@@ -395,20 +410,20 @@ body::before {
     position: relative;
     border: 2px dashed var(--border);
     border-radius: var(--radius);
-    background: rgba(255,255,255,0.02);
+    background: var(--surface-light);
     transition: all 0.3s ease;
     overflow: hidden;
 }
 
 .logo-upload-container:hover {
-    border-color: var(--primary);
-    background: rgba(211, 47, 47, 0.05);
-    box-shadow: 0 0 30px rgba(211, 47, 47, 0.1);
+    border-color: var(--primary-light);
+    background: rgba(107, 33, 168, 0.1);
+    box-shadow: 0 0 30px rgba(107, 33, 168, 0.15);
 }
 
 .logo-upload-container.has-file {
     border-color: var(--secondary);
-    background: rgba(255, 193, 7, 0.05);
+    background: rgba(234, 179, 8, 0.05);
 }
 
 .logo-file-input {
@@ -470,7 +485,7 @@ body::before {
     border: 2px solid var(--primary);
     padding: 1.5rem;
     text-align: center;
-    box-shadow: 0 0 30px rgba(211, 47, 47, 0.2);
+    box-shadow: 0 0 30px rgba(107, 33, 168, 0.2);
     animation: fadeIn 0.4s ease-out;
 }
 
@@ -492,7 +507,7 @@ body::before {
 
 .btn-change-logo,
 .btn-remove-logo-client {
-    background: var(--surface);
+    background: var(--surface-light);
     border: 2px solid var(--border);
     color: var(--text);
     padding: 0.4rem 0.8rem;
@@ -502,9 +517,6 @@ body::before {
     font-size: 0.85rem;
     font-weight: 600;
     transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
 }
 
 .btn-change-logo:hover {
@@ -533,7 +545,7 @@ body::before {
 .file-info {
     margin-top: 1rem;
     padding: 0.75rem;
-    background: rgba(0,0,0,0.3);
+    background: var(--surface-light);
     border-radius: var(--radius);
     font-family: monospace;
     font-size: 0.85rem;
@@ -563,18 +575,7 @@ body::before {
 
 .logo-help::before {
     content: '💡';
-}
-
-/* Upload Progress Animation */
-.upload-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    border-radius: 0 0 0 var(--radius);
-    transition: width 0.3s ease;
-    box-shadow: 0 0 10px var(--glow);
+    color: var(--secondary);
 }
 
 /* Checkbox */
@@ -605,7 +606,7 @@ body::before {
     align-items: center;
     justify-content: center;
     transition: all 0.3s;
-    background: rgba(255,255,255,0.05);
+    background: var(--surface-light);
 }
 
 .checkbox-label input:checked + .checkmark {
@@ -621,13 +622,13 @@ body::before {
     font-weight: bold;
 }
 
-/* Broadcast Notice */
-.broadcast-notice {
+/* Coach Notice (replaces broadcast-notice) */
+.coach-notice {
     display: flex;
     align-items: center;
     gap: 1rem;
     padding: 1.25rem;
-    background: linear-gradient(135deg, rgba(211, 47, 47, 0.2), rgba(255, 193, 7, 0.1));
+    background: linear-gradient(135deg, rgba(107, 33, 168, 0.2), rgba(234, 179, 8, 0.1));
     border-radius: var(--radius);
     border: 1px solid var(--primary);
     margin: 1.5rem 0;
@@ -683,8 +684,7 @@ body::before {
     cursor: pointer;
     transition: all 0.3s;
     font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .btn-prev {
@@ -699,32 +699,33 @@ body::before {
     background: rgba(255,255,255,0.05);
 }
 
-.broadcast-btn {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+/* Coach Button (Purple/Yellow gradient) */
+.coach-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
     border: none;
-    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+    box-shadow: 0 4px 15px rgba(107, 33, 168, 0.4);
     position: relative;
     overflow: hidden;
 }
 
-.broadcast-btn::before {
+.coach-btn::before {
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.3), transparent);
     transition: left 0.5s;
 }
 
-.broadcast-btn:hover {
+.coach-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(211, 47, 47, 0.6);
+    box-shadow: 0 8px 25px rgba(107, 33, 168, 0.6);
 }
 
-.broadcast-btn:hover::before {
+.coach-btn:hover::before {
     left: 100%;
 }
 
@@ -750,44 +751,44 @@ body::before {
 }
 
 /* Success/Error Messages */
-.broadcast-success {
+.coach-success {
     text-align: center;
     padding: 3rem 2rem;
-    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
     border-radius: var(--radius-lg);
-    border: 2px solid #4CAF50;
+    border: 2px solid #10B981;
 }
 
-.broadcast-icon {
+.coach-icon {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #4CAF50, #45a049);
+    background: linear-gradient(135deg, #10B981, #059669);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 3rem;
     margin: 0 auto 1.5rem;
-    box-shadow: 0 0 40px rgba(76, 175, 80, 0.4);
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.4);
     animation: pulse 2s infinite;
 }
 
-.broadcast-success h2 {
+.coach-success h2 {
     font-family: var(--font-latin);
-    font-size: 2.5rem;
-    color: #4CAF50;
+    font-size: 2.2rem;
+    color: #10B981;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-.broadcast-details {
+.coach-details {
     margin: 2rem 0;
     padding: 1.5rem;
-    background: rgba(0,0,0,0.2);
+    background: var(--surface-light);
     border-radius: var(--radius);
-    border: 1px solid rgba(76, 175, 80, 0.3);
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
-.broadcast-link {
+.coach-link {
     display: inline-block;
     margin-top: 0.5rem;
     padding: 0.75rem 1.5rem;
@@ -799,64 +800,35 @@ body::before {
     transition: all 0.3s;
 }
 
-.broadcast-link:hover {
-    background: var(--primary-dark);
+.coach-link:hover {
+    background: var(--primary-light);
     box-shadow: 0 0 20px var(--glow);
 }
 
-/* Modal */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    z-index: 1000;
+/* Error Message */
+.error-message {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+    border-radius: var(--radius-lg);
+    border: 2px solid #EF4444;
+}
+
+.error-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #EF4444, #DC2626);
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(5px);
-}
-
-.broadcast-modal {
-    background: var(--surface);
-    border: 2px solid var(--primary);
-    box-shadow: var(--shadow);
-    color: var(--text);
-}
-
-.broadcast-modal h3 {
-    font-family: var(--font-latin);
-    color: var(--secondary);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.broadcast-modal ol {
-    font-family: var(--font-persian);
-    margin: 1rem 0;
-    padding-right: 1.5rem;
-}
-
-.broadcast-modal li {
-    margin: 0.75rem 0;
-    color: var(--text-secondary);
-}
-
-.example-box {
-    background: rgba(0,0,0,0.3);
-    padding: 1rem;
-    border-radius: var(--radius);
-    margin-top: 1rem;
-    font-family: monospace;
-    font-size: 0.9rem;
-    border: 1px solid var(--border);
-    color: var(--secondary);
+    font-size: 2.5rem;
+    color: white;
+    margin: 0 auto 1.5rem;
 }
 
 /* Footer */
-.broadcast-footer {
+.coach-footer {
     text-align: center;
     margin-top: 3rem;
     padding: 2rem;
@@ -867,83 +839,45 @@ body::before {
     margin-bottom: 1rem;
 }
 
-.footer-logo-img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    opacity: 0.7;
-    filter: drop-shadow(0 0 8px rgba(211, 47, 47, 0.4));
-    transition: all 0.3s ease;
+.footer-icon {
+    font-size: 2rem;
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
 }
 
-.footer-logo-img:hover {
-    opacity: 1;
-    filter: drop-shadow(0 0 12px rgba(211, 47, 47, 0.6));
-    transform: scale(1.1);
-}
-
-.broadcast-footer p {
+.coach-footer p {
     font-family: var(--font-persian);
     font-size: 1rem;
+    color: var(--text-secondary);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .broadcast-title {
-        font-size: 2.5rem;
-        letter-spacing: 4px;
+    .coach-title {
+        font-size: 2rem;
+        letter-spacing: 3px;
     }
     
-    .maseer-logo {
+    .logo-badge {
         width: 80px;
         height: 80px;
-        padding: 6px;
     }
     
     .color-section {
         grid-template-columns: 1fr;
     }
     
-    .progress-bar {
-        padding: 0;
-    }
-    
-    .step-label {
-        font-size: 0.75rem;
-    }
-    
-    .lang-toggle {
-        position: static;
-        margin-bottom: 1rem;
-    }
-    
     .form-container {
         padding: 1.5rem;
     }
     
-    /* Mobile Logo Upload Adjustments */
     .logo-upload-label {
         padding: 2rem 1.5rem;
-    }
-    
-    .upload-icon {
-        font-size: 2.5rem;
     }
     
     .client-logo-preview img {
         max-width: 150px;
         max-height: 150px;
-    }
-    
-    .preview-overlay {
-        position: static;
-        margin-top: 1rem;
-        justify-content: center;
-    }
-    
-    .file-info {
-        flex-direction: column;
-        text-align: center;
     }
 }
 
@@ -951,12 +885,6 @@ body::before {
 [dir="rtl"] .checkmark {
     margin-right: 0;
     margin-left: 0.75rem;
-}
-
-[dir="rtl"] .btn-next,
-[dir="rtl"] .btn-submit {
-    margin-left: 0;
-    margin-right: auto;
 }
 
 [dir="rtl"] .preview-overlay {
@@ -986,6 +914,6 @@ body::before {
 }
 
 .clr-swatches button:hover {
-    border-color: var(--primary);
+    border-color: var(--primary-light);
     transform: scale(1.2);
 }
