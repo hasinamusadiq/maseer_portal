@@ -1,7 +1,7 @@
 # Jekyll configuration for GitHub Pages
-title: Maseer Portal
-description: AI-Powered Video Marketing Registration for Afghan Businesses
-baseurl: "/maseer-portal"
+title: Ariana Coach
+description: AI-Powered Video Marketing for Afghan Businesses
+baseurl: "/maseer_portal"
 url: "https://hasinamusadiq.github.io"
 
 # Build settings
@@ -13,4 +13,5 @@ exclude:
   - .gitignore
 
 # Custom variables
-portal_version: "1.0.0"
+portal_version: "2.0.0"
+company_name: "Ariana Coach"
