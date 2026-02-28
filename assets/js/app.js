@@ -1,12 +1,12 @@
 /**
- * Maseer Portal - Complete Application
- * Handles form navigation, validation, and GitHub Issues submission
+ * Ariana Coach Portal - Complete Application
+ * Handles form navigation, logo upload, and GitHub Issues submission
  */
 
 // ⚠️ CHANGE THESE VALUES TO YOUR ACTUAL GITHUB USERNAME AND REPO NAME
 const CONFIG = {
-    GITHUB_USERNAME: 'hasinamusadiq',  // ← CHANGE THIS TO YOUR USERNAME
-    GITHUB_REPO: 'maseer_automation',   // ← CHANGE THIS IF YOUR REPO HAS DIFFERENT NAME
+    GITHUB_USERNAME: 'hasinamusadiq',  // ← CHANGE THIS
+    GITHUB_REPO: 'maseer_automation',   // ← CHANGE THIS
 };
 
 // State management
@@ -36,28 +36,18 @@ function initializeColorPicker() {
         Coloris({
             el: '.coloris',
             theme: 'default',
-            themeMode: 'light',
+            themeMode: 'dark',
             format: 'hex',
             alpha: false,
             swatches: [
-                '#D32F2F', '#C2185B', '#7B1FA2', '#512DA8',
-                '#303F9F', '#1976D2', '#0288D1', '#0097A7',
-                '#00796B', '#388E3C', '#689F38', '#AFB42B',
-                '#FBC02D', '#FFA000', '#F57C00', '#E64A19',
-                '#5D4037', '#616161', '#455A64', '#263238',
-                '#FFFFFF', '#EEEEEE', '#BDBDBD', '#757575'
+                '#6B21A8', '#9333EA', '#A855F7', '#C084FC',
+                '#EAB308', '#FDE047', '#FEF08A', '#FACC15',
+                '#1E1B4B', '#312E81', '#4338CA', '#6366F1',
+                '#0F172A', '#1E293B', '#334155', '#475569'
             ],
             onChange: (color, input) => {
                 updateColorPreview(input.id, color);
             }
-        });
-    } else {
-        // Fallback to native color picker
-        document.querySelectorAll('.coloris').forEach(input => {
-            input.type = 'color';
-            input.addEventListener('input', function() {
-                updateColorPreview(this.id, this.value);
-            });
         });
     }
 }
@@ -70,13 +60,93 @@ function updateColorPreview(inputId, color) {
     }
 }
 
-function setupEventListeners() {
-    // Logo URL validation
-    const logoUrlInput = document.getElementById('logoUrl');
-    if (logoUrlInput) {
-        logoUrlInput.addEventListener('blur', validateLogoUrl);
+// ==========================================
+// LOGO UPLOAD FUNCTIONS (CRITICAL - NEW)
+// ==========================================
+
+function handleLogoUpload(input) {
+    const file = input.files[0];
+    const container = document.getElementById('logoUploadContainer');
+    const preview = document.getElementById('clientLogoPreview');
+    const previewImg = document.getElementById('previewImage');
+    const fileInfo = document.getElementById('fileInfo');
+    const base64Input = document.getElementById('logoBase64');
+    const filenameInput = document.getElementById('logoFileName');
+    
+    if (!file) return;
+    
+    // Validate file size (5MB max)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+        alert(currentLang === 'en' ? 'File size too large. Maximum size is 5MB.' : 'حجم فایل بیش از حد مجاز است. حداکثر ۵ مگابایت.');
+        input.value = '';
+        return;
     }
     
+    // Validate file type
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml'];
+    if (!allowedTypes.includes(file.type)) {
+        alert(currentLang === 'en' ? 'Invalid file type. Please upload PNG, JPG, or SVG.' : 'فرمت فایل نامعتبر است. لطفاً PNG، JPG یا SVG آپلود کنید.');
+        input.value = '';
+        return;
+    }
+    
+    // Read file as base64
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+        const base64String = e.target.result;
+        
+        // Show preview
+        previewImg.src = base64String;
+        preview.style.display = 'block';
+        container.style.display = 'none';
+        
+        // Store in hidden inputs
+        base64Input.value = base64String;
+        filenameInput.value = file.name;
+        
+        // Display file info
+        const sizeKB = (file.size / 1024).toFixed(1);
+        fileInfo.innerHTML = `
+            <span class="file-name">${file.name}</span>
+            <span class="file-size">${sizeKB} KB</span>
+        `;
+        
+        // Add success styling
+        container.classList.add('has-file');
+    };
+    
+    reader.onerror = function() {
+        alert(currentLang === 'en' ? 'Error reading file. Please try again.' : 'خطا در خواندن فایل. لطفاً دوباره تلاش کنید.');
+        input.value = '';
+    };
+    
+    reader.readAsDataURL(file);
+}
+
+function changeLogo() {
+    const input = document.getElementById('logoFile');
+    input.click();
+}
+
+function removeClientLogo() {
+    const input = document.getElementById('logoFile');
+    const container = document.getElementById('logoUploadContainer');
+    const preview = document.getElementById('clientLogoPreview');
+    const base64Input = document.getElementById('logoBase64');
+    const filenameInput = document.getElementById('logoFileName');
+    
+    // Reset everything
+    input.value = '';
+    preview.style.display = 'none';
+    container.style.display = 'block';
+    container.classList.remove('has-file');
+    base64Input.value = '';
+    filenameInput.value = '';
+}
+
+function setupEventListeners() {
     // Real-time validation
     document.querySelectorAll('.form-step input[required], .form-step select[required], .form-step textarea[required]').forEach(field => {
         field.addEventListener('blur', function() {
@@ -102,8 +172,8 @@ function setupEventListeners() {
 
 function validateField(field) {
     if (!field.value.trim()) {
-        field.style.borderColor = '#D32F2F';
-        showFieldError(field, 'This field is required');
+        field.style.borderColor = '#EF4444';
+        showFieldError(field, currentLang === 'en' ? 'This field is required' : 'این فیلد الزامی است');
         return false;
     } else {
         field.style.borderColor = '';
@@ -113,13 +183,11 @@ function validateField(field) {
 }
 
 function showFieldError(field, message) {
-    // Remove existing error
     removeFieldError(field);
     
-    // Create error message
     const errorDiv = document.createElement('div');
     errorDiv.className = 'field-error';
-    errorDiv.style.color = '#D32F2F';
+    errorDiv.style.color = '#EF4444';
     errorDiv.style.fontSize = '0.875rem';
     errorDiv.style.marginTop = '0.25rem';
     errorDiv.textContent = message;
@@ -134,55 +202,15 @@ function removeFieldError(field) {
     }
 }
 
-function validateLogoUrl() {
-    const url = document.getElementById('logoUrl').value;
-    const preview = document.getElementById('logoPreview');
-    const container = document.getElementById('logoPreviewContainer');
-    
-    if (!url) {
-        container.style.display = 'none';
-        return;
-    }
-    
-    // Show loading state
-    container.style.display = 'block';
-    preview.style.opacity = '0.5';
-    
-    const img = new Image();
-    img.onload = function() {
-        preview.src = url;
-        preview.style.opacity = '1';
-        container.style.display = 'block';
-    };
-    img.onerror = function() {
-        container.style.display = 'none';
-        showFieldError(document.getElementById('logoUrl'), 'Invalid image URL. Please check the link.');
-    };
-    img.src = url;
-}
-
-function removeLogo() {
-    document.getElementById('logoUrl').value = '';
-    document.getElementById('logoPreviewContainer').style.display = 'none';
-    removeFieldError(document.getElementById('logoUrl'));
-}
-
 function nextStep(step) {
     if (!validateStep(currentStep)) {
         return false;
     }
     
-    // Hide current step
     document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
-    
-    // Show new step
     currentStep = step;
     document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
-    
-    // Update progress
     updateProgressBar();
-    
-    // Scroll to top of form
     document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
     
     return true;
@@ -206,8 +234,16 @@ function validateStep(step) {
         }
     });
     
+    // Special validation for logo on step 2
+    if (step === 2) {
+        const logoBase64 = document.getElementById('logoBase64').value;
+        if (!logoBase64) {
+            alert(currentLang === 'en' ? 'Please upload your brand logo.' : 'لطفاً لوگوی برند خود را آپلود کنید.');
+            valid = false;
+        }
+    }
+    
     if (!valid) {
-        // Shake animation for visual feedback
         currentStepEl.style.animation = 'shake 0.5s';
         setTimeout(() => {
             currentStepEl.style.animation = '';
@@ -261,7 +297,7 @@ async function handleSubmit(e) {
         await submitToGitHub();
     } catch (error) {
         console.error('Submission error:', error);
-        showError(error.message || 'Failed to submit. Please try again.');
+        showError(error.message || (currentLang === 'en' ? 'Failed to submit. Please try again.' : 'ثبت ناموفق بود. لطفاً دوباره تلاش کنید.'));
         btnText.style.display = 'block';
         btnLoader.style.display = 'none';
         submitBtn.disabled = false;
@@ -281,29 +317,26 @@ function collectFormData() {
         location: formDataObj.get('location')?.trim() || 'Kabul, Afghanistan',
         primary_color: formDataObj.get('primary_color'),
         secondary_color: formDataObj.get('secondary_color'),
-        logo_path: formDataObj.get('logo_path')?.trim(),
+        logo_base64: document.getElementById('logoBase64').value,  // CRITICAL: Send base64
+        logo_filename: document.getElementById('logoFileName').value,
         target_audience: formDataObj.get('target_audience')?.trim(),
         key_offerings: formDataObj.get('key_offerings')?.trim(),
         contact_info: formDataObj.get('contact_info')?.trim(),
         urgent: formDataObj.get('urgent') === 'true',
         language: currentLang === 'fa' ? 'Persian' : 'English',
         submitted_at: new Date().toISOString(),
-        submitted_by: 'Maseer Portal'
+        submitted_by: 'Ariana Coach Portal'
     };
     
-    // Validate data
-    if (!formData.brand_name || !formData.industry || !formData.primary_color || !formData.logo_path) {
-        throw new Error('Missing required fields');
+    if (!formData.brand_name || !formData.industry || !formData.primary_color || !formData.logo_base64) {
+        throw new Error(currentLang === 'en' ? 'Missing required fields' : 'فیلدهای الزامی خالی هستند');
     }
 }
 
 async function submitToGitHub() {
-    // Create issue body with proper formatting
     const issueBody = formatIssueBody(formData);
     const issueTitle = `New Client: ${formData.brand_name}`;
     
-    // Build GitHub Issues URL with pre-filled data
-    // Note: Labels in URL only work if they already exist in the repo
     const baseUrl = `https://github.com/${CONFIG.GITHUB_USERNAME}/${CONFIG.GITHUB_REPO}/issues/new`;
     
     const params = new URLSearchParams({
@@ -311,7 +344,6 @@ async function submitToGitHub() {
         body: issueBody
     });
     
-    // Try to add labels (will only work if labels exist)
     try {
         params.append('labels', 'new-client,automated');
     } catch (e) {
@@ -320,21 +352,20 @@ async function submitToGitHub() {
     
     const issueUrl = `${baseUrl}?${params.toString()}`;
     
-    // Open GitHub issue creation in new tab
     const newWindow = window.open(issueUrl, '_blank');
     
     if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-        // Popup blocked
-        showError('Please allow popups for this site, or click the link below:<br><a href="' + issueUrl + '" target="_blank">Click here to submit</a>');
+        showError(currentLang === 'en' ? 
+            'Please allow popups for this site, or click the link below:<br><a href="' + issueUrl + '" target="_blank">Click here to submit</a>' : 
+            'لطفاً پاپ‌آپ را برای این سایت فعال کنید، یا روی لینک زیر کلیک کنید:<br><a href="' + issueUrl + '" target="_blank">اینجا کلیک کنید</a>');
         return;
     }
     
-    // Show success message
     showSuccess(issueUrl);
 }
 
 function formatIssueBody(data) {
-    return `## New Brand Registration
+    return `## New Brand Registration - Ariana Coach
 
 **Submitted:** ${data.submitted_at}
 **Status:** ${data.urgent ? '⚠️ URGENT - Process within 24 hours' : 'Standard'}
@@ -355,7 +386,7 @@ function formatIssueBody(data) {
 |-------|-------|
 | **Primary Color** | \`${data.primary_color}\` |
 | **Secondary Color** | \`${data.secondary_color || 'Not provided'}\` |
-| **Logo URL** | ${data.logo_path} |
+| **Logo** | Uploaded via form |
 
 ### Marketing Details
 | Field | Value |
@@ -378,11 +409,10 @@ ${JSON.stringify(data, null, 2)}
 2. Add label \`new-client\` to trigger automation
 3. Video will be generated within 6 hours
 
-*This issue was automatically generated by [Maseer Portal](https://${CONFIG.GITHUB_USERNAME}.github.io/maseer-portal/)*
+*Powered by Ariana Coach*
 
 <!-- 
 IMPORTANT: To trigger automatic video generation, please add the label 'new-client' to this issue.
-You can do this by clicking the gear icon next to "Labels" on the right side.
 -->`;
 }
 
@@ -391,23 +421,10 @@ function showSuccess(issueUrl) {
     const successMessage = document.getElementById('successMessage');
     successMessage.style.display = 'block';
     
-    // Update issue link
     const issueLink = document.getElementById('issueLink');
     issueLink.href = `https://github.com/${CONFIG.GITHUB_USERNAME}/${CONFIG.GITHUB_REPO}/issues`;
-    issueLink.textContent = 'View on GitHub';
+    issueLink.textContent = currentLang === 'en' ? 'View on GitHub' : 'مشاهده در گیت‌هاب';
     
-    // Add direct link as backup
-    const directLink = document.createElement('p');
-    directLink.style.marginTop = '1rem';
-    directLink.innerHTML = `<a href="${issueUrl}" target="_blank" style="color: var(--primary);">Direct submission link</a>`;
-    
-    // Only add if not already present
-    if (!successMessage.querySelector('.direct-link')) {
-        directLink.className = 'direct-link';
-        successMessage.insertBefore(directLink, document.querySelector('.btn-new'));
-    }
-    
-    // Scroll to success message
     successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
@@ -433,40 +450,30 @@ function retrySubmit() {
 }
 
 function resetForm() {
-    // Reset form
     document.getElementById('brandForm').reset();
-    
-    // Reset UI
     document.getElementById('successMessage').style.display = 'none';
     document.getElementById('errorMessage').style.display = 'none';
     document.getElementById('brandForm').style.display = 'block';
-    document.getElementById('logoPreviewContainer').style.display = 'none';
+    document.getElementById('clientLogoPreview').style.display = 'none';
+    document.getElementById('logoUploadContainer').style.display = 'block';
+    document.getElementById('logoBase64').value = '';
+    document.getElementById('logoFileName').value = '';
     
-    // Remove direct link if exists
-    const directLink = document.querySelector('.direct-link');
-    if (directLink) {
-        directLink.remove();
-    }
-    
-    // Reset to step 1
     document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
     document.querySelector('.form-step[data-step="1"]').classList.add('active');
     currentStep = 1;
     updateProgressBar();
     
-    // Reset button state
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.querySelector('.btn-text').style.display = 'block';
     submitBtn.querySelector('.btn-loader').style.display = 'none';
     submitBtn.disabled = false;
     
-    // Clear all errors
     document.querySelectorAll('.field-error').forEach(el => el.remove());
     document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(el => {
         el.style.borderColor = '';
     });
     
-    // Scroll to top
     document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -475,54 +482,15 @@ function toggleLanguage() {
     document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
     document.getElementById('lang-text').textContent = currentLang === 'en' ? 'فارسی' : 'English';
     
-    // Update all elements with data-en and data-fa attributes
     document.querySelectorAll('[data-en][data-fa]').forEach(el => {
         const newText = el.getAttribute(`data-${currentLang}`);
         if (newText) {
             el.textContent = newText;
         }
     });
-    
-    // Update placeholders
-    document.querySelectorAll('[data-en-placeholder]').forEach(el => {
-        const placeholder = el.getAttribute(`data-${currentLang}-placeholder`);
-        if (placeholder) {
-            el.placeholder = placeholder;
-        }
-    });
 }
 
-function showUploadHelp() {
-    const modal = document.getElementById('helpModal');
-    if (modal) {
-        modal.style.display = 'flex';
-    }
-}
-
-function closeModal() {
-    const modal = document.getElementById('helpModal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-}
-
-// Close modal when clicking outside
-window.onclick = function(event) {
-    const modal = document.getElementById('helpModal');
-    if (event.target === modal) {
-        closeModal();
-    }
-};
-
-// Keyboard shortcuts
-document.addEventListener('keydown', function(e) {
-    // ESC to close modal
-    if (e.key === 'Escape') {
-        closeModal();
-    }
-});
-
-// Add shake animation to styles
+// Add shake animation
 const shakeStyles = document.createElement('style');
 shakeStyles.textContent = `
     @keyframes shake {
@@ -542,6 +510,5 @@ shakeStyles.textContent = `
 `;
 document.head.appendChild(shakeStyles);
 
-// Console greeting
-console.log('%c Maseer Portal ', 'background: #D32F2F; color: white; font-size: 20px; padding: 10px;');
-console.log('%c AI-Powered Video Marketing for Afghan Businesses ', 'color: #D32F2F; font-size: 14px;');
+console.log('%c Ariana Coach ', 'background: #6B21A8; color: #EAB308; font-size: 20px; padding: 10px; font-weight: bold;');
+console.log('%c AI-Powered Marketing for Afghan Businesses ', 'color: #6B21A8; font-size: 14px;');
