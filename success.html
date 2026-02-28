@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submission Successful - Ariana Coach</title>
+    <title>Submission Successful - Maseer Media Inc.</title>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -50,27 +50,37 @@
             box-shadow: 0 20px 60px rgba(107, 33, 168, 0.3);
         }
         
-        .logo-badge {
-            width: 80px;
-            height: 80px;
+        .logo-container {
+            margin-bottom: 1.5rem;
+        }
+        
+        .maseer-logo {
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary) 0%, #581C87 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2.5rem;
-            box-shadow: 0 0 0 4px rgba(234, 179, 8, 0.3);
+            object-fit: contain;
+            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+            padding: 8px;
+            box-shadow: 
+                0 0 0 2px var(--primary),
+                0 0 20px rgba(107, 33, 168, 0.4),
+                inset 0 0 20px rgba(0,0,0,0.5);
         }
         
         h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, #fff 0%, var(--secondary) 50%, #fff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
         }
         
         p {
@@ -161,22 +171,37 @@
             font-size: 0.9rem;
         }
         
+        .footer strong {
+            color: var(--text);
+        }
+        
         @media (max-width: 768px) {
             .success-card {
                 padding: 2rem 1.5rem;
             }
             
             h1 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
+            }
+            
+            .maseer-logo {
+                width: 80px;
+                height: 80px;
             }
         }
     </style>
 </head>
 <body>
     <div class="success-card">
-        <div class="logo-badge">🎯</div>
-        <h1>Registration Successful!</h1>
-        <p>Your brand has been registered with Ariana Coach. Our AI is now crafting your professional marketing video.</p>
+        <div class="logo-container">
+            <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w200" 
+                 alt="Maseer Logo" 
+                 class="maseer-logo"
+                 onerror="this.style.display='none'">
+        </div>
+        <h1>MASEER</h1>
+        <p class="subtitle">Maseer Media Inc.</p>
+        <p>Your brand has been registered successfully. Our AI is now crafting your professional marketing video.</p>
         
         <ul class="timeline">
             <li>Registration received</li>
@@ -193,23 +218,22 @@
         <a href="index.html" class="btn-secondary">← Register Another Brand</a>
         
         <div class="footer">
+            <p><strong>Maseer Media Inc.</strong></p>
             <p>Powered by Ariana Coach | Kabul, Afghanistan</p>
             <p>Ready within 6 hours</p>
         </div>
     </div>
     
     <script>
-        // Parse URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const issueNumber = urlParams.get('issue');
         const username = 'hasinamusadiq';
         const repo = 'maseer_automation';
         
+        const link = document.getElementById('issueLink');
         if (issueNumber) {
-            const link = document.getElementById('issueLink');
             link.href = `https://github.com/${username}/${repo}/issues/${issueNumber}`;
         } else {
-            const link = document.getElementById('issueLink');
             link.href = `https://github.com/${username}/${repo}/issues`;
         }
     </script>
