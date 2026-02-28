@@ -1,9 +1,9 @@
-# 🎯 Ariana Coach Portal
+# 🌐 Maseer Portal
 
-GitHub Pages-hosted registration form for AI-powered video marketing.
+GitHub Pages-hosted registration form for Maseer Media Inc.
 
 ## 🚀 Live URL
-`https://hasinamusadiq.github.io/maseer_portal/`
+`https://hasinamusadiq.github.io/maseer_portal/ `
 
 ## ✨ Features
 - Multi-step bilingual form (English/Persian)
