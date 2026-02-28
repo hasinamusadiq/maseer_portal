@@ -1,28 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submission Successful - Maseer Portal</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Submission Successful - Ariana Coach</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #6B21A8;
+            --primary-light: #9333EA;
+            --secondary: #EAB308;
+            --background: #0F0A1A;
+            --surface: #1A1025;
+            --surface-light: #251a35;
+            --text: #FAFAFA;
+            --text-secondary: #A78BFA;
+            --radius-lg: 20px;
+            --font-latin: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-latin);
+            background: linear-gradient(135deg, #0F0A1A 0%, #1A1025 50%, #2D1B4E 100%);
+            min-height: 100vh;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .success-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--primary);
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(107, 33, 168, 0.3);
+        }
+        
+        .logo-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, #581C87 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            box-shadow: 0 0 0 4px rgba(234, 179, 8, 0.3);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #fff 0%, var(--secondary) 50%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .track-box {
+            background: var(--surface-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .track-box p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, #581C87 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(107, 33, 168, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(107, 33, 168, 0.6);
+        }
+        
+        .btn-secondary {
+            display: inline-block;
+            background: transparent;
+            border: 2px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+        
+        .timeline {
+            text-align: left;
+            margin: 2rem 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .timeline li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+        
+        .timeline li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .timeline li.active::before {
+            content: '⏳';
+            color: var(--secondary);
+        }
+        
+        .footer {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--primary);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .success-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="form-container" style="text-align: center; padding: 3rem;">
-            <div class="success-icon" style="margin: 0 auto 1.5rem;">✓</div>
-            <h1>Submission Successful!</h1>
-            <p style="color: var(--text-secondary); margin: 1rem 0;">
-                Your brand has been registered successfully. We'll process your request and create your marketing video within 6 hours.
-            </p>
-            <div style="margin: 2rem 0; padding: 1.5rem; background: var(--background); border-radius: var(--radius);">
-                <p style="margin-bottom: 1rem;">Track your submission:</p>
-                <a id="issueLink" href="#" class="btn-next" style="display: inline-block; text-decoration: none;">
-                    View on GitHub
-                </a>
-            </div>
-            <a href="index.html" class="btn-prev" style="display: inline-block; margin-top: 1rem; text-decoration: none;">
-                ← Back to Form
-            </a>
+    <div class="success-card">
+        <div class="logo-badge">🎯</div>
+        <h1>Registration Successful!</h1>
+        <p>Your brand has been registered with Ariana Coach. Our AI is now crafting your professional marketing video.</p>
+        
+        <ul class="timeline">
+            <li>Registration received</li>
+            <li>AI content generation</li>
+            <li class="active">Video production (in progress)</li>
+            <li>Delivery via Telegram</li>
+        </ul>
+        
+        <div class="track-box">
+            <p><strong>Track your submission:</strong></p>
+            <a id="issueLink" href="#" class="btn-primary">View on GitHub</a>
+        </div>
+        
+        <a href="index.html" class="btn-secondary">← Register Another Brand</a>
+        
+        <div class="footer">
+            <p>Powered by Ariana Coach | Kabul, Afghanistan</p>
+            <p>Ready within 6 hours</p>
         </div>
     </div>
     
@@ -30,13 +202,15 @@
         // Parse URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const issueNumber = urlParams.get('issue');
-        const username = 'hasinamusadiq'; // Change to your username
-        const repo = 'maseer_automation'; // Change to your repo name
+        const username = 'hasinamusadiq';
+        const repo = 'maseer_automation';
         
         if (issueNumber) {
             const link = document.getElementById('issueLink');
             link.href = `https://github.com/${username}/${repo}/issues/${issueNumber}`;
-            link.textContent = `View Issue #${issueNumber}`;
+        } else {
+            const link = document.getElementById('issueLink');
+            link.href = `https://github.com/${username}/${repo}/issues`;
         }
     </script>
 </body>
