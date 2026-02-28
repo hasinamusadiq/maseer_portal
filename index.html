@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ariana Coach - AI Video Marketing for Afghan Businesses</title>
+    <title>Maseer Media Inc. - AI Video Marketing</title>
     
     <!-- B Nazanin Bold for Persian -->
     <link href="https://db.onlinewebfonts.com/c/752209e187a9d84bf9fb3a07f2ccfae3?family=B+Nazanin+Bold" rel="stylesheet">
@@ -15,16 +15,17 @@
 </head>
 <body>
     <div class="container">
-        <!-- Professional Header with Ariana Coach Branding -->
-        <header class="coach-header">
+        <!-- Maseer Header with Original Logo -->
+        <header class="maseer-header">
             <div class="logo-container">
-                <div class="logo-badge">
-                    <span class="logo-icon">🎯</span>
-                </div>
+                <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w200" 
+                     alt="Maseer Logo" 
+                     class="maseer-logo"
+                     onerror="this.src='assets/images/maseer-logo-fallback.png'">
             </div>
-            <h1 class="coach-title">ARIANA COACH</h1>
-            <p class="coach-subtitle">AI-Powered Marketing for Afghan Businesses</p>
-            <p class="persian-tagline">سیستم هوشمند تولید ویدیوهای تبلیغاتی برای کسب‌وکارهای افغانستانی</p>
+            <h1 class="maseer-title">MASEER</h1>
+            <p class="maseer-subtitle">Maseer Media Inc.</p>
+            <p class="persian-tagline">سیستم تولید ویدیوهای تبلیغاتی با کیفیت تلویزیونی</p>
             
             <div class="lang-toggle">
                 <button onclick="toggleLanguage()" class="btn-lang">
@@ -102,7 +103,7 @@
                     </div>
 
                     <div class="form-navigation">
-                        <button type="button" class="btn-next coach-btn" onclick="nextStep(2)" 
+                        <button type="button" class="btn-next maseer-btn" onclick="nextStep(2)" 
                                 data-en="Next: Visual Identity →" data-fa="بعدی: هویت بصری →">
                             Next: Visual Identity →
                         </button>
@@ -192,7 +193,7 @@
                     <div class="form-navigation">
                         <button type="button" class="btn-prev" onclick="prevStep(1)" 
                                 data-en="← Back" data-fa="← قبلی">← Back</button>
-                        <button type="button" class="btn-next coach-btn" onclick="nextStep(3)" 
+                        <button type="button" class="btn-next maseer-btn" onclick="nextStep(3)" 
                                 data-en="Next: Marketing →" data-fa="بعدی: بازاریابی →">
                             Next: Marketing →
                         </button>
@@ -240,8 +241,8 @@
                         </label>
                     </div>
 
-                    <div class="coach-notice">
-                        <div class="notice-icon">🎯</div>
+                    <div class="maseer-notice">
+                        <div class="notice-icon">📺</div>
                         <div class="notice-text">
                             <strong data-en="Professional AI Marketing" data-fa="بازاریابی هوشمند حرفه‌ای">Professional AI Marketing</strong>
                             <span data-en="Your video will feature professional typography, smooth animations, and branded graphics optimized for social media." 
@@ -254,8 +255,8 @@
                     <div class="form-navigation">
                         <button type="button" class="btn-prev" onclick="prevStep(2)" 
                                 data-en="← Back" data-fa="← قبلی">← Back</button>
-                        <button type="submit" class="btn-submit coach-btn" id="submitBtn">
-                            <span class="btn-text" data-en="🎯 CREATE MARKETING VIDEO" data-fa="🎯 ساخت ویدیو تبلیغاتی">🎯 CREATE MARKETING VIDEO</span>
+                        <button type="submit" class="btn-submit maseer-btn" id="submitBtn">
+                            <span class="btn-text" data-en="📺 CREATE MARKETING VIDEO" data-fa="📺 ساخت ویدیو تبلیغاتی">📺 CREATE MARKETING VIDEO</span>
                             <span class="btn-loader" style="display: none;">
                                 <svg class="spinner" width="20" height="20" viewBox="0 0 20 20">
                                     <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" 
@@ -269,18 +270,18 @@
             </form>
 
             <!-- Success Message -->
-            <div id="successMessage" class="success-message coach-success" style="display: none;">
-                <div class="success-icon coach-icon">🎯</div>
+            <div id="successMessage" class="success-message maseer-success" style="display: none;">
+                <div class="success-icon maseer-icon">📺</div>
                 <h2 data-en="Video Queued Successfully!" data-fa="ویدیو با موفقیت در صف قرار گرفت!">Video Queued Successfully!</h2>
                 <p data-en="Your marketing video is being produced with professional AI technology. Ready within 6 hours." 
                    data-fa="ویدیوی تبلیغاتی شما با تکنولوژی هوش مصنوعی حرفه‌ای در حال تولید است. ظرف ۶ ساعت آماده می‌شود.">
                     Your marketing video is being produced with professional AI technology. Ready within 6 hours.
                 </p>
-                <div class="success-details coach-details">
+                <div class="success-details maseer-details">
                     <p data-en="Track production:" data-fa="پیگیری تولید:">Track production:</p>
-                    <a id="issueLink" href="#" target="_blank" class="issue-link coach-link">View on GitHub</a>
+                    <a id="issueLink" href="#" target="_blank" class="issue-link maseer-link">View on GitHub</a>
                 </div>
-                <button onclick="resetForm()" class="btn-new coach-btn" 
+                <button onclick="resetForm()" class="btn-new maseer-btn" 
                         data-en="🎬 Create Another Video" data-fa="🎬 ساخت ویدیو دیگر">🎬 Create Another Video</button>
             </div>
 
@@ -292,16 +293,20 @@
                    data-fa="لطفاً دوباره تلاش کنید یا با پشتیبانی تماس بگیرید.">
                     Please try again or contact support.
                 </p>
-                <button onclick="retrySubmit()" class="btn-retry coach-btn" 
+                <button onclick="retrySubmit()" class="btn-retry maseer-btn" 
                         data-en="Try Again" data-fa="تلاش مجدد">Try Again</button>
             </div>
         </main>
 
-        <footer class="coach-footer">
+        <!-- Footer: Maseer Media Inc. + Powered by Ariana Coach -->
+        <footer class="maseer-footer">
             <div class="footer-logo">
-                <span class="footer-icon">🎯</span>
+                <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w60" 
+                     alt="Maseer" class="footer-logo-img"
+                     onerror="this.style.display='none'">
             </div>
-            <p data-en="Powered by Ariana Coach | Kabul, Afghanistan" 
+            <p class="footer-main">Maseer Media Inc.</p>
+            <p class="footer-powered" data-en="Powered by Ariana Coach | Kabul, Afghanistan" 
                data-fa="قدرت گرفته از آریانا کوچ | کابل، افغانستان">
                 Powered by Ariana Coach | Kabul, Afghanistan
             </p>
