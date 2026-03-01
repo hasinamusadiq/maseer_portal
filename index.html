@@ -3,327 +3,677 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maseer Media Inc. - AI Video Marketing</title>
+    <title>Maseer Media - AI Video Marketing for Afghan Brands</title>
+    <meta name="description" content="Professional AI-powered video marketing for businesses in Kabul, Afghanistan">
     
-    <!-- Persian Font -->
-    <link href="https://db.onlinewebfonts.com/c/752209e187a9d84bf9fb3a07f2ccfae3?family=B+Nazanin+Bold" rel="stylesheet">
-    <!-- Latin Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Color Picker -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        :root {
+            --primary: #6B21A8;
+            --primary-dark: #581C87;
+            --secondary: #EAB308;
+            --dark: #0F0F0F;
+            --gray-900: #1A1A1A;
+            --gray-800: #2D2D2D;
+            --gray-400: #9CA3AF;
+            --gray-200: #E5E7EB;
+            --white: #FFFFFF;
+            --success: #10B981;
+            --error: #EF4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Naskh Arabic', sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--dark) 100%);
+            padding: 4rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--gray-800);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            color: var(--gray-400);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(107, 33, 168, 0.2);
+            border: 1px solid var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            color: var(--primary);
+        }
+        
+        /* Form Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .form-card {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-800);
+        }
+        
+        .form-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            color: var(--gray-400);
+            font-size: 0.875rem;
+        }
+        
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--error);
+        }
+        
+        input[type="text"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--gray-800);
+            border: 1px solid var(--gray-800);
+            border-radius: 0.5rem;
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 33, 168, 0.1);
+        }
+        
+        input::placeholder {
+            color: var(--gray-400);
+        }
+        
+        /* Color Picker */
+        .color-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .color-input-wrapper {
+            position: relative;
+        }
+        
+        .color-preview {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--gray-400);
+            cursor: pointer;
+        }
+        
+        input[type="color"] {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        /* File Upload */
+        .upload-zone {
+            border: 2px dashed var(--gray-800);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .upload-zone:hover {
+            border-color: var(--primary);
+            background: rgba(107, 33, 168, 0.05);
+        }
+        
+        .upload-zone.has-file {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-text {
+            color: var(--gray-400);
+            font-size: 0.875rem;
+        }
+        
+        .upload-hint {
+            color: var(--gray-400);
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        .file-preview {
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: var(--gray-800);
+            border-radius: 0.5rem;
+        }
+        
+        .file-preview.show {
+            display: flex;
+        }
+        
+        .file-preview img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 0.25rem;
+            background: var(--white);
+        }
+        
+        .file-info {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        
+        .file-size {
+            color: var(--gray-400);
+            font-size: 0.75rem;
+        }
+        
+        .remove-file {
+            background: none;
+            border: none;
+            color: var(--error);
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+        
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(107, 33, 168, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .feature {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature p {
+            color: var(--gray-400);
+            font-size: 0.875rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray-400);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--gray-800);
+        }
+        
+        /* Alert */
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .alert.show {
+            display: block;
+        }
+        
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+        
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .color-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <section class="hero">
+        <div class="logo">Maseer Media</div>
+        <p class="tagline">Professional AI-powered video marketing for businesses in Kabul. Get your first sample video within minutes.</p>
+        <div class="badge">
+            <span>⚡</span>
+            <span>Sample Video Generated Immediately</span>
+        </div>
+    </section>
+
     <div class="container">
-        <!-- Header -->
-        <header class="maseer-header">
-            <div class="logo-container">
-                <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w200" 
-                     alt="Maseer Logo" 
-                     class="maseer-logo"
-                     onerror="this.src='assets/images/maseer-logo-fallback.png'">
-            </div>
-            <h1 class="maseer-title">MASEER</h1>
-            <p class="maseer-subtitle">Maseer Media Inc.</p>
-            <p class="persian-tagline">سیستم تولید ویدیوهای تبلیغاتی با کیفیت تلویزیونی</p>
-            
-            <div class="lang-toggle">
-                <button onclick="toggleLanguage()" class="btn-lang">
-                    <span id="lang-text">فارسی</span>
-                </button>
-            </div>
-        </header>
-
-        <main class="form-container">
-            <!-- Progress Bar -->
-            <div class="progress-bar">
-                <div class="progress-step active" data-step="1">
-                    <span class="step-number">1</span>
-                    <span class="step-label" data-en="Brand Info" data-fa="اطلاعات برند">Brand Info</span>
-                </div>
-                <div class="progress-line"></div>
-                <div class="progress-step" data-step="2">
-                    <span class="step-number">2</span>
-                    <span class="step-label" data-en="Visual Identity" data-fa="هویت بصری">Visual Identity</span>
-                </div>
-                <div class="progress-line"></div>
-                <div class="progress-step" data-step="3">
-                    <span class="step-number">3</span>
-                    <span class="step-label" data-en="Marketing" data-fa="بازاریابی">Marketing</span>
-                </div>
+        <div class="alert alert-error" id="errorAlert"></div>
+        
+        <form id="registrationForm" class="form-card">
+            <div class="form-header">
+                <h2>Register Your Brand</h2>
+                <p>Fill in your details below. You'll receive a sample video within 5 minutes.</p>
             </div>
 
-            <!-- Form -->
-            <form id="brandForm" onsubmit="handleSubmit(event)">
-                
-                <!-- Step 1: Brand Information -->
-                <div class="form-step active" data-step="1">
-                    <h2 data-en="Brand Information" data-fa="اطلاعات برند">Brand Information</h2>
-                    
-                    <div class="form-group">
-                        <label for="brandName" data-en="Brand Name (English) *" data-fa="نام برند (انگلیسی) *">
-                            Brand Name (English) *
-                        </label>
-                        <input type="text" id="brandName" name="brand_name" required 
-                               placeholder="e.g., Beryani Cafe">
-                        <span class="help-text" data-en="Official brand name in English" 
-                              data-fa="نام رسمی برند به انگلیسی">Official brand name in English</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="localName" data-en="Brand Name (Persian/Dari) *" data-fa="نام برند (فارسی/دری) *">
-                            Brand Name (Persian/Dari) *
-                        </label>
-                        <input type="text" id="localName" name="local_name" required 
-                               placeholder="مثال: بریانی کافه" dir="rtl" class="persian-input">
-                        <span class="help-text" data-en="Name as it appears in local market" 
-                              data-fa="نامی که در بازار محلی استفاده می‌شود">Name as it appears in local market</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="industry" data-en="Industry *" data-fa="صنعت *">Industry *</label>
-                        <select id="industry" name="industry" required>
-                            <option value="" data-en="Select Industry" data-fa="انتخاب صنعت">Select Industry</option>
-                            <option value="Café & Restaurant">Café & Restaurant</option>
-                            <option value="Food & Beverage">Food & Beverage</option>
-                            <option value="Fashion & Apparel">Fashion & Apparel</option>
-                            <option value="Education">Education</option>
-                            <option value="Travel Agency">Travel Agency</option>
-                            <option value="Real Estate">Real Estate</option>
-                            <option value="Logistics & Cargo">Logistics & Cargo</option>
-                            <option value="Consultancy">Consultancy</option>
-                            <option value="Healthcare">Healthcare</option>
-                            <option value="Technology">Technology</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="location" data-en="Location *" data-fa="موقعیت *">Location *</label>
-                        <input type="text" id="location" name="location" required 
-                               value="Kabul, Afghanistan">
-                    </div>
-
-                    <div class="form-navigation">
-                        <button type="button" class="btn-next maseer-btn" onclick="nextStep(2)" 
-                                data-en="Next: Visual Identity →" data-fa="بعدی: هویت بصری →">
-                            Next: Visual Identity →
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Step 2: Visual Identity -->
-                <div class="form-step" data-step="2">
-                    <h2 data-en="Visual Identity" data-fa="هویت بصری">Visual Identity</h2>
-                    
-                    <div class="color-section">
-                        <div class="form-group color-picker-group">
-                            <label for="primaryColor" data-en="Primary Brand Color *" data-fa="رنگ اصلی برند *">
-                                Primary Brand Color *
-                            </label>
-                            <div class="color-input-wrapper">
-                                <input type="text" id="primaryColor" name="primary_color" 
-                                       class="coloris" value="#6B21A8" required>
-                                <div class="color-preview" id="primaryPreview" style="background: #6B21A8;"></div>
-                            </div>
-                            <span class="help-text" data-en="Main brand color for video overlay" 
-                                  data-fa="رنگ اصلی برای پوشش ویدیویی">Main brand color for video overlay</span>
-                        </div>
-
-                        <div class="form-group color-picker-group">
-                            <label for="secondaryColor" data-en="Secondary Brand Color *" data-fa="رنگ ثانویه برند *">
-                                Secondary Brand Color *
-                            </label>
-                            <div class="color-input-wrapper">
-                                <input type="text" id="secondaryColor" name="secondary_color" 
-                                       class="coloris" value="#EAB308" required>
-                                <div class="color-preview" id="secondaryPreview" style="background: #EAB308;"></div>
-                            </div>
-                            <span class="help-text" data-en="Accent color for graphics" 
-                                  data-fa="رنگ تأکیدی برای گرافیک">Accent color for graphics</span>
-                        </div>
-                    </div>
-
-                    <!-- Logo Upload -->
-                    <div class="form-group logo-upload-group">
-                        <label data-en="Brand Logo *" data-fa="لوگوی برند *">Brand Logo *</label>
-                        
-                        <div class="logo-upload-container" id="logoUploadContainer">
-                            <input type="file" 
-                                   id="logoFile" 
-                                   name="logo_file" 
-                                   accept="image/png,image/jpeg,image/jpg,image/svg+xml" 
-                                   class="logo-file-input"
-                                   onchange="handleLogoUpload(this)"
-                                   required>
-                            
-                            <label for="logoFile" class="logo-upload-label">
-                                <div class="upload-icon">📁</div>
-                                <div class="upload-text">
-                                    <span data-en="Click to upload logo" data-fa="برای آپلود لوگو کلیک کنید">Click to upload logo</span>
-                                    <small data-en="PNG, JPG, SVG (Max 5MB)" data-fa="PNG، JPG، SVG (حداکثر ۵ مگابایت)">PNG, JPG, SVG (Max 5MB)</small>
-                                </div>
-                            </label>
-                        </div>
-
-                        <!-- Preview -->
-                        <div class="client-logo-preview" id="clientLogoPreview" style="display: none;">
-                            <img id="previewImage" src="" alt="Logo Preview">
-                            <div class="preview-overlay">
-                                <button type="button" class="btn-change-logo" onclick="changeLogo()">
-                                    <span data-en="Change Logo" data-fa="تغییر لوگو">Change Logo</span>
-                                </button>
-                                <button type="button" class="btn-remove-logo-client" onclick="removeClientLogo()">
-                                    <span>×</span>
-                                </button>
-                            </div>
-                            <div class="file-info" id="fileInfo"></div>
-                        </div>
-
-                        <!-- Hidden inputs for submission -->
-                        <input type="hidden" id="logoBase64" name="logo_base64">
-                        <input type="hidden" id="logoFileName" name="logo_filename">
-                        
-                        <span class="help-text logo-help">
-                            <span data-en="Upload your brand logo. Transparent PNG recommended for best quality." 
-                                  data-fa="لوگوی برند خود را آپلود کنید. PNG شفاف برای بهترین کیفیت توصیه می‌شود.">
-                                Upload your brand logo. Transparent PNG recommended for best quality.
-                            </span>
-                        </span>
-                    </div>
-
-                    <div class="form-navigation">
-                        <button type="button" class="btn-prev" onclick="prevStep(1)" 
-                                data-en="← Back" data-fa="← قبلی">← Back</button>
-                        <button type="button" class="btn-next maseer-btn" onclick="nextStep(3)" 
-                                data-en="Next: Marketing →" data-fa="بعدی: بازاریابی →">
-                            Next: Marketing →
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Step 3: Marketing Details -->
-                <div class="form-step" data-step="3">
-                    <h2 data-en="Marketing Strategy" data-fa="استراتژی بازاریابی">Marketing Strategy</h2>
-                    
-                    <div class="form-group">
-                        <label for="targetAudience" data-en="Target Audience *" data-fa="مخاطب هدف *">
-                            Target Audience *
-                        </label>
-                        <input type="text" id="targetAudience" name="target_audience" required 
-                               placeholder="e.g., Young professionals, Families, Students">
-                        <span class="help-text" data-en="Who are your ideal customers?" 
-                              data-fa="مشتریان ایده‌آل شما چه کسانی هستند؟">Who are your ideal customers?</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="keyOfferings" data-en="Key Offerings *" data-fa="محصولات/خدمات کلیدی *">
-                            Key Offerings *
-                        </label>
-                        <textarea id="keyOfferings" name="key_offerings" rows="3" required 
-                                  placeholder="e.g., Authentic Kabul-style beryani, rich flavors, generous portions"></textarea>
-                        <span class="help-text" data-en="What makes your business special? (2-3 sentences)" 
-                              data-fa="چه چیزی کسب‌وکار شما را خاص می‌کند؟ (۲-۳ جمله)">What makes your business special?</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="contactInfo" data-en="Contact Information" data-fa="اطلاعات تماس">
-                            Contact Information
-                        </label>
-                        <input type="text" id="contactInfo" name="contact_info" 
-                               placeholder="Phone, WhatsApp, or Instagram">
-                    </div>
-
-                    <div class="form-group checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="urgent" value="true">
-                            <span class="checkmark"></span>
-                            <span data-en="Mark as urgent (process within 24 hours)" 
-                                  data-fa="فوری (پردازش ظرف ۲۴ ساعت)">Mark as urgent</span>
-                        </label>
-                    </div>
-
-                    <div class="maseer-notice">
-                        <div class="notice-icon">📺</div>
-                        <div class="notice-text">
-                            <strong data-en="Professional AI Marketing" data-fa="بازاریابی هوشمند حرفه‌ای">Professional AI Marketing</strong>
-                            <span data-en="Your video will feature professional typography, smooth animations, and branded graphics optimized for social media." 
-                                  data-fa="ویدیوی شما با تایپوگرافی حرفه‌ای، انیمیشن‌های روان و گرافیک برندشده برای شبکه‌های اجتماعی تولید می‌شود.">
-                                Your video will feature professional typography, smooth animations, and branded graphics optimized for social media.
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="form-navigation">
-                        <button type="button" class="btn-prev" onclick="prevStep(2)" 
-                                data-en="← Back" data-fa="← قبلی">← Back</button>
-                        <button type="submit" class="btn-submit maseer-btn" id="submitBtn">
-                            <span class="btn-text" data-en="📺 CREATE MARKETING VIDEO" data-fa="📺 ساخت ویدیو تبلیغاتی">📺 CREATE MARKETING VIDEO</span>
-                            <span class="btn-loader" style="display: none;">
-                                <svg class="spinner" width="20" height="20" viewBox="0 0 20 20">
-                                    <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" 
-                                            stroke-width="2" stroke-dasharray="31.416" stroke-dashoffset="10"/>
-                                </svg>
-                                <span data-en="Processing..." data-fa="در حال پردازش...">Processing...</span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </form>
-
-            <!-- Success Message -->
-            <div id="successMessage" class="success-message maseer-success" style="display: none;">
-                <div class="success-icon maseer-icon">📺</div>
-                <h2 data-en="Video Queued Successfully!" data-fa="ویدیو با موفقیت در صف قرار گرفت!">Video Queued Successfully!</h2>
-                <p data-en="Your marketing video is being produced with professional AI technology. Ready within 6 hours." 
-                   data-fa="ویدیوی تبلیغاتی شما با تکنولوژی هوش مصنوعی حرفه‌ای در حال تولید است. ظرف ۶ ساعت آماده می‌شود.">
-                    Your marketing video is being produced with professional AI technology. Ready within 6 hours.
-                </p>
-                <div class="success-details maseer-details">
-                    <p data-en="Track production:" data-fa="پیگیری تولید:">Track production:</p>
-                    <a id="issueLink" href="#" target="_blank" class="issue-link maseer-link">View on GitHub</a>
-                </div>
-                <div id="pollingStatus" class="polling-status">
-                    <p data-en="Checking status..." data-fa="بررسی وضعیت...">Checking status...</p>
-                    <div class="mini-progress"><div class="mini-progress-fill"></div></div>
-                </div>
-                <button onclick="resetForm()" class="btn-new maseer-btn" 
-                        data-en="🎬 Create Another Video" data-fa="🎬 ساخت ویدیو دیگر">🎬 Create Another Video</button>
+            <!-- Brand Information -->
+            <div class="form-group">
+                <label for="brandName" class="required">Brand Name (English)</label>
+                <input type="text" id="brandName" name="brandName" required placeholder="e.g., Cafe Kabul">
             </div>
 
-            <!-- Error Message -->
-            <div id="errorMessage" class="error-message" style="display: none;">
-                <div class="error-icon">✗</div>
-                <h2 data-en="Submission Failed" data-fa="ثبت ناموفق بود">Submission Failed</h2>
-                <p id="errorText" data-en="Please try again or contact support." 
-                   data-fa="لطفاً دوباره تلاش کنید یا با پشتیبانی تماس بگیرید.">
-                    Please try again or contact support.
-                </p>
-                <button onclick="retrySubmit()" class="btn-retry maseer-btn" 
-                        data-en="Try Again" data-fa="تلاش مجدد">Try Again</button>
+            <div class="form-group">
+                <label for="localName">Brand Name (Local Language)</label>
+                <input type="text" id="localName" name="localName" placeholder="e.g., کافه کابل" dir="rtl">
             </div>
-        </main>
 
-        <!-- Footer -->
-        <footer class="maseer-footer">
-            <div class="footer-logo">
-                <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w60" 
-                     alt="Maseer" class="footer-logo-img"
-                     onerror="this.style.display='none'">
+            <div class="form-group">
+                <label for="industry" class="required">Industry</label>
+                <select id="industry" name="industry" required>
+                    <option value="">Select your industry</option>
+                    <option value="Café & Restaurant">Café & Restaurant</option>
+                    <option value="Fashion & Clothing">Fashion & Clothing</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Education">Education</option>
+                    <option value="Consultancy">Consultancy</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Beauty & Salon">Beauty & Salon</option>
+                    <option value="Other">Other</option>
+                </select>
             </div>
-            <p class="footer-main">Maseer Media Inc.</p>
-            <p class="footer-powered" data-en="Powered by Ariana Coach | Kabul, Afghanistan" 
-               data-fa="قدرت گرفته از آریانا کوچ | کابل، افغانستان">
-                Powered by Ariana Coach | Kabul, Afghanistan
-            </p>
-        </footer>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" value="Kabul, Afghanistan" readonly>
+            </div>
+
+            <!-- Visual Identity -->
+            <div class="form-header" style="margin-top: 2rem;">
+                <h2>Visual Identity</h2>
+                <p>Choose your brand colors and upload your logo</p>
+            </div>
+
+            <div class="color-group">
+                <div class="form-group">
+                    <label for="primaryColor" class="required">Primary Color</label>
+                    <div class="color-input-wrapper">
+                        <input type="text" id="primaryColor" name="primaryColor" value="#6B21A8" required placeholder="#6B21A8">
+                        <div class="color-preview" id="primaryPreview" style="background: #6B21A8;"></div>
+                        <input type="color" id="primaryColorPicker" value="#6B21A8">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="secondaryColor">Secondary Color</label>
+                    <div class="color-input-wrapper">
+                        <input type="text" id="secondaryColor" name="secondaryColor" value="#EAB308" placeholder="#EAB308">
+                        <div class="color-preview" id="secondaryPreview" style="background: #EAB308;"></div>
+                        <input type="color" id="secondaryColorPicker" value="#EAB308">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Brand Logo</label>
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">Click to upload or drag and drop</div>
+                    <div class="upload-hint">PNG, JPG, or SVG (max 2MB)</div>
+                    <input type="file" id="logoInput" accept="image/png,image/jpeg,image/svg+xml" style="display: none;" required>
+                </div>
+                <div class="file-preview" id="filePreview">
+                    <img id="previewImg" src="" alt="Logo preview">
+                    <div class="file-info">
+                        <div class="file-name" id="fileName"></div>
+                        <div class="file-size" id="fileSize"></div>
+                    </div>
+                    <button type="button" class="remove-file" id="removeFile">✕</button>
+                </div>
+            </div>
+
+            <!-- Marketing Details -->
+            <div class="form-header" style="margin-top: 2rem;">
+                <h2>Marketing Details</h2>
+                <p>Tell us about your target audience</p>
+            </div>
+
+            <div class="form-group">
+                <label for="targetAudience">Target Audience</label>
+                <textarea id="targetAudience" name="targetAudience" rows="2" placeholder="e.g., Young professionals, families, students..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="keyOfferings">Key Offerings / What makes you special</label>
+                <textarea id="keyOfferings" name="keyOfferings" rows="3" placeholder="Describe your main products, services, or unique selling points..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Contact (Phone/WhatsApp)</label>
+                <input type="tel" id="contact" name="contact" placeholder="+93 70 123 4567">
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span>Generate My Sample Video</span>
+                <span style="font-size: 1.25rem;">→</span>
+            </button>
+        </form>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🎬</div>
+                <h3>Instant Sample</h3>
+                <p>Get your first AI-generated video within 5 minutes of registration</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <h3>4 Daily Videos</h3>
+                <p>Receive optimized videos at 6am, 12pm, 6pm, and 12am Kabul time</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <h3>Brand Consistent</h3>
+                <p>All videos use your colors, logo, and Afghan cultural aesthetics</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📤</div>
+                <h3>Telegram Delivery</h3>
+                <p>Videos delivered directly to your Telegram with captions</p>
+            </div>
+        </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
-    <script src="assets/js/app.js"></script>
+    <footer>
+        <p>© 2026 Maseer Media Inc. | Kabul, Afghanistan</p>
+        <p style="margin-top: 0.5rem; opacity: 0.6;">Powered by Ariana Coach</p>
+    </footer>
+
+    <script>
+        // Color picker synchronization
+        function setupColorPicker(textInput, colorInput, preview) {
+            textInput.addEventListener('input', (e) => {
+                const color = e.target.value;
+                if (/^#[0-9A-F]{6}$/i.test(color)) {
+                    preview.style.background = color;
+                    colorInput.value = color;
+                }
+            });
+            
+            colorInput.addEventListener('input', (e) => {
+                const color = e.target.value;
+                textInput.value = color;
+                preview.style.background = color;
+            });
+        }
+        
+        setupColorPicker(
+            document.getElementById('primaryColor'),
+            document.getElementById('primaryColorPicker'),
+            document.getElementById('primaryPreview')
+        );
+        
+        setupColorPicker(
+            document.getElementById('secondaryColor'),
+            document.getElementById('secondaryColorPicker'),
+            document.getElementById('secondaryPreview')
+        );
+
+        // File upload handling
+        const uploadZone = document.getElementById('uploadZone');
+        const logoInput = document.getElementById('logoInput');
+        const filePreview = document.getElementById('filePreview');
+        const previewImg = document.getElementById('previewImg');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const removeFile = document.getElementById('removeFile');
+
+        uploadZone.addEventListener('click', () => logoInput.click());
+        
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.style.borderColor = 'var(--primary)';
+        });
+        
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.style.borderColor = '';
+        });
+        
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.style.borderColor = '';
+            const files = e.dataTransfer.files;
+            if (files.length) handleFile(files[0]);
+        });
+
+        logoInput.addEventListener('change', (e) => {
+            if (e.target.files.length) handleFile(e.target.files[0]);
+        });
+
+        function handleFile(file) {
+            if (file.size > 2 * 1024 * 1024) {
+                showError('File size must be less than 2MB');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                filePreview.classList.add('show');
+                uploadZone.classList.add('has-file');
+                uploadZone.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        removeFile.addEventListener('click', () => {
+            logoInput.value = '';
+            filePreview.classList.remove('show');
+            uploadZone.classList.remove('has-file');
+            uploadZone.style.display = 'block';
+        });
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Form submission
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="spinner"></div><span>Creating your sample video...</span>';
+            
+            try {
+                const formData = {
+                    brand_name: document.getElementById('brandName').value.trim(),
+                    local_name: document.getElementById('localName').value.trim(),
+                    industry: document.getElementById('industry').value,
+                    location: document.getElementById('location').value,
+                    primary_color: document.getElementById('primaryColor').value,
+                    secondary_color: document.getElementById('secondaryColor').value,
+                    target_audience: document.getElementById('targetAudience').value.trim(),
+                    key_offerings: document.getElementById('keyOfferings').value.trim(),
+                    contact_info: document.getElementById('contact').value.trim(),
+                    logo_base64: previewImg.src || null,
+                    signup_date: new Date().toISOString(),
+                    request_sample: true  // Flag for immediate sample generation
+                };
+
+                // Store in sessionStorage for success page
+                sessionStorage.setItem('maseer_registration', JSON.stringify(formData));
+                
+                // Redirect to success page (which triggers the GitHub issue creation)
+                window.location.href = 'success.html';
+                
+            } catch (error) {
+                showError('Something went wrong. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+
+        function showError(message) {
+            const alert = document.getElementById('errorAlert');
+            alert.textContent = message;
+            alert.classList.add('show');
+            setTimeout(() => alert.classList.remove('show'), 5000);
+        }
+    </script>
 </body>
 </html>
