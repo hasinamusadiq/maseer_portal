@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submission Successful - Maseer Media Inc.</title>
+    <title>Success - Maseer Media</title>
+    <meta name="description" content="Registration successful - Your sample video is being generated">
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --primary: #6B21A8;
-            --primary-light: #9333EA;
             --secondary: #EAB308;
-            --background: #0F0A1A;
-            --surface: #1A1025;
-            --surface-light: #251a35;
-            --text: #FAFAFA;
-            --text-secondary: #A78BFA;
-            --radius-lg: 20px;
-            --font-latin: 'Plus Jakarta Sans', sans-serif;
+            --dark: #0F0F0F;
+            --gray-900: #1A1A1A;
+            --success: #10B981;
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
         body {
-            font-family: var(--font-latin);
-            background: linear-gradient(135deg, #0F0A1A 0%, #1A1025 50%, #2D1B4E 100%);
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: white;
             min-height: 100vh;
-            color: var(--text);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -35,183 +35,381 @@
         }
         
         .success-card {
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            border: 2px solid var(--primary);
+            background: var(--gray-900);
+            border: 1px solid rgba(107, 33, 168, 0.3);
+            border-radius: 1.5rem;
             padding: 3rem;
             max-width: 600px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(107, 33, 168, 0.3);
+            position: relative;
+            overflow: hidden;
         }
         
-        .logo-container { margin-bottom: 1.5rem; }
+        .success-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
         
-        .maseer-logo {
-            width: 100px;
-            height: 100px;
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--success);
             border-radius: 50%;
-            object-fit: contain;
-            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
-            padding: 8px;
-            box-shadow: 
-                0 0 0 2px var(--primary),
-                0 0 20px rgba(107, 33, 168, 0.4),
-                inset 0 0 20px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
         
         h1 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 4px;
+            font-size: 1.875rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, white 0%, rgba(255,255,255,0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
-        .subtitle {
-            font-size: 1.1rem;
+        .brand-name {
             color: var(--secondary);
+            font-weight: 700;
+        }
+        
+        p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
             margin-bottom: 1.5rem;
-            font-weight: 500;
-        }
-        
-        p { color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem; }
-        
-        .track-box {
-            background: var(--surface-light);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .track-box p { margin-bottom: 1rem; color: var(--text); }
-        
-        .btn-primary {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary) 0%, #581C87 100%);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(107, 33, 168, 0.4);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(107, 33, 168, 0.6);
-        }
-        
-        .btn-secondary {
-            display: inline-block;
-            background: transparent;
-            border: 2px solid var(--text-secondary);
-            color: var(--text-secondary);
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 1rem;
-            transition: all 0.3s;
-        }
-        
-        .btn-secondary:hover {
-            border-color: var(--text);
-            color: var(--text);
         }
         
         .timeline {
-            text-align: left;
+            background: rgba(0,0,0,0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
             margin: 2rem 0;
-            padding: 0;
-            list-style: none;
+            text-align: left;
         }
         
-        .timeline li {
-            padding: 0.75rem 0;
-            padding-left: 2rem;
-            position: relative;
-            color: var(--text-secondary);
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            opacity: 0.6;
         }
         
-        .timeline li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
+        .timeline-item.active {
+            opacity: 1;
+        }
+        
+        .timeline-item.completed {
+            opacity: 1;
+        }
+        
+        .timeline-item.completed .timeline-icon {
+            background: var(--success);
+            border-color: var(--success);
+        }
+        
+        .timeline-item.active .timeline-icon {
+            background: var(--primary);
+            border-color: var(--primary);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(107, 33, 168, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(107, 33, 168, 0); }
+        }
+        
+        .timeline-icon {
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.875rem;
+        }
+        
+        .timeline-content h4 {
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .timeline-content p {
+            font-size: 0.75rem;
+            margin: 0;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        .info-box {
+            background: rgba(107, 33, 168, 0.1);
+            border: 1px solid rgba(107, 33, 168, 0.3);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .info-box h4 {
+            font-size: 0.875rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .schedule {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+        
+        .schedule-item {
+            background: rgba(0,0,0,0.3);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+        
+        .schedule-item strong {
+            display: block;
             color: var(--secondary);
-            font-weight: bold;
+            margin-bottom: 0.25rem;
         }
         
-        .timeline li.active::before {
-            content: '⏳';
-            color: var(--secondary);
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #581C87 100%);
+            color: white;
+            text-decoration: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: transform 0.2s;
         }
         
-        .footer {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--primary);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        .btn:hover {
+            transform: translateY(-2px);
         }
         
-        .footer strong { color: var(--text); }
+        .status-message {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            display: none;
+        }
         
-        @media (max-width: 768px) {
-            .success-card { padding: 2rem 1.5rem; }
-            h1 { font-size: 1.4rem; }
-            .maseer-logo { width: 80px; height: 80px; }
+        .status-message.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #EF4444;
+            color: #EF4444;
         }
     </style>
 </head>
 <body>
     <div class="success-card">
-        <div class="logo-container">
-            <img src="https://drive.google.com/thumbnail?id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV&sz=w200" 
-                 alt="Maseer Logo" 
-                 class="maseer-logo"
-                 onerror="this.style.display='none'">
+        <div class="checkmark">✓</div>
+        <h1>Welcome, <span class="brand-name" id="brandNameDisplay">Your Brand</span>!</h1>
+        <p>Your registration is complete. We're generating your sample video now.</p>
+        
+        <div class="timeline">
+            <div class="timeline-item completed" id="step1">
+                <div class="timeline-icon">✓</div>
+                <div class="timeline-content">
+                    <h4>Registration Submitted</h4>
+                    <p>Your brand details have been received</p>
+                </div>
+            </div>
+            <div class="timeline-item active" id="step2">
+                <div class="timeline-icon">⚡</div>
+                <div class="timeline-content">
+                    <h4>Sample Video Generating</h4>
+                    <p>AI is creating your first marketing video</p>
+                </div>
+            </div>
+            <div class="timeline-item" id="step3">
+                <div class="timeline-icon">📤</div>
+                <div class="timeline-content">
+                    <h4>Delivery to Telegram</h4>
+                    <p>Video will be sent within 5 minutes</p>
+                </div>
+            </div>
         </div>
-        <h1>MASEER</h1>
-        <p class="subtitle">Maseer Media Inc.</p>
-        <p>Your brand has been registered successfully. Our AI is now crafting your professional marketing video.</p>
         
-        <ul class="timeline">
-            <li>Registration received</li>
-            <li>AI content generation</li>
-            <li class="active">Video production (in progress)</li>
-            <li>Delivery via Telegram</li>
-        </ul>
-        
-        <div class="track-box">
-            <p><strong>Track your submission:</strong></p>
-            <a id="issueLink" href="#" class="btn-primary">View on GitHub</a>
+        <div class="info-box">
+            <h4>📅 Your Daily Schedule</h4>
+            <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">After your sample, you'll receive 4 videos daily:</p>
+            <div class="schedule">
+                <div class="schedule-item">
+                    <strong>6:00 AM</strong>
+                    Morning Post
+                </div>
+                <div class="schedule-item">
+                    <strong>12:00 PM</strong>
+                    Midday Post
+                </div>
+                <div class="schedule-item">
+                    <strong>6:00 PM</strong>
+                    Evening Post
+                </div>
+                <div class="schedule-item">
+                    <strong>12:00 AM</strong>
+                    Night Post
+                </div>
+            </div>
         </div>
         
-        <a href="index.html" class="btn-secondary">← Register Another Brand</a>
+        <div class="status-message" id="statusMessage"></div>
         
-        <div class="footer">
-            <p><strong>Maseer Media Inc.</strong></p>
-            <p>Powered by Ariana Coach | Kabul, Afghanistan</p>
-            <p>Ready within 6 hours</p>
-        </div>
+        <a href="index.html" class="btn">
+            <span>Register Another Brand</span>
+            <span>→</span>
+        </a>
     </div>
-    
+
     <script>
-        // Parse URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const issueNumber = urlParams.get('issue');
-        const username = 'hasinamusadiq';
-        const repo = 'maseer_automation';
+        // GitHub Configuration - UPDATE THESE VALUES
+        const CONFIG = {
+            OWNER: 'YOUR_GITHUB_USERNAME',  // e.g., 'hasinamusadiq'
+            REPO: 'maseer_automation',
+            TOKEN: 'YOUR_PAT_TOKEN'  // Personal Access Token with repo scope
+        };
         
-        const link = document.getElementById('issueLink');
-        if (issueNumber) {
-            link.href = `https://github.com/${username}/${repo}/issues/${issueNumber}`;
-        } else {
-            link.href = `https://github.com/${username}/${repo}/issues`;
+        async function createGitHubIssue(formData) {
+            const issueBody = `---
+name: New Client Registration - Maseer Media Inc.
+about: Register a new brand for AI video marketing
+title: "New Client: ${formData.brand_name}"
+labels: [new-client, sample-request]
+---
+
+## New Brand Registration - Maseer Media Inc.
+
+**Submitted:** ${new Date().toISOString()}
+**Status:** Standard
+**Sample Requested:** YES (Immediate Generation)
+
+### Brand Information
+| Field | Value |
+|-------|-------|
+| **Brand Name** | ${formData.brand_name} |
+| **Local Name** | ${formData.local_name || '-'} |
+| **Industry** | ${formData.industry} |
+| **Location** | ${formData.location} |
+
+### Visual Identity
+| Field | Value |
+|-------|-------|
+| **Primary Color** | ${formData.primary_color} |
+| **Secondary Color** | ${formData.secondary_color || '-'} |
+| **Logo** | [Base64 data in JSON below] |
+
+### Marketing Details
+| Field | Value |
+|-------|-------|
+| **Target Audience** | ${formData.target_audience || '-'} |
+| **Key Offerings** | ${formData.key_offerings || '-'} |
+| **Contact** | ${formData.contact_info || '-'} |
+
+### Raw Data (JSON)
+\`\`\`json
+${JSON.stringify(formData, null, 2)}
+\`\`\``;
+
+            const response = await fetch(`https://api.github.com/repos/${CONFIG.OWNER}/${CONFIG.REPO}/issues`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `token ${CONFIG.TOKEN}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: `New Client: ${formData.brand_name}`,
+                    body: issueBody,
+                    labels: ['new-client', 'sample-request']
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`GitHub API error: ${response.status}`);
+            }
+            
+            return await response.json();
         }
+        
+        async function init() {
+            const formData = JSON.parse(sessionStorage.getItem('maseer_registration') || '{}');
+            
+            if (!formData.brand_name) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            document.getElementById('brandNameDisplay').textContent = formData.brand_name;
+            
+            try {
+                // Create GitHub Issue
+                const issue = await createGitHubIssue(formData);
+                
+                // Show success
+                const statusMsg = document.getElementById('statusMessage');
+                statusMsg.textContent = `✅ Issue #${issue.number} created successfully! Check your Telegram in 3-5 minutes.`;
+                statusMsg.classList.add('show');
+                
+                // Update timeline
+                setTimeout(() => {
+                    document.getElementById('step2').classList.remove('active');
+                    document.getElementById('step2').classList.add('completed');
+                    document.getElementById('step3').classList.add('active');
+                }, 2000);
+                
+                // Clear storage
+                sessionStorage.removeItem('maseer_registration');
+                
+            } catch (error) {
+                console.error('Error:', error);
+                const statusMsg = document.getElementById('statusMessage');
+                statusMsg.textContent = '⚠️ Registration saved locally. Please contact support to complete setup.';
+                statusMsg.classList.add('show', 'error-message');
+            }
+        }
+        
+        // Initialize when page loads
+        init();
     </script>
 </body>
 </html>
