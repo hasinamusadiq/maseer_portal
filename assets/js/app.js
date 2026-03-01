@@ -207,17 +207,39 @@ function removeFile() {
 }
 
 /**
- * Form submission
+ * Form submission - Opens GitHub Actions workflow trigger
  */
 function handleSubmit(e) {
     e.preventDefault();
     
     if (AppState.isSubmitting) return;
     
-    // Validate
+    // Validate required fields
+    const brandName = document.getElementById('brandName').value.trim();
+    const industry = document.getElementById('industry').value;
+    const primaryColor = document.getElementById('primaryColor').value;
+    
+    if (!brandName) {
+        showToast('Please enter your brand name', 'error');
+        document.getElementById('brandName').focus();
+        return false;
+    }
+    
+    if (!industry) {
+        showToast('Please select your industry', 'error');
+        document.getElementById('industry').focus();
+        return false;
+    }
+    
+    if (!primaryColor || !/^#[0-9A-F]{6}$/i.test(primaryColor)) {
+        showToast('Please enter a valid primary color (e.g., #6B21A8)', 'error');
+        document.getElementById('primaryColor').focus();
+        return false;
+    }
+    
     if (!AppState.logoBase64) {
         showToast('Please upload your logo', 'error');
-        return;
+        return false;
     }
     
     AppState.isSubmitting = true;
@@ -225,15 +247,15 @@ function handleSubmit(e) {
     // Update button
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
-    btn.innerHTML = '<div class="spinner"></div><span>Creating...</span>';
+    btn.innerHTML = '<div class="spinner"></div><span>Preparing...</span>';
     
     // Collect data
     const formData = {
-        brand_name: document.getElementById('brandName').value.trim(),
+        brand_name: brandName,
         local_name: document.getElementById('localName').value.trim(),
-        industry: document.getElementById('industry').value,
-        primary_color: document.getElementById('primaryColor').value,
-        secondary_color: document.getElementById('secondaryColor').value,
+        industry: industry,
+        primary_color: primaryColor.toUpperCase(),
+        secondary_color: document.getElementById('secondaryColor').value.toUpperCase() || '#EAB308',
         target_audience: document.getElementById('targetAudience').value.trim(),
         key_offerings: document.getElementById('keyOfferings').value.trim(),
         contact_info: document.getElementById('contact').value.trim(),
@@ -248,7 +270,7 @@ function handleSubmit(e) {
         }
     };
     
-    // Store and redirect
+    // Store for success page
     sessionStorage.setItem('maseer_registration', JSON.stringify(formData));
     
     // Consciousness climax
@@ -257,11 +279,163 @@ function handleSubmit(e) {
         document.documentElement.style.setProperty('--glow-intensity', '2');
     }
     
+    // Show workflow trigger modal
     setTimeout(() => {
-        window.location.href = 'success.html';
-    }, 1000);
+        showWorkflowTrigger(formData);
+    }, 500);
     
     return false;
+}
+
+/**
+ * Show modal with workflow trigger instructions
+ */
+function showWorkflowTrigger(formData) {
+    // Create modal
+    const modal = document.createElement('div');
+    modal.id = 'workflowModal';
+    modal.style.cssText = `
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 10, 15, 0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+    `;
+    
+    const jsonData = JSON.stringify(formData, null, 2);
+    const isLarge = jsonData.length > 1500;
+    
+    modal.innerHTML = `
+        <div style="
+            background: linear-gradient(145deg, #1a1a2e, #12121a);
+            border: 2px solid #6B21A8;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            max-width: 650px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 60px rgba(107, 33, 168, 0.3);
+            animation: modalEntry 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        ">
+            <div style="font-size: 4rem; margin-bottom: 1rem; animation: pulse 2s infinite;">⚡</div>
+            
+            <h2 style="color: #fff; margin-bottom: 1rem; font-size: 1.75rem; font-weight: 700;">
+                Ready to Generate Your Sample!
+            </h2>
+            
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 2rem; line-height: 1.7; font-size: 1rem;">
+                Your brand <strong style="color: #EAB308;">${formData.brand_name}</strong> is prepared.<br>
+                Click below to trigger the AI video generation workflow.
+            </p>
+            
+            <div style="background: rgba(107, 33, 168, 0.1); border: 1px solid rgba(107, 33, 168, 0.3); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                    <span style="font-size: 1.25rem;">📐</span>
+                    <span style="color: #fff; font-weight: 600;">1224×1536 Meta-Optimized</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                    <span style="font-size: 1.25rem;">🎨</span>
+                    <span style="color: rgba(255,255,255,0.8);">Maximum Impact Fusion Style</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span style="font-size: 1.25rem;">⏱️</span>
+                    <span style="color: rgba(255,255,255,0.8);">Ready in ~3 minutes</span>
+                </div>
+            </div>
+            
+            ${isLarge ? `
+            <div style="background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.3); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem; text-align: left;">
+                <p style="color: #EAB308; font-size: 0.875rem; margin-bottom: 0.75rem; font-weight: 600;">
+                    ⚠️ Data is large. Copy this JSON and paste in the workflow:
+                </p>
+                <textarea id="payloadData" style="width: 100%; height: 100px; background: rgba(0,0,0,0.5); border: 1px solid #444; border-radius: 0.5rem; color: #fff; padding: 0.75rem; font-family: monospace; font-size: 0.7rem; resize: none; margin-bottom: 0.75rem;">${jsonData}</textarea>
+                <button onclick="copyPayload()" style="background: #444; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-size: 0.875rem; width: 100%;">📋 Copy JSON Data</button>
+            </div>
+            <a href="https://github.com/hasinamusadiq/maseer_portal/actions/workflows/create-client-issue.yml" 
+               target="_blank" 
+               style="display: inline-block; background: linear-gradient(135deg, #6B21A8, #7C3AED); color: #fff; text-decoration: none; padding: 1rem 2rem; border-radius: 0.75rem; font-weight: 600; font-size: 1rem; margin-bottom: 1rem; width: 100%; box-sizing: border-box;">
+                Open GitHub Workflow →
+            </a>
+            ` : `
+            <a href="https://github.com/hasinamusadiq/maseer_portal/actions/workflows/create-client-issue.yml" 
+               target="_blank" 
+               style="display: inline-block; background: linear-gradient(135deg, #6B21A8, #EAB308); color: #fff; text-decoration: none; padding: 1.25rem 2.5rem; border-radius: 0.75rem; font-weight: 700; font-size: 1.125rem; margin-bottom: 1rem; width: 100%; box-sizing: border-box; box-shadow: 0 10px 30px rgba(107, 33, 168, 0.4); transition: all 0.3s;">
+                🚀 Trigger Sample Generation
+            </a>
+            `}
+            
+            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 1rem;">
+                <p style="color: #6EE7B7; font-size: 0.8125rem; margin: 0;">
+                    <strong>Next steps:</strong> Click "Run workflow" → Paste your brand name → Click "Run workflow"
+                </p>
+            </div>
+            
+            <button onclick="closeModalAndContinue()" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); padding: 0.75rem 1.5rem; border-radius: 0.5rem; cursor: pointer; font-size: 0.875rem; transition: all 0.3s;">
+                Continue to Success Page →
+            </button>
+        </div>
+        
+        <style>
+            @keyframes modalEntry {
+                from { opacity: 0; transform: scale(0.9) translateY(20px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+            }
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(1.1); opacity: 0.8; }
+            }
+        </style>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Reset button state
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = false;
+    btn.innerHTML = '<span data-i18n="submitBtn">Generate My Undeniable Sample</span><span>→</span>';
+    AppState.isSubmitting = false;
+}
+
+/**
+ * Copy payload to clipboard
+ */
+function copyPayload() {
+    const textarea = document.getElementById('payloadData');
+    if (!textarea) return;
+    
+    textarea.select();
+    textarea.setSelectionRange(0, 99999); // For mobile
+    
+    try {
+        document.execCommand('copy');
+        showToast('JSON copied! Paste in workflow inputs.', 'success');
+    } catch (err) {
+        // Fallback
+        navigator.clipboard.writeText(textarea.value).then(() => {
+            showToast('JSON copied! Paste in workflow inputs.', 'success');
+        }).catch(() => {
+            showToast('Please manually copy the JSON', 'error');
+        });
+    }
+}
+
+/**
+ * Close modal and continue to success page
+ */
+function closeModalAndContinue() {
+    const modal = document.getElementById('workflowModal');
+    if (modal) {
+        modal.style.opacity = '0';
+        modal.style.transition = 'opacity 0.3s';
+        setTimeout(() => modal.remove(), 300);
+    }
+    
+    // Redirect to success page
+    window.location.href = 'success.html';
 }
 
 /**
