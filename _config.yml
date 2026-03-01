@@ -3,7 +3,37 @@ title: Maseer Media - AI Video Marketing
 description: Professional AI-powered video marketing for Afghan businesses
 baseurl: ""  # Leave empty for user/organization pages
 url: "https://hasinamusadiq.github.io"  # Update with your actual URL
+a# Maseer Portal - Jekyll Configuration
+title: Maseer Media | AI Video Marketing for Afghan Brands
+description: Premium AI-powered video marketing. 4 daily campaigns. 1224×1536 Meta-optimized. Trilingual support (English, Dari, Pashto).
+baseurl: ""  # Leave empty for user/organization pages
+url: "https://hasinamusadiq.github.io "  # Update with your actual URL
 
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Include assets
+include:
+  - assets
+  - assets/js
+  - assets/css
+
+# Exclude
+exclude:
+  - README.md
+  - .gitignore
+  - Gemfile
+  - Gemfile.lock
+
+# SEO defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/images/maseer-og.png
 # Build settings
 markdown: kramdown
 theme: minima  # This is ignored since we have custom HTML
