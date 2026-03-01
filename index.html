@@ -3,142 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maseer Media - Premium AI Video Marketing for Afghan Brands</title>
-    <meta name="description" content="Professional AI-powered video marketing with 4 daily campaigns for Meta platforms">
+    <title>Maseer Media | AI Video Marketing for Afghan Brands</title>
+    <meta name="description" content="Professional AI-powered video marketing. 4 daily campaigns optimized for Meta platforms.">
     
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans+Pashto:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts: Inter + Noto Naskh Arabic (Dari/Persian) + Noto Sans Pashto -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* CSS Variables for Consciousness States */
         :root {
-            --primary: #6B21A8;
-            --primary-dark: #581C87;
-            --secondary: #EAB308;
-            --accent: #F59E0B;
-            --dark: #0A0A0F;
-            --gray-900: #12121A;
-            --gray-800: #1E1E2E;
-            --gray-700: #2D2D44;
-            --gray-400: #9CA3AF;
-            --gray-200: #E5E7EB;
-            --white: #FFFFFF;
-            --success: #10B981;
-            --error: #EF4444;
-            --morning: #1e3a5f;
-            --midday: #8B4513;
-            --evening: #2D1B4E;
-            --night: #0F1419;
+            /* Core Brand */
+            --maseer-purple: #6B21A8;
+            --maseer-gold: #EAB308;
+            --maseer-dark: #0A0A0F;
+            
+            /* Consciousness Frequency Colors (60-120 BPM breathing rhythm) */
+            --freq-calm: #1e3a5f;      /* Theta waves - 4-8Hz - Deep relaxation */
+            --freq-focus: #4c1d95;     /* Alpha waves - 8-13Hz - Alert relaxation */
+            --freq-energy: #dc2626;    /* Beta waves - 13-30Hz - Active thinking */
+            --freq-transform: #059669; /* Gamma waves - 30-100Hz - Peak concentration */
+            
+            /* Current active frequency (changes with scroll/interaction) */
+            --active-frequency: var(--freq-focus);
+            --glow-intensity: 0.5;
+            
+            /* Dimensions */
+            --meta-width: 1224px;
+            --meta-height: 1536px;
+            
+            /* Transitions */
+            --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        * {
+        /* RTL Support */
+        [dir="rtl"] {
+            font-family: 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Inter', sans-serif;
+        }
+        
+        /* Consciousness State Animations */
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.02); opacity: 1; }
+        }
+        
+        @keyframes frequencyPulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px var(--active-frequency);
+                filter: hue-rotate(0deg);
+            }
+            50% { 
+                box-shadow: 0 0 60px var(--active-frequency);
+                filter: hue-rotate(5deg);
+            }
+        }
+        
+        @keyframes consciousnessFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes attractAttention {
+            0%, 100% { transform: translateY(0) scale(1); }
+            25% { transform: translateY(-5px) scale(1.02); }
+            75% { transform: translateY(5px) scale(0.98); }
+        }
+        
+        @keyframes neuralGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* Base Reset */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
         body {
-            font-family: 'Inter', 'Noto Naskh Arabic', 'Noto Sans Pashto', sans-serif;
-            background: var(--dark);
-            color: var(--white);
+            font-family: 'Inter', 'Noto Naskh Arabic', sans-serif;
+            background: var(--maseer-dark);
+            color: #ffffff;
             line-height: 1.6;
             min-height: 100vh;
             overflow-x: hidden;
+            transition: var(--transition-smooth);
         }
         
-        /* Animated background */
-        .bg-animation {
+        /* Consciousness State Background */
+        .consciousness-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(
+                -45deg,
+                var(--maseer-dark),
+                var(--active-frequency),
+                var(--maseer-purple),
+                var(--maseer-dark)
+            );
+            background-size: 400% 400%;
+            animation: consciousnessFlow 15s ease infinite;
+            opacity: 0.15;
+            transition: var(--transition-smooth);
+        }
+        
+        .neural-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: 
-                radial-gradient(ellipse at 20% 80%, rgba(107, 33, 168, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(234, 179, 8, 0.1) 0%, transparent 50%),
-                var(--dark);
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(107, 33, 168, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(234, 179, 8, 0.1) 0%, transparent 50%);
+            animation: neuralGlow 8s ease-in-out infinite;
+            pointer-events: none;
         }
         
-        /* Hero */
+        /* Frequency Indicator (subtle consciousness cue) */
+        .frequency-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition-smooth);
+        }
+        
+        .frequency-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--active-frequency);
+            animation: frequencyPulse 3s infinite;
+        }
+        
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            padding: 0.5rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 0.75rem;
+            transition: var(--transition-smooth);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .lang-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--maseer-purple), var(--maseer-gold));
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(107, 33, 168, 0.4);
+        }
+        
+        /* RTL adjustment for language switcher */
+        [dir="rtl"] .lang-switcher {
+            right: auto;
+            left: 1.5rem;
+        }
+        
+        /* Header with Logo */
+        .header {
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            animation: breathe 6s ease-in-out infinite;
+        }
+        
+        .maseer-logo {
+            width: 180px;
+            height: auto;
+            filter: drop-shadow(0 0 30px rgba(107, 33, 168, 0.5));
+            transition: var(--transition-smooth);
+        }
+        
+        .maseer-logo:hover {
+            filter: drop-shadow(0 0 50px rgba(234, 179, 8, 0.6));
+            transform: scale(1.05);
+        }
+        
+        .tagline {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.7;
+        }
+        
+        /* Hero Section with Attraction Frequency */
         .hero {
-            padding: 5rem 1rem 3rem;
+            padding: 3rem 1.5rem 4rem;
             text-align: center;
             position: relative;
         }
         
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 400px;
-            background: radial-gradient(ellipse, rgba(107, 33, 168, 0.3) 0%, transparent 70%);
-            filter: blur(60px);
-            z-index: -1;
-        }
-        
-        .logo {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-        }
-        
-        .tagline {
-            color: var(--gray-400);
-            font-size: 1.25rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            font-weight: 300;
-        }
-        
-        .meta-badge {
+        .hero-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
-            background: linear-gradient(135deg, rgba(107, 33, 168, 0.2), rgba(234, 179, 8, 0.1));
-            border: 1px solid rgba(107, 33, 168, 0.4);
-            padding: 0.75rem 1.5rem;
+            background: linear-gradient(
+                135deg,
+                rgba(107, 33, 168, 0.3),
+                rgba(234, 179, 8, 0.2)
+            );
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            padding: 1rem 2rem;
             border-radius: 9999px;
-            font-size: 0.875rem;
-            color: var(--secondary);
-            font-weight: 500;
+            font-size: 0.9375rem;
+            color: var(--maseer-gold);
+            font-weight: 600;
             backdrop-filter: blur(10px);
+            animation: attractAttention 4s ease-in-out infinite;
+            cursor: pointer;
+            transition: var(--transition-smooth);
         }
         
-        /* Campaign Preview Section */
-        .campaigns-preview {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 1rem;
+        .hero-badge:hover {
+            animation: none;
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(234, 179, 8, 0.4);
+        }
+        
+        /* Campaign Cards with Consciousness States */
+        .campaigns-section {
+            padding: 4rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
         .section-title {
             text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            color: var(--gray-200);
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .campaigns-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
         }
         
         .campaign-card {
-            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%);
-            border: 1px solid var(--gray-700);
-            border-radius: 1rem;
-            padding: 1.5rem;
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(18, 18, 26, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            padding: 2.5rem 2rem;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
+            cursor: pointer;
         }
         
         .campaign-card::before {
@@ -147,93 +319,146 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: var(--campaign-color);
+            height: 4px;
+            background: var(--card-color);
+            transition: height 0.3s;
         }
         
         .campaign-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--campaign-color);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--card-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 40px var(--card-glow);
+        }
+        
+        .campaign-card:hover::before {
+            height: 100%;
+            opacity: 0.1;
+        }
+        
+        /* Consciousness state colors for each campaign */
+        .campaign-card[data-campaign="morning"] {
+            --card-color: #60A5FA;
+            --card-glow: rgba(96, 165, 250, 0.3);
+        }
+        
+        .campaign-card[data-campaign="midday"] {
+            --card-color: #D97706;
+            --card-glow: rgba(217, 119, 6, 0.3);
+        }
+        
+        .campaign-card[data-campaign="evening"] {
+            --card-color: #A855F7;
+            --card-glow: rgba(168, 85, 247, 0.3);
+        }
+        
+        .campaign-card[data-campaign="night"] {
+            --card-color: #EC4899;
+            --card-glow: rgba(236, 72, 153, 0.3);
         }
         
         .campaign-time {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--campaign-color);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--card-color);
             margin-bottom: 0.5rem;
+            line-height: 1;
         }
         
         .campaign-lang {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             background: rgba(255,255,255,0.1);
-            padding: 0.25rem 0.75rem;
+            padding: 0.375rem 1rem;
             border-radius: 9999px;
             font-size: 0.75rem;
-            margin-bottom: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            margin-bottom: 1rem;
         }
         
         .campaign-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-size: 1.375rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
         }
         
         .campaign-desc {
-            font-size: 0.875rem;
-            color: var(--gray-400);
-            line-height: 1.5;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
         }
         
         .campaign-energy {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--gray-700);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.75rem;
-            color: var(--gray-400);
+            gap: 0.75rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.5);
         }
         
-        .energy-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--campaign-color);
-            animation: pulse 2s infinite;
+        .energy-wave {
+            display: flex;
+            gap: 3px;
+            height: 20px;
+            align-items: end;
         }
         
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
+        .energy-bar {
+            width: 3px;
+            background: var(--card-color);
+            border-radius: 2px;
+            animation: wave 1s ease-in-out infinite;
         }
         
-        /* Form Container */
-        .container {
-            max-width: 800px;
+        .energy-bar:nth-child(1) { height: 40%; animation-delay: 0s; }
+        .energy-bar:nth-child(2) { height: 70%; animation-delay: 0.1s; }
+        .energy-bar:nth-child(3) { height: 100%; animation-delay: 0.2s; }
+        .energy-bar:nth-child(4) { height: 60%; animation-delay: 0.3s; }
+        .energy-bar:nth-child(5) { height: 80%; animation-delay: 0.4s; }
+        
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.6); }
+        }
+        
+        /* Form Section with Attraction Design */
+        .form-section {
+            padding: 4rem 1.5rem;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 2rem 1rem 4rem;
         }
         
-        .form-card {
-            background: linear-gradient(135deg, var(--gray-900) 0%, rgba(30, 30, 46, 0.8) 100%);
-            border: 1px solid var(--gray-700);
-            border-radius: 1.5rem;
-            padding: 2.5rem;
-            backdrop-filter: blur(20px);
+        .form-container {
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(18, 18, 26, 0.95));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 2rem;
+            padding: 3rem;
             position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            animation: frequencyPulse 4s infinite;
         }
         
-        .form-card::before {
+        .form-container::before {
             content: '';
             position: absolute;
-            inset: -1px;
-            border-radius: 1.5rem;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(107, 33, 168, 0.5), rgba(234, 179, 8, 0.3));
+            inset: -2px;
+            border-radius: 2rem;
+            padding: 2px;
+            background: linear-gradient(
+                135deg,
+                var(--active-frequency),
+                var(--maseer-purple),
+                var(--maseer-gold),
+                var(--active-frequency)
+            );
+            background-size: 300% 300%;
+            animation: consciousnessFlow 8s ease infinite;
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
@@ -242,313 +467,249 @@
         }
         
         .form-header {
-            margin-bottom: 2.5rem;
             text-align: center;
+            margin-bottom: 3rem;
         }
         
         .form-header h2 {
-            font-size: 1.875rem;
-            margin-bottom: 0.75rem;
-            background: linear-gradient(135deg, white 0%, var(--gray-200) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
         
         .form-header p {
-            color: var(--gray-400);
-            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            font-size: 1.0625rem;
         }
         
-        .sample-highlight {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 0.75rem;
-            padding: 1rem;
-            margin-top: 1rem;
+        .sample-promise {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.25rem;
+            background: linear-gradient(
+                135deg,
+                rgba(16, 185, 129, 0.15),
+                rgba(16, 185, 129, 0.05)
+            );
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
         }
         
-        .sample-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--success), #059669);
+        .promise-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #10B981, #059669);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             flex-shrink: 0;
+            animation: breathe 4s ease-in-out infinite;
         }
         
-        .sample-text {
-            text-align: left;
-        }
-        
-        .sample-text strong {
-            display: block;
-            color: var(--success);
-            margin-bottom: 0.25rem;
-        }
-        
-        .sample-text span {
-            font-size: 0.875rem;
-            color: var(--gray-400);
-        }
-        
-        /* Form Fields */
+        /* Form Fields with Attraction States */
         .form-group {
-            margin-bottom: 1.75rem;
+            margin-bottom: 2rem;
+            position: relative;
         }
         
         label {
             display: block;
             font-weight: 500;
-            margin-bottom: 0.625rem;
+            margin-bottom: 0.75rem;
             font-size: 0.9375rem;
-            color: var(--gray-200);
+            color: rgba(255,255,255,0.9);
+            transition: var(--transition-smooth);
+        }
+        
+        .form-group:focus-within label {
+            color: var(--active-frequency);
+            transform: translateX(5px);
         }
         
         .required::after {
             content: " *";
-            color: var(--error);
+            color: #EF4444;
         }
         
-        input[type="text"],
-        input[type="tel"],
-        select,
-        textarea {
+        input, select, textarea {
             width: 100%;
-            padding: 0.875rem 1rem;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--gray-700);
-            border-radius: 0.75rem;
-            color: var(--white);
+            padding: 1rem 1.25rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            color: #ffffff;
             font-size: 1rem;
-            transition: all 0.2s;
             font-family: inherit;
+            transition: var(--transition-smooth);
         }
         
-        input:focus,
-        select:focus,
-        textarea:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(107, 33, 168, 0.15);
+            border-color: var(--active-frequency);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 30px rgba(107, 33, 168, 0.2);
+            transform: translateY(-2px);
         }
         
-        input::placeholder {
-            color: var(--gray-400);
-        }
-        
-        /* Color Picker */
+        /* Color Pickers with Frequency Feedback */
         .color-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
+            gap: 1.5rem;
         }
         
-        .color-input-wrapper {
+        .color-wrapper {
             position: relative;
         }
         
         .color-preview {
             position: absolute;
-            right: 0.875rem;
+            right: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            width: 28px;
-            height: 28px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            border: 2px solid var(--gray-700);
+            border: 3px solid rgba(255,255,255,0.2);
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
         
         .color-preview:hover {
-            transform: translateY(-50%) scale(1.1);
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 0 20px var(--preview-color, #fff);
         }
         
         input[type="color"] {
             position: absolute;
-            right: 0.875rem;
+            right: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            width: 28px;
-            height: 28px;
+            width: 36px;
+            height: 36px;
             opacity: 0;
             cursor: pointer;
         }
         
-        /* File Upload */
+        /* File Upload with Attraction */
         .upload-zone {
-            border: 2px dashed var(--gray-700);
-            border-radius: 0.75rem;
-            padding: 2.5rem 2rem;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            padding: 3rem 2rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition-smooth);
+            background: rgba(0, 0, 0, 0.2);
             position: relative;
-            background: rgba(0,0,0,0.2);
+            overflow: hidden;
         }
         
-        .upload-zone:hover {
-            border-color: var(--primary);
-            background: rgba(107, 33, 168, 0.05);
+        .upload-zone::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, var(--active-frequency) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         
-        .upload-zone.has-file {
-            border-color: var(--success);
-            background: rgba(16, 185, 129, 0.05);
+        .upload-zone:hover, .upload-zone.drag-active {
+            border-color: var(--active-frequency);
+            background: rgba(107, 33, 168, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .upload-zone:hover::before, .upload-zone.drag-active::before {
+            opacity: 0.1;
         }
         
         .upload-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.75rem;
-            opacity: 0.8;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            transition: transform 0.3s;
         }
         
-        .upload-text {
-            color: var(--gray-200);
-            font-size: 1rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
+        .upload-zone:hover .upload-icon {
+            transform: scale(1.2) translateY(-5px);
         }
         
-        .upload-hint {
-            color: var(--gray-400);
-            font-size: 0.875rem;
-        }
-        
-        .file-preview {
-            display: none;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 1.25rem;
-            padding: 1rem;
-            background: rgba(16, 185, 129, 0.1);
-            border-radius: 0.75rem;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-        
-        .file-preview.show {
-            display: flex;
-        }
-        
-        .file-preview img {
-            width: 56px;
-            height: 56px;
-            object-fit: contain;
-            border-radius: 0.5rem;
-            background: var(--white);
-            padding: 0.25rem;
-        }
-        
-        .file-info {
-            flex: 1;
-            text-align: left;
-        }
-        
-        .file-name {
-            font-weight: 600;
-            font-size: 0.9375rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .file-size {
-            color: var(--gray-400);
-            font-size: 0.8125rem;
-        }
-        
-        .remove-file {
-            background: rgba(239, 68, 68, 0.1);
-            border: none;
-            color: var(--error);
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-        }
-        
-        .remove-file:hover {
-            background: rgba(239, 68, 68, 0.2);
-        }
-        
-        /* Submit Button */
+        /* Submit Button with Maximum Attraction */
         .submit-btn {
             width: 100%;
-            padding: 1.125rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, #4C1D95 100%);
-            color: var(--white);
+            padding: 1.25rem 2rem;
+            background: linear-gradient(
+                135deg,
+                var(--maseer-purple) 0%,
+                #7C3AED 50%,
+                var(--maseer-gold) 100%
+            );
+            background-size: 200% 200%;
+            color: #ffffff;
             border: none;
-            border-radius: 0.75rem;
-            font-size: 1.0625rem;
-            font-weight: 600;
+            border-radius: 1rem;
+            font-size: 1.125rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition-smooth);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.75rem;
             position: relative;
             overflow: hidden;
+            animation: consciousnessFlow 3s ease infinite;
+            box-shadow: 0 10px 40px rgba(107, 33, 168, 0.4);
         }
         
         .submit-btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(107, 33, 168, 0.6);
         }
         
         .submit-btn:hover::before {
-            left: 100%;
+            opacity: 1;
+            animation: rotate 2s linear infinite;
         }
         
-        .submit-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 40px rgba(107, 33, 168, 0.4);
-        }
-        
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        
-        .spinner {
-            width: 24px;
-            height: 24px;
-            border: 3px solid transparent;
-            border-top-color: var(--white);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
         
-        /* Alert */
+        /* Alerts */
         .alert {
-            padding: 1rem 1.25rem;
-            border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
             display: none;
             font-weight: 500;
+            animation: slideIn 0.4s ease;
         }
         
         .alert.show {
             display: block;
-            animation: slideIn 0.3s ease;
         }
         
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
+            from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
@@ -558,391 +719,393 @@
             color: #FCA5A5;
         }
         
+        /* Toast Notifications */
+        #toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            max-width: 400px;
+        }
+        
+        #toast.show {
+            transform: translateX(0);
+        }
+        
         /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 2rem;
-            color: var(--gray-400);
-            font-size: 0.875rem;
-            border-top: 1px solid var(--gray-800);
+            padding: 4rem 2rem;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9375rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
             margin-top: 2rem;
         }
         
-        footer p:first-child {
-            margin-bottom: 0.5rem;
-        }
-        
-        .powered-by {
-            display: inline-flex;
+        .footer-brand {
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--secondary);
-            font-weight: 500;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: var(--maseer-gold);
+            font-weight: 600;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            .logo {
-                font-size: 2.5rem;
+            .lang-switcher {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.375rem;
+            }
+            
+            .lang-btn {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.75rem;
+            }
+            
+            [dir="rtl"] .lang-switcher {
+                right: auto;
+                left: 1rem;
+            }
+            
+            .maseer-logo {
+                width: 140px;
+            }
+            
+            .campaigns-grid {
+                grid-template-columns: 1fr;
             }
             
             .color-group {
                 grid-template-columns: 1fr;
             }
             
-            .form-card {
-                padding: 1.5rem;
+            .form-container {
+                padding: 2rem 1.5rem;
+                border-radius: 1.5rem;
             }
             
-            .campaigns-grid {
-                grid-template-columns: 1fr;
+            .frequency-indicator {
+                bottom: 1rem;
+                left: 1rem;
+                font-size: 0.6875rem;
             }
+        }
+        
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Focus visible for keyboard navigation */
+        *:focus-visible {
+            outline: 2px solid var(--active-frequency);
+            outline-offset: 2px;
         }
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
+    <!-- Consciousness Background Layers -->
+    <div class="consciousness-bg" id="consciousnessBg"></div>
+    <div class="neural-overlay"></div>
     
-    <section class="hero">
-        <div class="logo">Maseer Media</div>
-        <p class="tagline">Premium AI video marketing for Afghan brands. Four daily campaigns optimized for Meta platforms (1224×1536).</p>
-        <div class="meta-badge">
-            <span>⚡</span>
-            <span>Sample Video Generated in 3 Minutes</span>
-        </div>
-    </section>
-
-    <!-- Campaign Preview -->
-    <section class="campaigns-preview">
-        <h2 class="section-title">Your Daily Campaign Schedule</h2>
-        <div class="campaigns-grid">
-            <div class="campaign-card" style="--campaign-color: #60A5FA;">
-                <div class="campaign-time">6:00 AM</div>
-                <span class="campaign-lang">Persian/Dari</span>
-                <h3 class="campaign-title">Morning Motivation</h3>
-                <p class="campaign-desc">Celestial Minimalism with Nastaʿlīq calligraphy, navy-to-gold gradients, and ethereal parallax motion.</p>
-                <div class="campaign-energy">
-                    <span class="energy-indicator"></span>
-                    <span>Calm • Ethereal • Uplifting</span>
-                </div>
-            </div>
-            
-            <div class="campaign-card" style="--campaign-color: #D97706;">
-                <div class="campaign-time">12:00 PM</div>
-                <span class="campaign-lang">Pashto</span>
-                <h3 class="campaign-title">General Information</h3>
-                <p class="campaign-desc">Organic "Hujra" aesthetic with hand-drawn textures, earthy tones, and soft organic wipes.</p>
-                <div class="campaign-energy">
-                    <span class="energy-indicator"></span>
-                    <span>Cordial • Grounded • Trustworthy</span>
-                </div>
-            </div>
-            
-            <div class="campaign-card" style="--campaign-color: #A855F7;">
-                <div class="campaign-time">6:00 PM</div>
-                <span class="campaign-lang">Persian/Dari</span>
-                <h3 class="campaign-title">Service Promotion</h3>
-                <p class="campaign-desc">Modern Classic with high-res photography, detail callouts, 3D rotation, and kinetic typography.</p>
-                <div class="campaign-energy">
-                    <span class="energy-indicator"></span>
-                    <span>Professional • Inspiring • Authoritative</span>
-                </div>
-            </div>
-            
-            <div class="campaign-card" style="--campaign-color: #EC4899;">
-                <div class="campaign-time">12:00 AM</div>
-                <span class="campaign-lang">English</span>
-                <h3 class="campaign-title">Brand Awareness</h3>
-                <p class="campaign-desc">Tactile Stop-Motion with handcrafted assembly, paper-cutout animation, and distinctive 12fps stutter.</p>
-                <div class="campaign-energy">
-                    <span class="energy-indicator"></span>
-                    <span>Bold • Artistic • Memorable</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="container">
-        <div class="alert alert-error" id="errorAlert"></div>
-        
-        <form id="registrationForm" class="form-card">
-            <div class="form-header">
-                <h2>Start Your Campaign</h2>
-                <p>Complete your brand profile. Your undeniable sample video will be ready in 3 minutes.</p>
-                
-                <div class="sample-highlight">
-                    <div class="sample-icon">🎬</div>
-                    <div class="sample-text">
-                        <strong>Immediate Sample Generation</strong>
-                        <span>High-impact preview using your colors, logo, and industry-optimized visuals. Delivered via Telegram instantly.</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Brand Information -->
-            <div class="form-group">
-                <label for="brandName" class="required">Brand Name (English)</label>
-                <input type="text" id="brandName" name="brandName" required placeholder="e.g., Zarrin Jewelry">
-            </div>
-
-            <div class="form-group">
-                <label for="localName">Brand Name (Local Language)</label>
-                <input type="text" id="localName" name="localName" placeholder="e.g., زرین جواهرات" dir="rtl">
-            </div>
-
-            <div class="form-group">
-                <label for="industry" class="required">Industry Category</label>
-                <select id="industry" name="industry" required>
-                    <option value="">Select your industry for optimized visuals</option>
-                    <option value="Jewelry & Gold">Jewelry & Gold (زرگری)</option>
-                    <option value="Café & Restaurant">Café & Restaurant (کافه و رستورانت)</option>
-                    <option value="Fashion & Clothing">Fashion & Clothing (البسه و فیشن)</option>
-                    <option value="Technology & IT">Technology & IT (تکنالوژی)</option>
-                    <option value="Healthcare & Medical">Healthcare & Medical (صحی)</option>
-                    <option value="Education & Training">Education & Training (تعلیم و تربیه)</option>
-                    <option value="Real Estate">Real Estate (عقارات)</option>
-                    <option value="Automotive">Automotive (موتر و وسایط)</option>
-                    <option value="Beauty & Cosmetics">Beauty & Cosmetics (آرایش و زیبایی)</option>
-                    <option value="Construction & Materials">Construction & Materials (ساختمان)</option>
-                    <option value="Consultancy & Services">Consultancy & Services (مشاوره)</option>
-                    <option value="Retail & Shopping">Retail & Shopping (خرید فروشی)</option>
-                    <option value="Travel & Hospitality">Travel & Hospitality (سفر و مهمانخانه)</option>
-                    <option value="Agriculture">Agriculture (زراعت)</option>
-                    <option value="Handicrafts">Handicrafts (صنایع دستی)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="location">Business Location</label>
-                <input type="text" id="location" name="location" value="Kabul, Afghanistan" readonly>
-            </div>
-
-            <!-- Visual Identity -->
-            <div class="form-header" style="margin-top: 2.5rem;">
-                <h2>Visual Identity</h2>
-                <p>Your brand colors will be amplified using color psychology for maximum impact</p>
-            </div>
-
-            <div class="color-group">
-                <div class="form-group">
-                    <label for="primaryColor" class="required">Primary Brand Color</label>
-                    <div class="color-input-wrapper">
-                        <input type="text" id="primaryColor" name="primaryColor" value="#6B21A8" required placeholder="#6B21A8">
-                        <div class="color-preview" id="primaryPreview" style="background: #6B21A8;"></div>
-                        <input type="color" id="primaryColorPicker" value="#6B21A8">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="secondaryColor">Secondary Accent Color</label>
-                    <div class="color-input-wrapper">
-                        <input type="text" id="secondaryColor" name="secondaryColor" value="#EAB308" placeholder="#EAB308">
-                        <div class="color-preview" id="secondaryPreview" style="background: #EAB308;"></div>
-                        <input type="color" id="secondaryColorPicker" value="#EAB308">
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="required">Brand Logo (High Resolution)</label>
-                <div class="upload-zone" id="uploadZone">
-                    <div class="upload-icon">📁</div>
-                    <div class="upload-text">Drop your logo here or click to browse</div>
-                    <div class="upload-hint">PNG with transparency preferred (max 2MB)</div>
-                    <input type="file" id="logoInput" accept="image/png,image/jpeg,image/svg+xml" style="display: none;" required>
-                </div>
-                <div class="file-preview" id="filePreview">
-                    <img id="previewImg" src="" alt="Logo preview">
-                    <div class="file-info">
-                        <div class="file-name" id="fileName"></div>
-                        <div class="file-size" id="fileSize"></div>
-                    </div>
-                    <button type="button" class="remove-file" id="removeFile">✕</button>
-                </div>
-            </div>
-
-            <!-- Marketing Details -->
-            <div class="form-header" style="margin-top: 2.5rem;">
-                <h2>Campaign Targeting</h2>
-                <p>Help us create hyper-relevant content for your audience</p>
-            </div>
-
-            <div class="form-group">
-                <label for="targetAudience">Primary Target Audience</label>
-                <textarea id="targetAudience" name="targetAudience" rows="2" placeholder="e.g., Affluent women 25-45, Tech-savvy youth, Traditional families..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="keyOfferings">Key Products / Services</label>
-                <textarea id="keyOfferings" name="keyOfferings" rows="3" placeholder="Describe your main offerings: 18k gold jewelry, Traditional Kabuli cuisine, Premium mobile apps..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="uniqueValue">What Makes You Unique?</label>
-                <textarea id="uniqueValue" name="uniqueValue" rows="2" placeholder="e.g., 40 years family tradition, Imported Italian machines, Certified halal ingredients..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="contact">WhatsApp / Phone for Delivery</label>
-                <input type="tel" id="contact" name="contact" placeholder="+93 70 123 4567">
-            </div>
-
-            <button type="submit" class="submit-btn" id="submitBtn">
-                <span>Generate My Undeniable Sample</span>
-                <span>→</span>
-            </button>
-        </form>
+    <!-- Frequency Indicator -->
+    <div class="frequency-indicator" id="frequencyIndicator">
+        <div class="frequency-dot"></div>
+        <span id="frequencyText">Focus State: Alpha 8-13Hz</span>
     </div>
-
-    <footer>
-        <p>© 2026 Maseer Media Inc. | Precision-Crafted for Meta Platforms</p>
-        <p class="powered-by">
+    
+    <!-- Language Switcher -->
+    <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" data-lang="fa" onclick="setLanguage('fa')">دری</button>
+        <button class="lang-btn" data-lang="ps" onclick="setLanguage('ps')">پښتو</button>
+    </div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <!-- Maseer Logo - Replace src with your Google Drive image -->
+            <img 
+                src="https://drive.google.com/uc?export=view&id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV" 
+                alt="Maseer Media" 
+                class="maseer-logo"
+                id="maseerLogo"
+                onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 60%22><text y=%2250%22 font-size=%2240%22 fill=%22%236B21A8%22 font-family=%22sans-serif%22 font-weight=%22bold%22>MASEER</text></svg>'"
+            >
+            <p class="tagline" data-i18n="tagline">
+                Premium AI video marketing for Afghan brands.<br>
+                4 daily campaigns. 1224×1536 Meta-optimized. Undeniable results.
+            </p>
+        </div>
+    </header>
+    
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-badge" id="heroBadge" onclick="scrollToForm()">
             <span>⚡</span>
-            <span>Powered by Advanced AI Video Synthesis</span>
-        </p>
-    </footer>
-
-    <script>
-        // Color picker sync
-        function setupColorPicker(textInput, colorInput, preview) {
-            textInput.addEventListener('input', (e) => {
-                const color = e.target.value;
-                if (/^#[0-9A-F]{6}$/i.test(color)) {
-                    preview.style.background = color;
-                    colorInput.value = color;
-                }
-            });
+            <span data-i18n="heroBadge">Sample Ready in 3 Minutes</span>
+        </div>
+    </section>
+    
+    <!-- Campaigns -->
+    <section class="campaigns-section">
+        <h2 class="section-title" data-i18n="campaignTitle">Your Daily Campaign Schedule</h2>
+        
+        <div class="campaigns-grid">
+            <div class="campaign-card" data-campaign="morning" onclick="highlightCampaign('morning')">
+                <div class="campaign-time">6:00</div>
+                <span class="campaign-lang" data-i18n="morningLang">FA</span>
+                <h3 class="campaign-title" data-i18n="morningTitle">Morning Motivation</h3>
+                <p class="campaign-desc" data-i18n="morningDesc">
+                    Celestial Minimalism with Nastaʿlīq calligraphy. Navy-to-gold gradients 
+                    with ethereal parallax motion. Awaken your audience.
+                </p>
+                <div class="campaign-energy">
+                    <div class="energy-wave">
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                    </div>
+                    <span data-i18n="morningEnergy">Calm • Ethereal • Theta 4-8Hz</span>
+                </div>
+            </div>
             
-            colorInput.addEventListener('input', (e) => {
-                const color = e.target.value;
-                textInput.value = color.toUpperCase();
-                preview.style.background = color;
-            });
-        }
-        
-        setupColorPicker(
-            document.getElementById('primaryColor'),
-            document.getElementById('primaryColorPicker'),
-            document.getElementById('primaryPreview')
-        );
-        
-        setupColorPicker(
-            document.getElementById('secondaryColor'),
-            document.getElementById('secondaryColorPicker'),
-            document.getElementById('secondaryPreview')
-        );
-
-        // File upload
-        const uploadZone = document.getElementById('uploadZone');
-        const logoInput = document.getElementById('logoInput');
-        const filePreview = document.getElementById('filePreview');
-        const previewImg = document.getElementById('previewImg');
-        const fileName = document.getElementById('fileName');
-        const fileSize = document.getElementById('fileSize');
-        const removeFile = document.getElementById('removeFile');
-
-        uploadZone.addEventListener('click', () => logoInput.click());
-        
-        uploadZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadZone.style.borderColor = 'var(--primary)';
-        });
-        
-        uploadZone.addEventListener('dragleave', () => {
-            uploadZone.style.borderColor = '';
-        });
-        
-        uploadZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadZone.style.borderColor = '';
-            if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
-        });
-
-        logoInput.addEventListener('change', (e) => {
-            if (e.target.files.length) handleFile(e.target.files[0]);
-        });
-
-        function handleFile(file) {
-            if (file.size > 2 * 1024 * 1024) {
-                showError('File size must be less than 2MB');
-                return;
-            }
+            <div class="campaign-card" data-campaign="midday" onclick="highlightCampaign('midday')">
+                <div class="campaign-time">12:00</div>
+                <span class="campaign-lang" data-i18n="middayLang">PS</span>
+                <h3 class="campaign-title" data-i18n="middayTitle">General Information</h3>
+                <p class="campaign-desc" data-i18n="middayDesc">
+                    Organic "Hujra" aesthetic with hand-drawn textures. Warm earthy tones 
+                    and soft Pashto typography. Build community trust.
+                </p>
+                <div class="campaign-energy">
+                    <div class="energy-wave">
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                    </div>
+                    <span data-i18n="middayEnergy">Cordial • Grounded • Alpha 8-13Hz</span>
+                </div>
+            </div>
             
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                previewImg.src = e.target.result;
-                fileName.textContent = file.name;
-                fileSize.textContent = formatFileSize(file.size);
-                filePreview.classList.add('show');
-                uploadZone.classList.add('has-file');
-                uploadZone.style.display = 'none';
-            };
-            reader.readAsDataURL(file);
-        }
-
-        removeFile.addEventListener('click', () => {
-            logoInput.value = '';
-            filePreview.classList.remove('show');
-            uploadZone.classList.remove('has-file');
-            uploadZone.style.display = 'block';
-        });
-
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-
-        function showError(message) {
-            const alert = document.getElementById('errorAlert');
-            alert.textContent = message;
-            alert.classList.add('show');
-            setTimeout(() => alert.classList.remove('show'), 5000);
-        }
-
-        // Form submission
-        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+            <div class="campaign-card" data-campaign="evening" onclick="highlightCampaign('evening')">
+                <div class="campaign-time">18:00</div>
+                <span class="campaign-lang" data-i18n="eveningLang">FA</span>
+                <h3 class="campaign-title" data-i18n="eveningTitle">Service Promotion</h3>
+                <p class="campaign-desc" data-i18n="eveningDesc">
+                    Modern Classic with high-res photography. Detail callouts and 
+                    kinetic typography. Drive action with authority.
+                </p>
+                <div class="campaign-energy">
+                    <div class="energy-wave">
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                    </div>
+                    <span data-i18n="eveningEnergy">Professional • Inspiring • Beta 13-30Hz</span>
+                </div>
+            </div>
             
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<div class="spinner"></div><span>Crafting your undeniable sample...</span>';
-            
-            try {
-                const formData = {
-                    brand_name: document.getElementById('brandName').value.trim(),
-                    local_name: document.getElementById('localName').value.trim(),
-                    industry: document.getElementById('industry').value,
-                    location: document.getElementById('location').value,
-                    primary_color: document.getElementById('primaryColor').value,
-                    secondary_color: document.getElementById('secondaryColor').value,
-                    target_audience: document.getElementById('targetAudience').value.trim(),
-                    key_offerings: document.getElementById('keyOfferings').value.trim(),
-                    unique_value: document.getElementById('uniqueValue').value.trim(),
-                    contact_info: document.getElementById('contact').value.trim(),
-                    logo_base64: previewImg.src || null,
-                    signup_date: new Date().toISOString(),
-                    request_sample: true,
-                    meta_specs: {
-                        width: 1224,
-                        height: 1536,
-                        aspect_ratio: "4:5",
-                        platforms: ["instagram_feed", "instagram_story", "facebook_feed"]
-                    }
-                };
-
-                sessionStorage.setItem('maseer_registration', JSON.stringify(formData));
-                window.location.href = 'success.html';
+            <div class="campaign-card" data-campaign="night" onclick="highlightCampaign('night')">
+                <div class="campaign-time">00:00</div>
+                <span class="campaign-lang" data-i18n="nightLang">EN</span>
+                <h3 class="campaign-title" data-i18n="nightTitle">Brand Awareness</h3>
+                <p class="campaign-desc" data-i18n="nightDesc">
+                    Tactile Stop-Motion with handcrafted assembly. 12fps stutter 
+                    for human feel. Create unforgettable artistic impact.
+                </p>
+                <div class="campaign-energy">
+                    <div class="energy-wave">
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                        <div class="energy-bar"></div>
+                    </div>
+                    <span data-i18n="nightEnergy">Bold • Artistic • Gamma 30-100Hz</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Form -->
+    <section class="form-section" id="formSection">
+        <div class="form-container">
+            <div class="form-header">
+                <h2 data-i18n="formTitle">Begin Your Transformation</h2>
+                <p data-i18n="formSubtitle">
+                    Complete your brand profile. Your consciousness-optimized sample 
+                    will be ready in 3 minutes.
+                </p>
                 
-            } catch (error) {
-                showError('Something went wrong. Please try again.');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            }
-        });
-    </script>
+                <div class="sample-promise">
+                    <div class="promise-icon">🎬</div>
+                    <div>
+                        <strong style="color: #10B981; display: block; margin-bottom: 0.25rem;" data-i18n="promiseTitle">
+                            Immediate Undeniable Sample
+                        </strong>
+                        <span style="color: rgba(255,255,255,0.6); font-size: 0.9375rem;" data-i18n="promiseText">
+                            High-impact preview using color psychology and 
+                            industry-specific visual metaphors. Delivered instantly.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-error" id="errorAlert"></div>
+            
+            <form id="registrationForm" onsubmit="return handleSubmit(event)">
+                <!-- Brand Info -->
+                <div class="form-group">
+                    <label for="brandName" class="required" data-i18n="labelBrand">Brand Name (English)</label>
+                    <input type="text" id="brandName" required 
+                           data-i18n-placeholder="placeholderBrand"
+                           placeholder="e.g., Zarrin Jewelry">
+                </div>
+                
+                <div class="form-group">
+                    <label for="localName" data-i18n="labelLocal">Brand Name (Local)</label>
+                    <input type="text" id="localName" dir="auto"
+                           data-i18n-placeholder="placeholderLocal"
+                           placeholder="e.g., زرین جواهرات / زرین ګالری">
+                </div>
+                
+                <div class="form-group">
+                    <label for="industry" class="required" data-i18n="labelIndustry">Industry</label>
+                    <select id="industry" required>
+                        <option value="" data-i18n="selectIndustry">Select your industry</option>
+                        <option value="Jewelry & Gold">Jewelry & Gold / زرگری / زیورات</option>
+                        <option value="Café & Restaurant">Café & Restaurant / کافه و رستورانت / کافي او رستورانت</option>
+                        <option value="Fashion & Clothing">Fashion & Clothing / البسه و فیشن / فیشن او جامې</option>
+                        <option value="Technology & IT">Technology & IT / تکنالوژی / ټیکنالوژي</option>
+                        <option value="Healthcare & Medical">Healthcare & Medical / صحی / روغتیا</option>
+                        <option value="Education & Training">Education & Training / تعلیم و تربیه / زده‌کړه</option>
+                        <option value="Real Estate">Real Estate / عقارات / ځمکه او کور</option>
+                        <option value="Automotive">Automotive / موتر و وسایط / موټر او وسایط</option>
+                        <option value="Beauty & Cosmetics">Beauty & Cosmetics / آرایش و زیبایی / ښایست</option>
+                        <option value="Construction & Materials">Construction & Materials / ساختمان / ودانۍ</option>
+                        <option value="Consultancy & Services">Consultancy & Services / مشاوره / مشوره</option>
+                        <option value="Retail & Shopping">Retail & Shopping / خرید فروشی / پلورنځی</option>
+                        <option value="Travel & Hospitality">Travel & Hospitality / سفر و مهمانخانه / سفر</option>
+                        <option value="Agriculture">Agriculture / زراعت / کرنه</option>
+                        <option value="Handicrafts">Handicrafts / صنایع دستی / لاسي صنایع</option>
+                    </select>
+                </div>
+                
+                <!-- Visual Identity -->
+                <div class="form-group">
+                    <label class="required" data-i18n="labelColors">Brand Colors</label>
+                    <div class="color-group">
+                        <div class="color-wrapper">
+                            <input type="text" id="primaryColor" value="#6B21A8" required
+                                   data-i18n-placeholder="placeholderPrimary"
+                                   placeholder="Primary #6B21A8">
+                            <div class="color-preview" id="primaryPreview" 
+                                 style="background: #6B21A8; --preview-color: #6B21A8"></div>
+                            <input type="color" id="primaryColorPicker" value="#6B21A8"
+                                   onchange="updateColor('primary', this.value)">
+                        </div>
+                        <div class="color-wrapper">
+                            <input type="text" id="secondaryColor" value="#EAB308"
+                                   data-i18n-placeholder="placeholderSecondary"
+                                   placeholder="Secondary #EAB308">
+                            <div class="color-preview" id="secondaryPreview" 
+                                 style="background: #EAB308; --preview-color: #EAB308"></div>
+                            <input type="color" id="secondaryColorPicker" value="#EAB308"
+                                   onchange="updateColor('secondary', this.value)">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Logo Upload -->
+                <div class="form-group">
+                    <label class="required" data-i18n="labelLogo">Brand Logo</label>
+                    <div class="upload-zone" id="uploadZone" 
+                         ondragover="handleDragOver(event)" 
+                         ondragleave="handleDragLeave(event)"
+                         ondrop="handleDrop(event)"
+                         onclick="document.getElementById('logoInput').click()">
+                        <span class="upload-icon">📁</span>
+                        <div class="upload-text" data-i18n="uploadText">Drop logo or click to browse</div>
+                        <div class="upload-hint" data-i18n="uploadHint">PNG with transparency preferred (max 2MB)</div>
+                        <input type="file" id="logoInput" accept="image/*" style="display: none" 
+                               onchange="handleFileSelect(event)" required>
+                    </div>
+                    <div class="file-preview" id="filePreview" style="display: none;">
+                        <img id="previewImg" src="" alt="Logo">
+                        <div class="file-info">
+                            <div class="file-name" id="fileName"></div>
+                            <div class="file-size" id="fileSize"></div>
+                        </div>
+                        <button type="button" class="remove-file" onclick="removeFile()">✕</button>
+                    </div>
+                </div>
+                
+                <!-- Marketing Info -->
+                <div class="form-group">
+                    <label for="targetAudience" data-i18n="labelAudience">Target Audience</label>
+                    <input type="text" id="targetAudience"
+                           data-i18n-placeholder="placeholderAudience"
+                           placeholder="e.g., Affluent women 25-45 / زنان ثروتمند / بډایې ښځې">
+                </div>
+                
+                <div class="form-group">
+                    <label for="keyOfferings" data-i18n="labelOfferings">Key Offerings</label>
+                    <textarea id="keyOfferings" rows="3"
+                              data-i18n-placeholder="placeholderOfferings"
+                              placeholder="Describe your main products/services..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact" data-i18n="labelContact">WhatsApp for Delivery</label>
+                    <input type="tel" id="contact" 
+                           data-i18n-placeholder="placeholderContact"
+                           placeholder="+93 70 123 4567">
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span data-i18n="submitBtn">Generate My Undeniable Sample</span>
+                    <span>→</span>
+                </button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-brand">
+            <span>⚡</span>
+            <span>Maseer Media — Precision-Crafted for Afghan Brands</span>
+        </div>
+        <p data-i18n="footer">© 2026 Maseer Media Inc. | Kabul, Afghanistan</p>
+    </footer>
+    
+    <!-- Toast -->
+    <div id="toast"></div>
+    
+    <!-- Application Logic -->
+    <script src="assets/js/consciousness.js"></script>
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
