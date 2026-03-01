@@ -1,18 +1,18 @@
 # Jekyll configuration for GitHub Pages
-title: Maseer Portal
-description: AI-Powered Video Marketing for Afghan Businesses - Powered by Ariana Coach
-baseurl: "/maseer_portal"
-url: "https://hasinamusadiq.github.io"
+title: Maseer Media - AI Video Marketing
+description: Professional AI-powered video marketing for Afghan businesses
+baseurl: ""  # Leave empty for user/organization pages
+url: "https://hasinamusadiq.github.io"  # Update with your actual URL
 
 # Build settings
 markdown: kramdown
+theme: minima  # This is ignored since we have custom HTML
 
-# Exclude files from processing
+# Exclude files
 exclude:
   - README.md
   - .gitignore
 
-# Custom variables
-portal_version: "2.0.0"
-company_name: "Maseer Media Inc."
-powered_by: "Ariana Coach"
+# Include assets
+include:
+  - assets
