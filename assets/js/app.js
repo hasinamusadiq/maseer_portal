@@ -1,565 +1,353 @@
 /**
- * Maseer Portal - Main Application
- * Handles form validation, image processing, and GitHub integration
+ * Maseer Portal App - Complete Functionality
+ * File handling, form submission, and UX enhancements
  */
 
-const MaseerApp = (function() {
-    'use strict';
+// Global state
+const AppState = {
+    logoBase64: null,
+    logoFile: null,
+    isSubmitting: false
+};
 
-    // Configuration - Update these for your deployment
-    const CONFIG = {
-        GITHUB_OWNER: 'YOUR_GITHUB_USERNAME', // Change this
-        GITHUB_REPO: 'maseer_automation',
-        API_ENDPOINT: null, // Set to your backend if using secure token storage
-        MAX_LOGO_SIZE: 2 * 1024 * 1024, // 2MB
-        TARGET_WIDTH: 1224,
-        TARGET_HEIGHT: 1536,
-        ASPECT_RATIO: 4/5
-    };
+/**
+ * Initialize application
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    initColorPickers();
+    initIndustrySelector();
+    initSmoothScroll();
+    initCampaignCards();
+});
 
-    // Campaign definitions for preview
-    const CAMPAIGNS = [
-        {
-            time: '6:00 AM',
-            name: 'Morning Motivation',
-            language: 'Persian/Dari',
-            style: 'Celestial Minimalism',
-            color: '#60A5FA',
-            energy: 'Calm • Ethereal • Uplifting',
-            icon: '🌅'
-        },
-        {
-            time: '12:00 PM',
-            name: 'General Information',
-            language: 'Pashto',
-            style: 'Organic Hujra',
-            color: '#D97706',
-            energy: 'Cordial • Grounded • Trustworthy',
-            icon: '🏛️'
-        },
-        {
-            time: '6:00 PM',
-            name: 'Service Promotion',
-            language: 'Persian/Dari',
-            style: 'Modern Classic',
-            color: '#A855F7',
-            energy: 'Professional • Inspiring • Authoritative',
-            icon: '💼'
-        },
-        {
-            time: '12:00 AM',
-            name: 'Brand Awareness',
-            language: 'English',
-            style: 'Tactile Stop-Motion',
-            color: '#EC4899',
-            energy: 'Bold • Artistic • Memorable',
-            icon: '🎭'
-        }
+/**
+ * Color picker synchronization
+ */
+function initColorPickers() {
+    const pairs = [
+        { text: 'primaryColor', picker: 'primaryColorPicker', preview: 'primaryPreview' },
+        { text: 'secondaryColor', picker: 'secondaryColorPicker', preview: 'secondaryPreview' }
     ];
-
-    // Industry-specific color recommendations
-    const INDUSTRY_COLORS = {
-        'Jewelry & Gold': { primary: '#D4AF37', secondary: '#1C1C1C', accent: '#FFD700' },
-        'Café & Restaurant': { primary: '#8B4513', secondary: '#F5DEB3', accent: '#D2691E' },
-        'Fashion & Clothing': { primary: '#FF6B6B', secondary: '#4ECDC4', accent: '#FFE66D' },
-        'Technology & IT': { primary: '#00D9FF', secondary: '#0A192F', accent: '#64FFDA' },
-        'Healthcare & Medical': { primary: '#00A86B', secondary: '#FFFFFF', accent: '#90EE90' },
-        'Education & Training': { primary: '#4169E1', secondary: '#FFD700', accent: '#FF6347' },
-        'Real Estate': { primary: '#2F4F4F', secondary: '#F5F5DC', accent: '#8B4513' },
-        'Automotive': { primary: '#DC143C', secondary: '#C0C0C0', accent: '#FFD700' },
-        'Beauty & Cosmetics': { primary: '#FF1493', secondary: '#FFF0F5', accent: '#FFB6C1' },
-        'Construction & Materials': { primary: '#B8860B', secondary: '#8B4513', accent: '#D2691E' },
-        'Consultancy & Services': { primary: '#4B0082', secondary: '#FFD700', accent: '#9370DB' },
-        'Retail & Shopping': { primary: '#FF4500', secondary: '#FFD700', accent: '#32CD32' },
-        'Travel & Hospitality': { primary: '#20B2AA', secondary: '#F0E68C', accent: '#87CEEB' },
-        'Agriculture': { primary: '#228B22', secondary: '#F5DEB3', accent: '#8FBC8F' },
-        'Handicrafts': { primary: '#8B4513', secondary: '#DEB887', accent: '#D2691E' }
-    };
-
-    // State management
-    let state = {
-        formData: {},
-        logoBase64: null,
-        logoFile: null,
-        currentStep: 1,
-        isSubmitting: false
-    };
-
-    /**
-     * Initialize the application
-     */
-    function init() {
-        console.log('🚀 Maseer Portal Initializing...');
+    
+    pairs.forEach(({ text, picker, preview }) => {
+        const textInput = document.getElementById(text);
+        const pickerInput = document.getElementById(picker);
+        const previewDiv = document.getElementById(preview);
         
-        bindEvents();
-        initColorPickers();
-        initFileUpload();
-        initIndustrySelector();
-        initFormValidation();
-        animateCampaignCards();
+        if (!textInput || !pickerInput) return;
         
-        console.log('✅ Maseer Portal Ready');
-    }
-
-    /**
-     * Bind all event listeners
-     */
-    function bindEvents() {
-        // Form submission
-        const form = document.getElementById('registrationForm');
-        if (form) {
-            form.addEventListener('submit', handleSubmit);
-        }
-
-        // Color picker synchronization
-        document.querySelectorAll('.color-input-wrapper').forEach(wrapper => {
-            const textInput = wrapper.querySelector('input[type="text"]');
-            const colorInput = wrapper.querySelector('input[type="color"]');
-            const preview = wrapper.querySelector('.color-preview');
-
-            if (textInput && colorInput && preview) {
-                textInput.addEventListener('input', () => {
-                    const color = textInput.value;
-                    if (isValidHex(color)) {
-                        colorInput.value = color;
-                        preview.style.background = color;
-                    }
-                });
-
-                colorInput.addEventListener('input', () => {
-                    const color = colorInput.value.toUpperCase();
-                    textInput.value = color;
-                    preview.style.background = color;
-                });
-            }
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Text input change
+        textInput.addEventListener('input', () => {
+            const color = textInput.value;
+            if (/^#[0-9A-F]{6}$/i.test(color)) {
+                pickerInput.value = color.toLowerCase();
+                previewDiv.style.background = color;
+                previewDiv.style.setProperty('--preview-color', color);
+                
+                // Trigger consciousness pulse
+                if (window.ConsciousnessSystem) {
+                    ConsciousnessSystem.pulseFrequency();
                 }
-            });
-        });
-    }
-
-    /**
-     * Initialize color pickers with industry defaults
-     */
-    function initColorPickers() {
-        const industrySelect = document.getElementById('industry');
-        const primaryInput = document.getElementById('primaryColor');
-        const secondaryInput = document.getElementById('secondaryColor');
-        const primaryPreview = document.getElementById('primaryPreview');
-        const secondaryPreview = document.getElementById('secondaryPreview');
-        const primaryPicker = document.getElementById('primaryColorPicker');
-        const secondaryPicker = document.getElementById('secondaryColorPicker');
-
-        if (industrySelect) {
-            industrySelect.addEventListener('change', function() {
-                const colors = INDUSTRY_COLORS[this.value];
-                if (colors) {
-                    // Animate color change
-                    animateColorChange(primaryPreview, colors.primary);
-                    animateColorChange(secondaryPreview, colors.secondary);
-                    
-                    setTimeout(() => {
-                        primaryInput.value = colors.primary;
-                        primaryPicker.value = colors.primary;
-                        secondaryInput.value = colors.secondary;
-                        secondaryPicker.value = colors.secondary;
-                        
-                        showToast(`Colors optimized for ${this.value}`, 'info');
-                    }, 300);
-                }
-            });
-        }
-    }
-
-    /**
-     * Animate color transition
-     */
-    function animateColorChange(element, newColor) {
-        element.style.transition = 'background-color 0.3s ease';
-        element.style.background = newColor;
-    }
-
-    /**
-     * Initialize file upload with drag-drop and validation
-     */
-    function initFileUpload() {
-        const uploadZone = document.getElementById('uploadZone');
-        const fileInput = document.getElementById('logoInput');
-        const filePreview = document.getElementById('filePreview');
-        const previewImg = document.getElementById('previewImg');
-        const fileName = document.getElementById('fileName');
-        const fileSize = document.getElementById('fileSize');
-        const removeBtn = document.getElementById('removeFile');
-
-        if (!uploadZone || !fileInput) return;
-
-        // Click to upload
-        uploadZone.addEventListener('click', () => fileInput.click());
-
-        // Drag and drop
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            uploadZone.addEventListener(eventName, preventDefaults, false);
-        });
-
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-        ['dragenter', 'dragover'].forEach(eventName => {
-            uploadZone.addEventListener(eventName, () => {
-                uploadZone.classList.add('drag-active');
-            });
-        });
-
-        ['dragleave', 'drop'].forEach(eventName => {
-            uploadZone.addEventListener(eventName, () => {
-                uploadZone.classList.remove('drag-active');
-            });
-        });
-
-        uploadZone.addEventListener('drop', (e) => {
-            const files = e.dataTransfer.files;
-            if (files.length) handleFile(files[0]);
-        });
-
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length) handleFile(e.target.files[0]);
-        });
-
-        removeBtn?.addEventListener('click', (e) => {
-            e.preventDefault();
-            resetUpload();
-        });
-
-        function handleFile(file) {
-            // Validate
-            if (!file.type.startsWith('image/')) {
-                showError('Please upload an image file (PNG, JPG, SVG)');
-                return;
             }
+        });
+        
+        // Color picker change
+        pickerInput.addEventListener('input', () => {
+            const color = pickerInput.value.toUpperCase();
+            textInput.value = color;
+            previewDiv.style.background = color;
+            previewDiv.style.setProperty('--preview-color', color);
+        });
+    });
+}
 
-            if (file.size > CONFIG.MAX_LOGO_SIZE) {
-                showError(`File too large. Maximum size is ${formatFileSize(CONFIG.MAX_LOGO_SIZE)}`);
-                return;
-            }
+/**
+ * Update color from picker
+ */
+function updateColor(type, value) {
+    const upper = value.toUpperCase();
+    document.getElementById(`${type}Color`).value = upper;
+    document.getElementById(`${type}Preview`).style.background = upper;
+}
 
-            state.logoFile = file;
-
-            // Read and process
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = new Image();
-                img.onload = () => {
-                    // Optimize for 1224x1536 display
-                    const optimized = optimizeLogo(img);
-                    state.logoBase64 = optimized;
-                    
-                    // Update UI
-                    previewImg.src = optimized;
-                    fileName.textContent = file.name;
-                    fileSize.textContent = formatFileSize(file.size);
-                    
-                    uploadZone.style.display = 'none';
-                    filePreview.classList.add('show');
-                    
-                    showToast('Logo uploaded successfully', 'success');
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function resetUpload() {
-            fileInput.value = '';
-            state.logoFile = null;
-            state.logoBase64 = null;
+/**
+ * Industry selector with color recommendations
+ */
+function initIndustrySelector() {
+    const industryColors = {
+        'Jewelry & Gold': { primary: '#D4AF37', secondary: '#1C1C1C' },
+        'Café & Restaurant': { primary: '#8B4513', secondary: '#F5DEB3' },
+        'Fashion & Clothing': { primary: '#FF6B6B', secondary: '#4ECDC4' },
+        'Technology & IT': { primary: '#00D9FF', secondary: '#0A192F' },
+        'Healthcare & Medical': { primary: '#00A86B', secondary: '#FFFFFF' },
+        'Education & Training': { primary: '#4169E1', secondary: '#FFD700' },
+        'Real Estate': { primary: '#2F4F4F', secondary: '#F5F5DC' },
+        'Automotive': { primary: '#DC143C', secondary: '#C0C0C0' },
+        'Beauty & Cosmetics': { primary: '#FF1493', secondary: '#FFF0F5' },
+        'Construction & Materials': { primary: '#B8860B', secondary: '#8B4513' },
+        'Consultancy & Services': { primary: '#4B0082', secondary: '#FFD700' },
+        'Retail & Shopping': { primary: '#FF4500', secondary: '#FFD700' },
+        'Travel & Hospitality': { primary: '#20B2AA', secondary: '#F0E68C' },
+        'Agriculture': { primary: '#228B22', secondary: '#F5DEB3' },
+        'Handicrafts': { primary: '#8B4513', secondary: '#DEB887' }
+    };
+    
+    const select = document.getElementById('industry');
+    if (!select) return;
+    
+    select.addEventListener('change', function() {
+        const colors = industryColors[this.value];
+        if (colors) {
+            // Animate color change
+            updateColor('primary', colors.primary);
+            updateColor('secondary', colors.secondary);
             
-            uploadZone.style.display = 'block';
-            filePreview.classList.remove('show');
-            previewImg.src = '';
+            showToast(`Colors optimized for ${this.value}`, 'success');
         }
+    });
+}
+
+/**
+ * File upload handlers
+ */
+function handleDragOver(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add('drag-active');
+}
+
+function handleDragLeave(e) {
+    e.currentTarget.classList.remove('drag-active');
+}
+
+function handleDrop(e) {
+    e.preventDefault();
+    e.currentTarget.classList.remove('drag-active');
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        processFile(files[0]);
     }
+}
 
-    /**
-     * Optimize logo for display and processing
-     */
-    function optimizeLogo(img) {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        
-        // Max dimensions for processing
-        const maxSize = 800;
-        let width = img.width;
-        let height = img.height;
-        
-        if (width > maxSize || height > maxSize) {
-            if (width > height) {
-                height = (height / width) * maxSize;
-                width = maxSize;
-            } else {
-                width = (width / height) * maxSize;
-                height = maxSize;
-            }
-        }
-        
-        canvas.width = width;
-        canvas.height = height;
-        ctx.drawImage(img, 0, 0, width, height);
-        
-        return canvas.toDataURL('image/png', 0.9);
+function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (file) {
+        processFile(file);
     }
+}
 
-    /**
-     * Initialize industry selector with visual feedback
-     */
-    function initIndustrySelector() {
-        const select = document.getElementById('industry');
-        if (!select) return;
-
-        // Add visual indicator for selection
-        select.addEventListener('change', function() {
-            if (this.value) {
-                this.classList.add('selected');
-                const colors = INDUSTRY_COLORS[this.value];
-                if (colors) {
-                    showToast(`Recommended colors loaded for ${this.value}`, 'info', 3000);
+function processFile(file) {
+    // Validate
+    if (!file.type.startsWith('image/')) {
+        showToast('Please upload an image file', 'error');
+        return;
+    }
+    
+    if (file.size > 2 * 1024 * 1024) {
+        showToast('File too large. Maximum 2MB', 'error');
+        return;
+    }
+    
+    AppState.logoFile = file;
+    
+    // Read and optimize
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+            // Optimize for 1224x1536 display
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            const maxSize = 800;
+            let w = img.width, h = img.height;
+            
+            if (w > maxSize || h > maxSize) {
+                if (w > h) {
+                    h = (h / w) * maxSize;
+                    w = maxSize;
+                } else {
+                    w = (w / h) * maxSize;
+                    h = maxSize;
                 }
             }
-        });
-    }
-
-    /**
-     * Initialize form validation
-     */
-    function initFormValidation() {
-        const inputs = document.querySelectorAll('input[required], select[required], textarea[required]');
-        
-        inputs.forEach(input => {
-            input.addEventListener('blur', () => validateField(input));
-            input.addEventListener('input', () => {
-                if (input.classList.contains('error')) {
-                    validateField(input);
-                }
-            });
-        });
-    }
-
-    /**
-     * Validate single field
-     */
-    function validateField(field) {
-        const value = field.value.trim();
-        let isValid = true;
-        let message = '';
-
-        if (!value) {
-            isValid = false;
-            message = 'This field is required';
-        } else if (field.type === 'color' || field.id.includes('Color')) {
-            if (!isValidHex(value)) {
-                isValid = false;
-                message = 'Please enter a valid hex color (e.g., #6B21A8)';
-            }
-        }
-
-        // Update UI
-        field.classList.toggle('error', !isValid);
-        field.classList.toggle('valid', isValid);
-
-        // Show/hide error message
-        let errorEl = field.parentElement.querySelector('.field-error');
-        if (!isValid) {
-            if (!errorEl) {
-                errorEl = document.createElement('span');
-                errorEl.className = 'field-error';
-                field.parentElement.appendChild(errorEl);
-            }
-            errorEl.textContent = message;
-        } else if (errorEl) {
-            errorEl.remove();
-        }
-
-        return isValid;
-    }
-
-    /**
-     * Handle form submission
-     */
-    async function handleSubmit(e) {
-        e.preventDefault();
-        
-        if (state.isSubmitting) return;
-        
-        // Validate all required fields
-        const requiredFields = document.querySelectorAll('[required]');
-        let allValid = true;
-        
-        requiredFields.forEach(field => {
-            if (!validateField(field)) allValid = false;
-        });
-
-        if (!allValid) {
-            showError('Please fill in all required fields correctly');
-            return;
-        }
-
-        if (!state.logoBase64) {
-            showError('Please upload your brand logo');
-            return;
-        }
-
-        // Start submission
-        state.isSubmitting = true;
-        const submitBtn = document.getElementById('submitBtn');
-        const originalText = submitBtn.innerHTML;
-        
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `
-            <div class="spinner"></div>
-            <span>Creating your undeniable sample...</span>
-        `;
-
-        // Collect form data
-        const formData = {
-            brand_name: document.getElementById('brandName').value.trim(),
-            local_name: document.getElementById('localName').value.trim(),
-            industry: document.getElementById('industry').value,
-            location: document.getElementById('location').value,
-            primary_color: document.getElementById('primaryColor').value.toUpperCase(),
-            secondary_color: document.getElementById('secondaryColor').value.toUpperCase(),
-            target_audience: document.getElementById('targetAudience').value.trim(),
-            key_offerings: document.getElementById('keyOfferings').value.trim(),
-            unique_value: document.getElementById('uniqueValue')?.value.trim() || '',
-            contact_info: document.getElementById('contact').value.trim(),
-            logo_base64: state.logoBase64,
-            signup_date: new Date().toISOString(),
-            request_sample: true,
-            meta_specs: {
-                width: CONFIG.TARGET_WIDTH,
-                height: CONFIG.TARGET_HEIGHT,
-                aspect_ratio: CONFIG.ASPECT_RATIO,
-                platforms: ['instagram_feed', 'instagram_story', 'facebook_feed']
+            
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(img, 0, 0, w, h);
+            
+            AppState.logoBase64 = canvas.toDataURL('image/png', 0.9);
+            
+            // Show preview
+            document.getElementById('previewImg').src = AppState.logoBase64;
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = formatFileSize(file.size);
+            document.getElementById('filePreview').style.display = 'flex';
+            document.getElementById('uploadZone').style.display = 'none';
+            
+            showToast('Logo uploaded successfully', 'success');
+            
+            // Consciousness boost
+            if (window.ConsciousnessSystem) {
+                ConsciousnessSystem.setFrequency('gamma');
             }
         };
-
-        // Store for success page
-        sessionStorage.setItem('maseer_registration', JSON.stringify(formData));
-        
-        // Simulate processing delay for UX
-        await new Promise(r => setTimeout(r, 1500));
-        
-        // Redirect to success page
-        window.location.href = 'success.html';
-    }
-
-    /**
-     * Animate campaign preview cards
-     */
-    function animateCampaignCards() {
-        const cards = document.querySelectorAll('.campaign-card');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('animate-in');
-                    }, index * 150);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        cards.forEach(card => observer.observe(card));
-    }
-
-    /**
-     * Utility: Validate hex color
-     */
-    function isValidHex(hex) {
-        return /^#[0-9A-F]{6}$/i.test(hex);
-    }
-
-    /**
-     * Utility: Format file size
-     */
-    function formatFileSize(bytes) {
-        if (bytes === 0) return '0 Bytes';
-        const k = 1024;
-        const sizes = ['Bytes', 'KB', 'MB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    }
-
-    /**
-     * Show error message
-     */
-    function showError(message) {
-        const alert = document.getElementById('errorAlert');
-        if (alert) {
-            alert.textContent = message;
-            alert.className = 'alert alert-error show';
-            setTimeout(() => alert.classList.remove('show'), 5000);
-        }
-    }
-
-    /**
-     * Show toast notification
-     */
-    function showToast(message, type = 'info', duration = 3000) {
-        // Create toast if doesn't exist
-        let toast = document.getElementById('toast');
-        if (!toast) {
-            toast = document.createElement('div');
-            toast.id = 'toast';
-            toast.style.cssText = `
-                position: fixed;
-                bottom: 2rem;
-                right: 2rem;
-                padding: 1rem 1.5rem;
-                border-radius: 0.75rem;
-                font-weight: 500;
-                z-index: 1000;
-                transform: translateX(400px);
-                transition: transform 0.3s ease;
-            `;
-            document.body.appendChild(toast);
-        }
-
-        // Style based on type
-        const colors = {
-            success: 'background: rgba(16, 185, 129, 0.9); color: white;',
-            error: 'background: rgba(239, 68, 68, 0.9); color: white;',
-            info: 'background: rgba(107, 33, 168, 0.9); color: white;'
-        };
-        
-        toast.style.cssText += colors[type] || colors.info;
-        toast.textContent = message;
-        toast.style.transform = 'translateX(0)';
-
-        setTimeout(() => {
-            toast.style.transform = 'translateX(400px)';
-        }, duration);
-    }
-
-    // Public API
-    return {
-        init,
-        CONFIG,
-        CAMPAIGNS
+        img.src = e.target.result;
     };
-})();
+    reader.readAsDataURL(file);
+}
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', MaseerApp.init);
-} else {
-    MaseerApp.init();
+function removeFile() {
+    AppState.logoFile = null;
+    AppState.logoBase64 = null;
+    
+    document.getElementById('logoInput').value = '';
+    document.getElementById('filePreview').style.display = 'none';
+    document.getElementById('uploadZone').style.display = 'block';
+}
+
+/**
+ * Form submission
+ */
+function handleSubmit(e) {
+    e.preventDefault();
+    
+    if (AppState.isSubmitting) return;
+    
+    // Validate
+    if (!AppState.logoBase64) {
+        showToast('Please upload your logo', 'error');
+        return;
+    }
+    
+    AppState.isSubmitting = true;
+    
+    // Update button
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner"></div><span>Creating...</span>';
+    
+    // Collect data
+    const formData = {
+        brand_name: document.getElementById('brandName').value.trim(),
+        local_name: document.getElementById('localName').value.trim(),
+        industry: document.getElementById('industry').value,
+        primary_color: document.getElementById('primaryColor').value,
+        secondary_color: document.getElementById('secondaryColor').value,
+        target_audience: document.getElementById('targetAudience').value.trim(),
+        key_offerings: document.getElementById('keyOfferings').value.trim(),
+        contact_info: document.getElementById('contact').value.trim(),
+        logo_base64: AppState.logoBase64,
+        language: I18n.getCurrentLang(),
+        signup_date: new Date().toISOString(),
+        request_sample: true,
+        meta_specs: {
+            width: 1224,
+            height: 1536,
+            aspect_ratio: "4:5"
+        }
+    };
+    
+    // Store and redirect
+    sessionStorage.setItem('maseer_registration', JSON.stringify(formData));
+    
+    // Consciousness climax
+    if (window.ConsciousnessSystem) {
+        ConsciousnessSystem.setFrequency('gamma');
+        document.documentElement.style.setProperty('--glow-intensity', '2');
+    }
+    
+    setTimeout(() => {
+        window.location.href = 'success.html';
+    }, 1000);
+    
+    return false;
+}
+
+/**
+ * Campaign card interactions
+ */
+function initCampaignCards() {
+    const cards = document.querySelectorAll('.campaign-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const type = card.dataset.campaign;
+            const frequencies = {
+                morning: 'theta',
+                midday: 'alpha',
+                evening: 'beta',
+                night: 'gamma'
+            };
+            
+            if (window.ConsciousnessSystem && frequencies[type]) {
+                ConsciousnessSystem.setFrequency(frequencies[type]);
+            }
+        });
+    });
+}
+
+function highlightCampaign(type) {
+    // Visual feedback
+    const card = document.querySelector(`[data-campaign="${type}"]`);
+    if (card) {
+        card.style.transform = 'scale(1.05)';
+        setTimeout(() => {
+            card.style.transform = '';
+        }, 300);
+    }
+    
+    scrollToForm();
+}
+
+/**
+ * Smooth scroll
+ */
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+}
+
+function scrollToForm() {
+    document.getElementById('formSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+/**
+ * Toast notifications
+ */
+function showToast(message, type = 'info') {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    
+    const colors = {
+        success: 'background: rgba(16, 185, 129, 0.95); color: white;',
+        error: 'background: rgba(239, 68, 68, 0.95); color: white;',
+        info: 'background: rgba(107, 33, 168, 0.95); color: white;'
+    };
+    
+    toast.style.cssText = colors[type] || colors.info;
+    toast.textContent = message;
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+/**
+ * Utilities
+ */
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
