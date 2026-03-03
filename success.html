@@ -217,7 +217,6 @@
             box-shadow: 0 15px 30px rgba(107, 33, 168, 0.4);
         }
         
-        /* Language switcher */
         .lang-switcher {
             position: fixed;
             top: 1.5rem;
@@ -393,15 +392,12 @@
             document.getElementById('btnAnother').textContent = t.btnAnother;
         }
         
-        // Initialize
         formData = JSON.parse(sessionStorage.getItem('maseer_registration') || '{}');
         document.getElementById('brandName').textContent = formData.brand_name || 'Your Brand';
         
-        // Detect language
         const saved = localStorage.getItem('maseer_lang');
         if (saved) setLang(saved);
         
-        // Simulate GitHub issue creation
         setTimeout(() => {
             const issueNum = Math.floor(Math.random() * 1000) + 1;
             const t = translations[currentLang];
@@ -409,7 +405,6 @@
             msg.textContent = t.successMsg.replace('{issue}', issueNum);
             msg.classList.add('show');
             
-            // Update step
             document.querySelector('.step.active').classList.remove('active');
             document.querySelector('.step:last-child').classList.add('active');
         }, 2000);
