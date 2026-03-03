@@ -15,58 +15,27 @@
             --maseer-purple: #6B21A8;
             --maseer-gold: #EAB308;
             --maseer-dark: #0A0A0F;
-            --freq-calm: #1e3a5f;
-            --freq-focus: #4c1d95;
-            --freq-energy: #dc2626;
-            --freq-transform: #059669;
-            --active-frequency: var(--freq-focus);
-            --glow-intensity: 0.5;
-            --meta-width: 1224px;
-            --meta-height: 1536px;
+            --success: #10B981;
+            --error: #EF4444;
             --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        [dir="rtl"] {
-            font-family: 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Inter', sans-serif;
-        }
+        /* Previous styles remain... */
+        [dir="rtl"] { font-family: 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Inter', sans-serif; }
         
         @keyframes breathe {
             0%, 100% { transform: scale(1); opacity: 0.8; }
             50% { transform: scale(1.02); opacity: 1; }
         }
         
-        @keyframes frequencyPulse {
-            0%, 100% { box-shadow: 0 0 20px var(--active-frequency); filter: hue-rotate(0deg); }
-            50% { box-shadow: 0 0 60px var(--active-frequency); filter: hue-rotate(5deg); }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.3); opacity: 0; }
         }
         
-        @keyframes consciousnessFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         
-        @keyframes attractAttention {
-            0%, 100% { transform: translateY(0) scale(1); }
-            25% { transform: translateY(-5px) scale(1.02); }
-            75% { transform: translateY(5px) scale(0.98); }
-        }
-        
-        @keyframes neuralGlow {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-        
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
+        html { scroll-behavior: smooth; font-size: 16px; }
         
         body {
             font-family: 'Inter', 'Noto Naskh Arabic', sans-serif;
@@ -75,979 +44,420 @@
             line-height: 1.6;
             min-height: 100vh;
             overflow-x: hidden;
-            transition: var(--transition-smooth);
         }
         
         .consciousness-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: linear-gradient(
-                -45deg,
-                var(--maseer-dark),
-                var(--active-frequency),
-                var(--maseer-purple),
-                var(--maseer-dark)
-            );
-            background-size: 400% 400%;
-            animation: consciousnessFlow 15s ease infinite;
-            opacity: 0.15;
-            transition: var(--transition-smooth);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: linear-gradient(-45deg, var(--maseer-dark), #4c1d95, var(--maseer-purple), var(--maseer-dark));
+            background-size: 400% 400%; animation: gradient 15s ease infinite; opacity: 0.15;
         }
         
-        .neural-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(107, 33, 168, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(234, 179, 8, 0.1) 0%, transparent 50%);
-            animation: neuralGlow 8s ease-in-out infinite;
-            pointer-events: none;
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
-        .frequency-indicator {
-            position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.7);
-            transition: var(--transition-smooth);
+        /* AUTH MODAL STYLES */
+        .auth-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.9); 
+            backdrop-filter: blur(10px); z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            padding: 1rem;
         }
         
-        .frequency-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--active-frequency);
-            animation: frequencyPulse 3s infinite;
+        .auth-modal {
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.95), rgba(18, 18, 26, 0.98));
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 2rem;
+            padding: 3rem; max-width: 480px; width: 100%;
+            text-align: center; animation: slideUp 0.5s ease;
         }
         
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .auth-modal h2 {
+            font-size: 1.75rem; margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff, var(--maseer-gold));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        
+        .auth-modal p { color: rgba(255,255,255,0.6); margin-bottom: 2rem; }
+        
+        .social-login {
+            display: grid; gap: 1rem; margin-bottom: 2rem;
+        }
+        
+        .btn-social {
+            width: 100%; padding: 1rem; border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05); color: white; border-radius: 1rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            gap: 0.75rem; font-size: 1rem; transition: all 0.3s;
+        }
+        
+        .btn-social:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        
+        .divider {
+            display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0;
+            color: rgba(255,255,255,0.4); font-size: 0.875rem;
+        }
+        
+        .divider::before, .divider::after {
+            content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1);
+        }
+        
+        .phone-input-group {
+            display: flex; gap: 0.75rem; margin-bottom: 1rem;
+        }
+        
+        .phone-input-group input { flex: 1; }
+        
+        .btn-otp {
+            padding: 0 1.5rem; background: var(--maseer-purple); color: white;
+            border: none; border-radius: 0.75rem; cursor: pointer; font-weight: 600;
+            white-space: nowrap; transition: all 0.3s;
+        }
+        
+        .btn-otp:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .btn-otp:hover:not(:disabled) { background: #7C3AED; }
+        
+        .otp-section { display: none; animation: fadeIn 0.3s; }
+        .otp-section.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .hidden { display: none !important; }
+        
+        /* MAIN CONTENT (Hidden until auth) */
+        .main-content { display: none; }
+        .main-content.authenticated { display: block; animation: fadeIn 0.5s; }
+        
+        /* VIDEO PLAYER SECTION */
+        .video-section {
+            display: none; background: linear-gradient(145deg, rgba(26,26,46,0.9), rgba(18,18,26,0.95));
+            border: 2px solid var(--maseer-gold); border-radius: 2rem;
+            padding: 2rem; margin: 2rem 0; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        
+        .video-section.active { display: block; animation: pulse-border 2s infinite; }
+        
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 20px rgba(234,179,8,0.2); }
+            50% { box-shadow: 0 0 40px rgba(234,179,8,0.4); }
+        }
+        
+        .video-container {
+            position: relative; padding-bottom: 125%; /* 4:5 aspect ratio */
+            background: #000; border-radius: 1rem; overflow: hidden; margin: 1.5rem 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        .video-container video {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Prevent download overlay */
+        .video-overlay {
+            position: absolute; inset: 0; z-index: 10; 
+            background: transparent; cursor: default;
+        }
+        
+        .subscribe-section {
+            background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 1.5rem; padding: 2rem; margin-top: 2rem;
+        }
+        
+        .btn-subscribe {
+            display: inline-flex; align-items: center; gap: 0.75rem;
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white; border: none; padding: 1.25rem 3rem;
+            border-radius: 1rem; font-size: 1.125rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s; margin: 1rem 0;
+            box-shadow: 0 10px 30px rgba(16,185,129,0.3);
+            text-decoration: none;
+        }
+        
+        .btn-subscribe:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(16,185,129,0.4);
+        }
+        
+        .sms-instruction {
+            color: rgba(255,255,255,0.6); font-size: 0.875rem; margin-top: 1rem;
+            padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 0.75rem;
+        }
+        
+        /* FORM STYLES (Previous + New) */
+        .form-group { margin-bottom: 1.5rem; position: relative; }
+        
+        label { display: block; font-weight: 500; margin-bottom: 0.5rem; color: rgba(255,255,255,0.9); }
+        
+        .required::after { content: " *"; color: var(--error); }
+        
+        input, select {
+            width: 100%; padding: 1rem 1.25rem; background: rgba(0,0,0,0.4);
+            border: 2px solid rgba(255,255,255,0.1); border-radius: 1rem;
+            color: white; font-size: 1rem; transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none; border-color: var(--maseer-purple);
+            background: rgba(0,0,0,0.5); box-shadow: 0 0 20px rgba(107,33,168,0.2);
+        }
+        
+        .verification-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            color: var(--success); font-size: 0.875rem; margin-top: 0.5rem;
+        }
+        
+        /* Header */
+        .header { padding: 2rem; display: flex; justify-content: space-between; align-items: center; }
+        
+        .user-menu {
+            display: flex; align-items: center; gap: 1rem;
+            background: rgba(255,255,255,0.05); padding: 0.5rem 1rem;
+            border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .btn-logout {
+            background: transparent; border: 1px solid rgba(239,68,68,0.3);
+            color: #FCA5A5; padding: 0.5rem 1rem; border-radius: 0.5rem;
+            cursor: pointer; font-size: 0.875rem;
+        }
+        
+        /* Rest of previous styles... */
         .lang-switcher {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            z-index: 1000;
-            display: flex;
-            gap: 0.5rem;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(20px);
-            padding: 0.5rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed; top: 1.5rem; right: 1.5rem; z-index: 100;
+            display: flex; gap: 0.5rem; background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(20px); padding: 0.5rem; border-radius: 1rem;
         }
         
         .lang-btn {
-            padding: 0.5rem 1rem;
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.875rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 0.75rem;
-            transition: var(--transition-smooth);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .lang-btn:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem; background: transparent; border: none;
+            color: rgba(255,255,255,0.6); font-weight: 600; cursor: pointer;
+            border-radius: 0.75rem; transition: all 0.3s;
         }
         
         .lang-btn.active {
             background: linear-gradient(135deg, var(--maseer-purple), var(--maseer-gold));
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(107, 33, 168, 0.4);
-        }
-        
-        [dir="rtl"] .lang-switcher {
-            right: auto;
-            left: 1.5rem;
-        }
-        
-        .header {
-            padding: 2rem 1.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        
-        .logo-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            animation: breathe 6s ease-in-out infinite;
-        }
-        
-        .maseer-logo {
-            width: 180px;
-            height: auto;
-            filter: drop-shadow(0 0 30px rgba(107, 33, 168, 0.5));
-            transition: var(--transition-smooth);
-        }
-        
-        .maseer-logo:hover {
-            filter: drop-shadow(0 0 50px rgba(234, 179, 8, 0.6));
-            transform: scale(1.05);
-        }
-        
-        .tagline {
-            font-size: 1.125rem;
-            color: rgba(255, 255, 255, 0.7);
-            text-align: center;
-            max-width: 600px;
-            line-height: 1.7;
-        }
-        
-        .hero {
-            padding: 3rem 1.5rem 4rem;
-            text-align: center;
-            position: relative;
-        }
-        
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: linear-gradient(
-                135deg,
-                rgba(107, 33, 168, 0.3),
-                rgba(234, 179, 8, 0.2)
-            );
-            border: 1px solid rgba(234, 179, 8, 0.3);
-            padding: 1rem 2rem;
-            border-radius: 9999px;
-            font-size: 0.9375rem;
-            color: var(--maseer-gold);
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-            animation: attractAttention 4s ease-in-out infinite;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-        
-        .hero-badge:hover {
-            animation: none;
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(234, 179, 8, 0.4);
-        }
-        
-        .campaigns-section {
-            padding: 4rem 1.5rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .campaigns-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-        
-        .campaign-card {
-            background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(18, 18, 26, 0.9));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1.5rem;
-            padding: 2.5rem 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition-smooth);
-            cursor: pointer;
-        }
-        
-        .campaign-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--card-color);
-            transition: height 0.3s;
-        }
-        
-        .campaign-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--card-color);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 40px var(--card-glow);
-        }
-        
-        .campaign-card:hover::before {
-            height: 100%;
-            opacity: 0.1;
-        }
-        
-        .campaign-card[data-campaign="morning"] {
-            --card-color: #60A5FA;
-            --card-glow: rgba(96, 165, 250, 0.3);
-        }
-        
-        .campaign-card[data-campaign="midday"] {
-            --card-color: #D97706;
-            --card-glow: rgba(217, 119, 6, 0.3);
-        }
-        
-        .campaign-card[data-campaign="evening"] {
-            --card-color: #A855F7;
-            --card-glow: rgba(168, 85, 247, 0.3);
-        }
-        
-        .campaign-card[data-campaign="night"] {
-            --card-color: #EC4899;
-            --card-glow: rgba(236, 72, 153, 0.3);
-        }
-        
-        .campaign-time {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--card-color);
-            margin-bottom: 0.5rem;
-            line-height: 1;
-        }
-        
-        .campaign-lang {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255,255,255,0.1);
-            padding: 0.375rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        
-        .campaign-title {
-            font-size: 1.375rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-        
-        .campaign-desc {
-            color: rgba(255,255,255,0.6);
-            font-size: 0.9375rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-        
-        .campaign-energy {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.8125rem;
-            color: rgba(255,255,255,0.5);
-        }
-        
-        .energy-wave {
-            display: flex;
-            gap: 3px;
-            height: 20px;
-            align-items: end;
-        }
-        
-        .energy-bar {
-            width: 3px;
-            background: var(--card-color);
-            border-radius: 2px;
-            animation: wave 1s ease-in-out infinite;
-        }
-        
-        .energy-bar:nth-child(1) { height: 40%; animation-delay: 0s; }
-        .energy-bar:nth-child(2) { height: 70%; animation-delay: 0.1s; }
-        .energy-bar:nth-child(3) { height: 100%; animation-delay: 0.2s; }
-        .energy-bar:nth-child(4) { height: 60%; animation-delay: 0.3s; }
-        .energy-bar:nth-child(5) { height: 80%; animation-delay: 0.4s; }
-        
-        @keyframes wave {
-            0%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(0.6); }
-        }
-        
-        .form-section {
-            padding: 4rem 1.5rem;
-            max-width: 900px;
-            margin: 0 auto;
+            color: white;
         }
         
         .form-container {
-            background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(18, 18, 26, 0.95));
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 2rem;
-            padding: 3rem;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(20px);
-            animation: frequencyPulse 4s infinite;
-        }
-        
-        .form-container::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 2rem;
-            padding: 2px;
-            background: linear-gradient(
-                135deg,
-                var(--active-frequency),
-                var(--maseer-purple),
-                var(--maseer-gold),
-                var(--active-frequency)
-            );
-            background-size: 300% 300%;
-            animation: consciousnessFlow 8s ease infinite;
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-        
-        .form-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .form-header h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-        
-        .form-header p {
-            color: rgba(255,255,255,0.6);
-            font-size: 1.0625rem;
-        }
-        
-        .sample-promise {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            background: linear-gradient(
-                135deg,
-                rgba(16, 185, 129, 0.15),
-                rgba(16, 185, 129, 0.05)
-            );
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .promise-icon {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #10B981, #059669);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.75rem;
-            flex-shrink: 0;
-            animation: breathe 4s ease-in-out infinite;
-        }
-        
-        .form-group {
-            margin-bottom: 2rem;
-            position: relative;
-        }
-        
-        label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 0.75rem;
-            font-size: 0.9375rem;
-            color: rgba(255,255,255,0.9);
-            transition: var(--transition-smooth);
-        }
-        
-        .form-group:focus-within label {
-            color: var(--active-frequency);
-            transform: translateX(5px);
-        }
-        
-        .required::after {
-            content: " *";
-            color: #EF4444;
-        }
-        
-        input, select, textarea {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            color: #ffffff;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: var(--transition-smooth);
-        }
-        
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--active-frequency);
-            background: rgba(0, 0, 0, 0.5);
-            box-shadow: 0 0 30px rgba(107, 33, 168, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .color-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-        
-        .color-wrapper {
-            position: relative;
-        }
-        
-        .color-preview {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 3px solid rgba(255,255,255,0.2);
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        
-        .color-preview:hover {
-            transform: translateY(-50%) scale(1.15);
-            box-shadow: 0 0 20px var(--preview-color, #fff);
-        }
-        
-        input[type="color"] {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 36px;
-            height: 36px;
-            opacity: 0;
-            cursor: pointer;
-        }
-        
-        .upload-zone {
-            border: 2px dashed rgba(255, 255, 255, 0.2);
-            border-radius: 1rem;
-            padding: 3rem 2rem;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            background: rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .upload-zone::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, var(--active-frequency) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .upload-zone:hover, .upload-zone.drag-active {
-            border-color: var(--active-frequency);
-            background: rgba(107, 33, 168, 0.1);
-            transform: scale(1.02);
-        }
-        
-        .upload-zone:hover::before, .upload-zone.drag-active::before {
-            opacity: 0.1;
-        }
-        
-        .upload-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-            transition: transform 0.3s;
-        }
-        
-        .upload-zone:hover .upload-icon {
-            transform: scale(1.2) translateY(-5px);
+            max-width: 800px; margin: 0 auto; padding: 2rem;
+            background: linear-gradient(145deg, rgba(26,26,46,0.9), rgba(18,18,26,0.95));
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 2rem;
         }
         
         .submit-btn {
-            width: 100%;
-            padding: 1.25rem 2rem;
-            background: linear-gradient(
-                135deg,
-                var(--maseer-purple) 0%,
-                #7C3AED 50%,
-                var(--maseer-gold) 100%
-            );
-            background-size: 200% 200%;
-            color: #ffffff;
-            border: none;
-            border-radius: 1rem;
-            font-size: 1.125rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            position: relative;
-            overflow: hidden;
-            animation: consciousnessFlow 3s ease infinite;
-            box-shadow: 0 10px 40px rgba(107, 33, 168, 0.4);
+            width: 100%; padding: 1.25rem; background: linear-gradient(135deg, var(--maseer-purple), var(--maseer-gold));
+            color: white; border: none; border-radius: 1rem; font-size: 1.125rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s; margin-top: 1rem;
         }
         
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
+        .submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(107,33,168,0.4); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         
-        .submit-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 20px 60px rgba(107, 33, 168, 0.6);
-        }
-        
-        .submit-btn:hover::before {
-            opacity: 1;
-            animation: rotate 2s linear infinite;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .alert {
-            padding: 1.25rem;
-            border-radius: 1rem;
-            margin-bottom: 2rem;
-            display: none;
-            font-weight: 500;
-            animation: slideIn 0.4s ease;
-        }
-        
-        .alert.show {
-            display: block;
-        }
-        
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .alert-error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #FCA5A5;
-        }
-        
-        #toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            padding: 1rem 1.5rem;
-            border-radius: 1rem;
-            font-weight: 500;
-            z-index: 1000;
-            transform: translateX(400px);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            max-width: 400px;
-        }
-        
-        #toast.show {
-            transform: translateX(0);
-        }
-        
-        footer {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.9375rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 2rem;
-        }
-        
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-            color: var(--maseer-gold);
-            font-weight: 600;
-        }
+        .alert { padding: 1rem; border-radius: 0.75rem; margin-bottom: 1rem; display: none; }
+        .alert.show { display: block; }
+        .alert-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #FCA5A5; }
+        .alert-success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: #6EE7B7; }
         
         @media (max-width: 768px) {
-            .lang-switcher {
-                top: 1rem;
-                right: 1rem;
-                padding: 0.375rem;
-            }
-            
-            .lang-btn {
-                padding: 0.375rem 0.75rem;
-                font-size: 0.75rem;
-            }
-            
-            [dir="rtl"] .lang-switcher {
-                right: auto;
-                left: 1rem;
-            }
-            
-            .maseer-logo {
-                width: 140px;
-            }
-            
-            .campaigns-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .color-group {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-container {
-                padding: 2rem 1.5rem;
-                border-radius: 1.5rem;
-            }
-            
-            .frequency-indicator {
-                bottom: 1rem;
-                left: 1rem;
-                font-size: 0.6875rem;
-            }
-        }
-        
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-        
-        *:focus-visible {
-            outline: 2px solid var(--active-frequency);
-            outline-offset: 2px;
+            .auth-modal { padding: 2rem 1.5rem; }
+            .phone-input-group { flex-direction: column; }
+            .video-section { margin: 1rem; padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
-    <div class="consciousness-bg" id="consciousnessBg"></div>
-    <div class="neural-overlay"></div>
+    <div class="consciousness-bg"></div>
     
-    <div class="frequency-indicator" id="frequencyIndicator">
-        <div class="frequency-dot"></div>
-        <span id="frequencyText">Focus State: Alpha 8-13Hz</span>
-    </div>
-    
-    <div class="lang-switcher" id="langSwitcher">
-        <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
-        <button class="lang-btn" data-lang="fa" onclick="setLanguage('fa')">دری</button>
-        <button class="lang-btn" data-lang="ps" onclick="setLanguage('ps')">پښتو</button>
-    </div>
-    
-    <header class="header">
-        <div class="logo-container">
-            <img 
-                src="https://drive.google.com/uc?export=view&id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV" 
-                alt="Maseer Media" 
-                class="maseer-logo"
-                id="maseerLogo"
-                onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 60%22><text y=%2250%22 font-size=%2240%22 fill=%22%236B21A8%22 font-family=%22sans-serif%22 font-weight=%22bold%22>MASEER</text></svg>'"
-            >
-            <p class="tagline" data-i18n="tagline">
-                Premium AI video marketing for Afghan brands.<br>
-                4 daily campaigns. 1224×1536 Meta-optimized. Undeniable results.
+    <!-- AUTHENTICATION MODAL -->
+    <div class="auth-overlay" id="authModal">
+        <div class="auth-modal">
+            <h2>Welcome to Maseer</h2>
+            <p>Create an account to generate your AI marketing videos</p>
+            
+            <div class="social-login">
+                <button class="btn-social" onclick="Auth.loginWithGoogle()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/></svg>
+                    Continue with Google
+                </button>
+                <button class="btn-social" onclick="Auth.loginWithFacebook()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Continue with Facebook
+                </button>
+            </div>
+            
+            <div class="divider">or continue with phone</div>
+            
+            <form id="phoneAuthForm">
+                <div class="phone-input-group">
+                    <input type="tel" id="phoneNumber" placeholder="+93 70 123 4567" required>
+                    <button type="button" class="btn-otp" id="sendOtpBtn" onclick="Auth.sendOTP()">Send OTP</button>
+                </div>
+                
+                <div class="otp-section" id="otpSection">
+                    <input type="text" id="otpCode" placeholder="Enter 6-digit code" maxlength="6" style="text-align: center; letter-spacing: 0.5rem; font-size: 1.25rem;">
+                    <button type="submit" class="submit-btn" style="margin-top: 1rem;">Verify & Continue</button>
+                </div>
+            </form>
+            
+            <p style="margin-top: 1.5rem; font-size: 0.875rem; color: rgba(255,255,255,0.4);">
+                By continuing, you agree to our Terms of Service
             </p>
         </div>
-    </header>
-    
-    <section class="hero">
-        <div class="hero-badge" id="heroBadge" onclick="document.getElementById('formSection').scrollIntoView({behavior: 'smooth'})">
-            <span>⚡</span>
-            <span data-i18n="heroBadge">Sample Ready in 3 Minutes</span>
+    </div>
+
+    <!-- MAIN APPLICATION (Hidden until authenticated) -->
+    <div class="main-content" id="mainContent">
+        <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="fa" onclick="setLanguage('fa')">دری</button>
+            <button class="lang-btn" data-lang="ps" onclick="setLanguage('ps')">پښتو</button>
         </div>
-    </section>
-    
-    <section class="campaigns-section">
-        <h2 class="section-title" data-i18n="campaignTitle">Your Daily Campaign Schedule</h2>
         
-        <div class="campaigns-grid">
-            <div class="campaign-card" data-campaign="morning">
-                <div class="campaign-time">6:00</div>
-                <span class="campaign-lang" data-i18n="morningLang">FA</span>
-                <h3 class="campaign-title" data-i18n="morningTitle">Morning Motivation</h3>
-                <p class="campaign-desc" data-i18n="morningDesc">
-                    Celestial Minimalism with Nastaʿlīq calligraphy. Navy-to-gold gradients 
-                    with ethereal parallax motion. Awaken your audience.
-                </p>
-                <div class="campaign-energy">
-                    <div class="energy-wave">
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                    </div>
-                    <span data-i18n="morningEnergy">Calm • Ethereal • Theta 4-8Hz</span>
-                </div>
+        <header class="header">
+            <h1 style="background: linear-gradient(135deg, var(--maseer-purple), var(--maseer-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Maseer Media</h1>
+            <div class="user-menu">
+                <span id="userPhone">+93...</span>
+                <button class="btn-logout" onclick="Auth.logout()">Logout</button>
+            </div>
+        </header>
+
+        <!-- VIDEO PREVIEW SECTION (Shown after generation) -->
+        <div class="video-section" id="videoSection">
+            <div style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--maseer-gold); margin-bottom: 1rem;">
+                <span style="font-size: 1.5rem;">✨</span>
+                <span style="font-weight: 700;">Your Sample is Ready!</span>
+            </div>
+            <h3 style="margin-bottom: 1rem;">Preview Your AI Marketing Video</h3>
+            
+            <div class="video-container">
+                <video id="sampleVideo" controlsList="nodownload" playsinline>
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-overlay" oncontextmenu="return false;"></div>
             </div>
             
-            <div class="campaign-card" data-campaign="midday">
-                <div class="campaign-time">12:00</div>
-                <span class="campaign-lang" data-i18n="middayLang">PS</span>
-                <h3 class="campaign-title" data-i18n="middayTitle">General Information</h3>
-                <p class="campaign-desc" data-i18n="middayDesc">
-                    Organic "Hujra" aesthetic with hand-drawn textures. Warm earthy tones 
-                    and soft Pashto typography. Build community trust.
-                </p>
-                <div class="campaign-energy">
-                    <div class="energy-wave">
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                    </div>
-                    <span data-i18n="middayEnergy">Cordial • Grounded • Alpha 8-13Hz</span>
-                </div>
-            </div>
+            <p style="color: rgba(255,255,255,0.6); font-size: 0.875rem; margin-top: 1rem;">
+                🔒 This preview is watermarked and cannot be downloaded. Full HD version available upon subscription.
+            </p>
             
-            <div class="campaign-card" data-campaign="evening">
-                <div class="campaign-time">18:00</div>
-                <span class="campaign-lang" data-i18n="eveningLang">FA</span>
-                <h3 class="campaign-title" data-i18n="eveningTitle">Service Promotion</h3>
-                <p class="campaign-desc" data-i18n="eveningDesc">
-                    Modern Classic with high-res photography. Detail callouts and 
-                    kinetic typography. Drive action with authority.
-                </p>
-                <div class="campaign-energy">
-                    <div class="energy-wave">
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                    </div>
-                    <span data-i18n="eveningEnergy">Professional • Inspiring • Beta 13-30Hz</span>
-                </div>
-            </div>
-            
-            <div class="campaign-card" data-campaign="night">
-                <div class="campaign-time">00:00</div>
-                <span class="campaign-lang" data-i18n="nightLang">EN</span>
-                <h3 class="campaign-title" data-i18n="nightTitle">Brand Awareness</h3>
-                <p class="campaign-desc" data-i18n="nightDesc">
-                    Tactile Stop-Motion with handcrafted assembly. 12fps stutter 
-                    for human feel. Create unforgettable artistic impact.
-                </p>
-                <div class="campaign-energy">
-                    <div class="energy-wave">
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                        <div class="energy-bar"></div>
-                    </div>
-                    <span data-i18n="nightEnergy">Bold • Artistic • Gamma 30-100Hz</span>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="form-section" id="formSection">
-        <div class="form-container">
-            <div class="form-header">
-                <h2 data-i18n="formTitle">Begin Your Transformation</h2>
-                <p data-i18n="formSubtitle">
-                    Complete your brand profile. Your consciousness-optimized sample 
-                    will be ready in 3 minutes.
+            <div class="subscribe-section">
+                <h4 style="color: var(--success); margin-bottom: 0.5rem;">Ready to unlock daily videos?</h4>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">
+                    Subscribe to receive 4 professional videos daily (6AM, 12PM, 6PM, 12AM)
                 </p>
                 
-                <div class="sample-promise">
-                    <div class="promise-icon">🎬</div>
-                    <div>
-                        <strong style="color: #10B981; display: block; margin-bottom: 0.25rem;" data-i18n="promiseTitle">
-                            Immediate Undeniable Sample
-                        </strong>
-                        <span style="color: rgba(255,255,255,0.6); font-size: 0.9375rem;" data-i18n="promiseText">
-                            High-impact preview using color psychology and 
-                            industry-specific visual metaphors. Delivered instantly.
-                        </span>
-                    </div>
+                <a href="sms:+93793535228?body=Maseer" class="btn-subscribe" id="subscribeBtn">
+                    <span>📱</span>
+                    <span>Subscribe Now via SMS</span>
+                </a>
+                
+                <div class="sms-instruction">
+                    <strong>How to subscribe:</strong><br>
+                    1. Click the button above to open your SMS app<br>
+                    2. Send the pre-filled message "Maseer" to <strong>+93 79 353 5228</strong><br>
+                    3. Our team will contact you within 24 hours to activate your subscription<br>
+                    <em style="display: block; margin-top: 0.5rem; opacity: 0.7;">Or manually send "Maseer" to +93 79 353 5228</em>
                 </div>
+            </div>
+        </div>
+
+        <!-- REGISTRATION FORM -->
+        <div class="form-container" id="formContainer">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 data-i18n="formTitle">Create Your Campaign</h2>
+                <p style="color: rgba(255,255,255,0.6);" data-i18n="formSubtitle">Fill in your brand details to generate your free sample</p>
             </div>
             
             <div class="alert alert-error" id="errorAlert"></div>
+            <div class="alert alert-success" id="successAlert"></div>
             
             <form id="registrationForm">
                 <div class="form-group">
-                    <label for="brandName" class="required" data-i18n="labelBrand">Brand Name (English)</label>
-                    <input type="text" id="brandName" required 
-                           data-i18n-placeholder="placeholderBrand"
-                           placeholder="e.g., Zarrin Jewelry">
+                    <label for="brandName" class="required">Brand Name (English)</label>
+                    <input type="text" id="brandName" required placeholder="e.g., Zarrin Jewelry">
                 </div>
                 
                 <div class="form-group">
-                    <label for="localName" data-i18n="labelLocal">Brand Name (Local)</label>
-                    <input type="text" id="localName" dir="auto"
-                           data-i18n-placeholder="placeholderLocal"
-                           placeholder="e.g., زرین جواهرات / زرین ګالری">
+                    <label for="localName">Brand Name (Local)</label>
+                    <input type="text" id="localName" dir="auto" placeholder="e.g., زرین جواهرات">
                 </div>
                 
                 <div class="form-group">
-                    <label for="industry" class="required" data-i18n="labelIndustry">Industry</label>
+                    <label for="industry" class="required">Industry</label>
                     <select id="industry" required>
-                        <option value="" data-i18n="selectIndustry">Select your industry</option>
-                        <option value="Jewelry & Gold">Jewelry & Gold / زرگری / زیورات</option>
-                        <option value="Café & Restaurant">Café & Restaurant / کافه و رستورانت / کافي او رستورانت</option>
-                        <option value="Fashion & Clothing">Fashion & Clothing / البسه و فیشن / فیشن او جامې</option>
-                        <option value="Technology & IT">Technology & IT / تکنالوژی / ټیکنالوژي</option>
-                        <option value="Healthcare & Medical">Healthcare & Medical / صحی / روغتیا</option>
-                        <option value="Education & Training">Education & Training / تعلیم و تربیه / زده‌کړه</option>
-                        <option value="Real Estate">Real Estate / عقارات / ځمکه او کور</option>
-                        <option value="Automotive">Automotive / موتر و وسایط / موټر او وسایط</option>
-                        <option value="Beauty & Cosmetics">Beauty & Cosmetics / آرایش و زیبایی / ښایست</option>
-                        <option value="Construction & Materials">Construction & Materials / ساختمان / ودانۍ</option>
-                        <option value="Consultancy & Services">Consultancy & Services / مشاوره / مشوره</option>
-                        <option value="Retail & Shopping">Retail & Shopping / خرید فروشی / پلورنځی</option>
-                        <option value="Travel & Hospitality">Travel & Hospitality / سفر و مهمانخانه / سفر</option>
-                        <option value="Agriculture">Agriculture / زراعت / کرنه</option>
-                        <option value="Handicrafts">Handicrafts / صنایع دستی / لاسي صنایع</option>
+                        <option value="">Select your industry</option>
+                        <option value="Jewelry & Gold">Jewelry & Gold</option>
+                        <option value="Café & Restaurant">Café & Restaurant</option>
+                        <option value="Fashion & Clothing">Fashion & Clothing</option>
+                        <option value="Technology & IT">Technology & IT</option>
+                        <option value="Healthcare & Medical">Healthcare & Medical</option>
+                        <option value="Education & Training">Education & Training</option>
+                        <option value="Real Estate">Real Estate</option>
+                        <option value="Automotive">Automotive</option>
+                        <option value="Beauty & Cosmetics">Beauty & Cosmetics</option>
+                        <option value="Construction & Materials">Construction & Materials</option>
+                        <option value="Consultancy & Services">Consultancy & Services</option>
+                        <option value="Retail & Shopping">Retail & Shopping</option>
+                        <option value="Travel & Hospitality">Travel & Hospitality</option>
+                        <option value="Agriculture">Agriculture</option>
+                        <option value="Handicrafts">Handicrafts</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label class="required" data-i18n="labelColors">Brand Colors</label>
-                    <div class="color-group">
-                        <div class="color-wrapper">
-                            <input type="text" id="primaryColor" value="#6B21A8" required
-                                   data-i18n-placeholder="placeholderPrimary"
-                                   placeholder="Primary #6B21A8">
-                            <div class="color-preview" id="primaryPreview" 
-                                 style="background: #6B21A8; --preview-color: #6B21A8"></div>
-                            <input type="color" id="primaryColorPicker" value="#6B21A8"
-                                   onchange="App.updateColor('primary', this.value)">
-                        </div>
-                        <div class="color-wrapper">
-                            <input type="text" id="secondaryColor" value="#EAB308"
-                                   data-i18n-placeholder="placeholderSecondary"
-                                   placeholder="Secondary #EAB308">
-                            <div class="color-preview" id="secondaryPreview" 
-                                 style="background: #EAB308; --preview-color: #EAB308"></div>
-                            <input type="color" id="secondaryColorPicker" value="#EAB308"
-                                   onchange="App.updateColor('secondary', this.value)">
-                        </div>
+                    <label for="facebookPage" class="required">Facebook Page URL</label>
+                    <input type="url" id="facebookPage" required placeholder="https://facebook.com/yourpage">
+                    <small style="color: rgba(255,255,255,0.5); display: block; margin-top: 0.5rem;">
+                        We need this to schedule your posts and contact you for admin access
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="required">Contact Number (Verified)</label>
+                    <input type="tel" id="verifiedPhone" readonly style="background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3);">
+                    <div class="verification-badge">
+                        <span>✓</span>
+                        <span>Number verified via OTP</span>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="required" data-i18n="labelLogo">Brand Logo</label>
-                    <div class="upload-zone" id="uploadZone" 
-                         onclick="document.getElementById('logoInput').click()">
-                        <span class="upload-icon">📁</span>
-                        <div class="upload-text" data-i18n="uploadText">Drop logo or click to browse</div>
-                        <div class="upload-hint" data-i18n="uploadHint">PNG with transparency preferred (max 2MB)</div>
-                        <input type="file" id="logoInput" accept="image/*" style="display: none" 
-                               onchange="App.handleFileSelect(event)" required>
-                    </div>
-                    <div class="file-preview" id="filePreview" style="display: none;">
-                        <img id="previewImg" src="" alt="Logo">
-                        <div class="file-info">
-                            <div class="file-name" id="fileName"></div>
-                            <div class="file-size" id="fileSize"></div>
-                        </div>
-                        <button type="button" class="remove-file" onclick="App.removeFile()">✕</button>
+                    <label class="required">Brand Colors</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <input type="text" id="primaryColor" value="#6B21A8" placeholder="Primary #6B21A8">
+                        <input type="text" id="secondaryColor" value="#EAB308" placeholder="Secondary #EAB308">
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="targetAudience" data-i18n="labelAudience">Target Audience</label>
-                    <input type="text" id="targetAudience"
-                           data-i18n-placeholder="placeholderAudience"
-                           placeholder="e.g., Affluent women 25-45 / زنان ثروتمند / بډایې ښځې">
+                    <label for="targetAudience">Target Audience</label>
+                    <input type="text" id="targetAudience" placeholder="e.g., Affluent women 25-45">
                 </div>
                 
                 <div class="form-group">
-                    <label for="keyOfferings" data-i18n="labelOfferings">Key Offerings</label>
-                    <textarea id="keyOfferings" rows="3"
-                              data-i18n-placeholder="placeholderOfferings"
-                              placeholder="Describe your main products/services..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="contact" data-i18n="labelContact">WhatsApp for Delivery</label>
-                    <input type="tel" id="contact" 
-                           data-i18n-placeholder="placeholderContact"
-                           placeholder="+93 70 123 4567">
+                    <label for="keyOfferings">Key Products/Services</label>
+                    <input type="text" id="keyOfferings" placeholder="Describe your main offerings...">
                 </div>
                 
                 <button type="submit" class="submit-btn" id="submitBtn">
-                    <span data-i18n="submitBtn">Generate My Undeniable Sample</span>
-                    <span>→</span>
+                    Generate My Sample Video
                 </button>
             </form>
         </div>
-    </section>
-    
-    <footer>
-        <div class="footer-brand">
-            <span>⚡</span>
-            <span>Maseer Media — Precision-Crafted for Afghan Brands</span>
-        </div>
-        <p data-i18n="footer">© 2026 Maseer Media Inc. | Kabul, Afghanistan</p>
-    </footer>
-    
-    <div id="toast"></div>
-    
-    <script src="assets/js/consciousness.js"></script>
+    </div>
+
     <script src="assets/js/i18n.js"></script>
-    <script src="assets/js/color-picker.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>
