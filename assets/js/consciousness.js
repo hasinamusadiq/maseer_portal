@@ -6,7 +6,6 @@
 const ConsciousnessSystem = (function() {
     'use strict';
     
-    // Brain wave frequencies for different consciousness states
     const FREQUENCIES = {
         theta: {
             name: 'Theta',
@@ -41,24 +40,15 @@ const ConsciousnessSystem = (function() {
     let currentFrequency = 'alpha';
     let scrollVelocity = 0;
     let lastScrollY = 0;
-    let attentionLevel = 0.5; // 0-1
+    let attentionLevel = 0.5;
     
-    /**
-     * Initialize consciousness tracking
-     */
     function init() {
         setupScrollTracking();
         setupInteractionTracking();
         setupFormEngagement();
         startFrequencyModulation();
-        
-        console.log('🧠 Consciousness System Initialized');
-        console.log(`Current State: ${FREQUENCIES[currentFrequency].state}`);
     }
     
-    /**
-     * Track scroll velocity to determine consciousness state
-     */
     function setupScrollTracking() {
         let scrollTimeout;
         
@@ -67,22 +57,16 @@ const ConsciousnessSystem = (function() {
             scrollVelocity = Math.abs(currentY - lastScrollY);
             lastScrollY = currentY;
             
-            // Determine state based on scroll behavior
             if (scrollVelocity < 5) {
-                // Slow/Stopped - Theta state (contemplation)
                 setFrequency('theta');
             } else if (scrollVelocity < 20) {
-                // Moderate - Alpha state (reading)
                 setFrequency('alpha');
             } else if (scrollVelocity < 50) {
-                // Fast - Beta state (scanning)
                 setFrequency('beta');
             } else {
-                // Very fast - Gamma burst (excitement)
                 setFrequency('gamma');
             }
             
-            // Reset to alpha after scroll stops
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 setFrequency('alpha');
@@ -90,9 +74,6 @@ const ConsciousnessSystem = (function() {
         }, { passive: true });
     }
     
-    /**
-     * Track user interactions for engagement level
-     */
     function setupInteractionTracking() {
         const interactions = ['mousemove', 'click', 'touchstart', 'keydown'];
         let lastInteraction = Date.now();
@@ -102,7 +83,6 @@ const ConsciousnessSystem = (function() {
                 const now = Date.now();
                 const gap = now - lastInteraction;
                 
-                // Calculate attention based on interaction frequency
                 if (gap < 1000) {
                     attentionLevel = Math.min(1, attentionLevel + 0.1);
                 } else if (gap > 5000) {
@@ -111,7 +91,6 @@ const ConsciousnessSystem = (function() {
                 
                 lastInteraction = now;
                 
-                // Boost frequency on direct interaction
                 if (type === 'click') {
                     pulseFrequency();
                 }
@@ -119,9 +98,6 @@ const ConsciousnessSystem = (function() {
         });
     }
     
-    /**
-     * Track form engagement specifically
-     */
     function setupFormEngagement() {
         const form = document.getElementById('registrationForm');
         if (!form) return;
@@ -130,7 +106,6 @@ const ConsciousnessSystem = (function() {
         
         inputs.forEach(input => {
             input.addEventListener('focus', () => {
-                // Intensify when user commits to form
                 setFrequency('gamma');
                 increaseGlow(1.5);
             });
@@ -140,45 +115,30 @@ const ConsciousnessSystem = (function() {
                 resetGlow();
             });
             
-            // Progress tracking
             input.addEventListener('input', () => {
                 const filled = Array.from(inputs).filter(i => i.value).length;
                 const progress = filled / inputs.length;
                 
-                // Shift frequency based on completion
                 if (progress > 0.7) {
-                    setFrequency('gamma'); // Near completion - excitement
+                    setFrequency('gamma');
                 } else if (progress > 0.3) {
-                    setFrequency('beta'); // Making progress
+                    setFrequency('beta');
                 }
             });
         });
     }
     
-    /**
-     * Set active frequency state
-     */
     function setFrequency(freq) {
         if (currentFrequency === freq) return;
         
         currentFrequency = freq;
         const config = FREQUENCIES[freq];
         
-        // Update CSS variables
         document.documentElement.style.setProperty('--active-frequency', config.color);
-        
-        // Update indicator
         updateFrequencyIndicator(config);
-        
-        // Apply visual changes
         applyFrequencyVisuals(config);
-        
-        console.log(`🧠 Frequency Shift: ${config.state} (${config.range})`);
     }
     
-    /**
-     * Update the frequency indicator UI
-     */
     function updateFrequencyIndicator(config) {
         const indicator = document.getElementById('frequencyIndicator');
         const text = document.getElementById('frequencyText');
@@ -189,13 +149,9 @@ const ConsciousnessSystem = (function() {
         }
     }
     
-    /**
-     * Apply visual effects based on frequency
-     */
     function applyFrequencyVisuals(config) {
         const bg = document.getElementById('consciousnessBg');
         
-        // Adjust background animation speed based on frequency
         const speeds = {
             theta: '20s',
             alpha: '15s',
@@ -208,9 +164,6 @@ const ConsciousnessSystem = (function() {
         }
     }
     
-    /**
-     * Temporary frequency pulse for attraction
-     */
     function pulseFrequency() {
         const original = currentFrequency;
         setFrequency('gamma');
@@ -222,30 +175,19 @@ const ConsciousnessSystem = (function() {
         }, 500);
     }
     
-    /**
-     * Increase glow intensity
-     */
     function increaseGlow(factor) {
         document.documentElement.style.setProperty('--glow-intensity', factor);
     }
     
-    /**
-     * Reset glow to normal
-     */
     function resetGlow() {
         document.documentElement.style.setProperty('--glow-intensity', 0.5);
     }
     
-    /**
-     * Continuous subtle frequency modulation
-     */
     function startFrequencyModulation() {
-        // Subtle breathing effect
         setInterval(() => {
             const time = Date.now() / 1000;
-            const breath = Math.sin(time * 0.5) * 0.5 + 0.5; // 0-1
+            const breath = Math.sin(time * 0.5) * 0.5 + 0.5;
             
-            // Modulate glow based on breathing rhythm
             const baseGlow = parseFloat(getComputedStyle(document.documentElement)
                 .getPropertyValue('--glow-intensity')) || 0.5;
             
@@ -255,9 +197,6 @@ const ConsciousnessSystem = (function() {
         }, 100);
     }
     
-    /**
-     * Get current consciousness data
-     */
     function getState() {
         return {
             frequency: currentFrequency,
@@ -267,7 +206,6 @@ const ConsciousnessSystem = (function() {
         };
     }
     
-    // Public API
     return {
         init,
         setFrequency,
@@ -277,7 +215,6 @@ const ConsciousnessSystem = (function() {
     };
 })();
 
-// Auto-initialize
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', ConsciousnessSystem.init);
 } else {
