@@ -6,7 +6,6 @@
 const ColorTools = (function() {
     'use strict';
 
-    // Color psychology database
     const COLOR_PSYCHOLOGY = {
         '#D4AF37': { name: 'Gold', emotion: 'Luxury, Success, Quality', industries: ['Jewelry', 'Premium Services'] },
         '#8B4513': { name: 'Saddle Brown', emotion: 'Reliability, Earthiness, Comfort', industries: ['Food', 'Crafts'] },
@@ -18,9 +17,6 @@ const ColorTools = (function() {
         '#6B21A8': { name: 'Purple', emotion: 'Creativity, Luxury, Spirituality', industries: ['Creative', 'Premium'] }
     };
 
-    /**
-     * Convert hex to HSL
-     */
     function hexToHSL(hex) {
         let r = parseInt(hex.slice(1, 3), 16) / 255;
         let g = parseInt(hex.slice(3, 5), 16) / 255;
@@ -45,9 +41,6 @@ const ColorTools = (function() {
         return { h: h * 360, s: s * 100, l: l * 100 };
     }
 
-    /**
-     * Convert HSL to hex
-     */
     function hslToHex(h, s, l) {
         l /= 100;
         const a = s * Math.min(l, 1 - l) / 100;
@@ -59,18 +52,12 @@ const ColorTools = (function() {
         return `#${f(0)}${f(8)}${f(4)}`.toUpperCase();
     }
 
-    /**
-     * Generate complementary color
-     */
     function getComplementary(hex) {
         const hsl = hexToHSL(hex);
         hsl.h = (hsl.h + 180) % 360;
         return hslToHex(hsl.h, hsl.s, hsl.l);
     }
 
-    /**
-     * Generate analogous colors
-     */
     function getAnalogous(hex) {
         const hsl = hexToHSL(hex);
         return [
@@ -79,9 +66,6 @@ const ColorTools = (function() {
         ];
     }
 
-    /**
-     * Generate triadic colors
-     */
     function getTriadic(hex) {
         const hsl = hexToHSL(hex);
         return [
@@ -90,9 +74,6 @@ const ColorTools = (function() {
         ];
     }
 
-    /**
-     * Calculate contrast ratio for accessibility
-     */
     function getContrastRatio(hex1, hex2) {
         const lum1 = getLuminance(hex1);
         const lum2 = getLuminance(hex2);
@@ -101,9 +82,6 @@ const ColorTools = (function() {
         return (brightest + 0.05) / (darkest + 0.05);
     }
 
-    /**
-     * Calculate relative luminance
-     */
     function getLuminance(hex) {
         const rgb = hexToRGB(hex);
         const [r, g, b] = rgb.map(c => {
@@ -113,9 +91,6 @@ const ColorTools = (function() {
         return 0.2126 * r + 0.7152 * g + 0.0722 * b;
     }
 
-    /**
-     * Convert hex to RGB array
-     */
     function hexToRGB(hex) {
         return [
             parseInt(hex.slice(1, 3), 16),
@@ -124,11 +99,7 @@ const ColorTools = (function() {
         ];
     }
 
-    /**
-     * Get color psychology info
-     */
     function getPsychology(hex) {
-        // Find closest match
         let closest = null;
         let minDistance = Infinity;
         
@@ -143,9 +114,6 @@ const ColorTools = (function() {
         return closest;
     }
 
-    /**
-     * Calculate color distance (simplified)
-     */
     function colorDistance(hex1, hex2) {
         const rgb1 = hexToRGB(hex1);
         const rgb2 = hexToRGB(hex2);
@@ -156,9 +124,6 @@ const ColorTools = (function() {
         );
     }
 
-    /**
-     * Generate palette suggestions
-     */
     function generatePalette(primary) {
         return {
             primary: primary,
@@ -169,9 +134,6 @@ const ColorTools = (function() {
         };
     }
 
-    /**
-     * Apply color harmony to form
-     */
     function applyHarmony(primaryHex) {
         const palette = generatePalette(primaryHex);
         const secondaryInput = document.getElementById('secondaryColor');
@@ -179,12 +141,10 @@ const ColorTools = (function() {
         const secondaryPicker = document.getElementById('secondaryColorPicker');
         
         if (secondaryInput && !secondaryInput.value) {
-            // Only auto-fill if secondary is empty
             secondaryInput.value = palette.secondary;
             secondaryPreview.style.background = palette.secondary;
             secondaryPicker.value = palette.secondary;
             
-            // Show psychology info
             const psych = getPsychology(primaryHex);
             if (psych) {
                 showColorInfo(psych);
@@ -192,9 +152,6 @@ const ColorTools = (function() {
         }
     }
 
-    /**
-     * Show color psychology info
-     */
     function showColorInfo(data) {
         let info = document.getElementById('color-psychology');
         if (!info) {
@@ -220,7 +177,6 @@ const ColorTools = (function() {
         `;
     }
 
-    // Public API
     return {
         hexToHSL,
         hslToHex,
@@ -235,7 +191,6 @@ const ColorTools = (function() {
     };
 })();
 
-// Auto-apply harmony when primary color changes
 document.addEventListener('DOMContentLoaded', () => {
     const primaryInput = document.getElementById('primaryColor');
     if (primaryInput) {
@@ -243,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         primaryInput.addEventListener('input', (e) => {
             clearTimeout(timeout);
             timeout = setTimeout(() => {
-                if (ColorTools.isValidHex?.(e.target.value) || /^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
                     ColorTools.applyHarmony(e.target.value.toUpperCase());
                 }
             }, 500);
