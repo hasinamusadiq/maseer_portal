@@ -6,59 +6,38 @@
     <title>Maseer Media | AI Video Marketing for Afghan Brands</title>
     <meta name="description" content="Professional AI-powered video marketing. 4 daily campaigns optimized for Meta platforms.">
     
-    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Fonts: Inter + Noto Naskh Arabic (Dari/Persian) + Noto Sans Pashto -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS Variables for Consciousness States */
         :root {
-            /* Core Brand */
             --maseer-purple: #6B21A8;
             --maseer-gold: #EAB308;
             --maseer-dark: #0A0A0F;
-            
-            /* Consciousness Frequency Colors (60-120 BPM breathing rhythm) */
-            --freq-calm: #1e3a5f;      /* Theta waves - 4-8Hz - Deep relaxation */
-            --freq-focus: #4c1d95;     /* Alpha waves - 8-13Hz - Alert relaxation */
-            --freq-energy: #dc2626;    /* Beta waves - 13-30Hz - Active thinking */
-            --freq-transform: #059669; /* Gamma waves - 30-100Hz - Peak concentration */
-            
-            /* Current active frequency (changes with scroll/interaction) */
+            --freq-calm: #1e3a5f;
+            --freq-focus: #4c1d95;
+            --freq-energy: #dc2626;
+            --freq-transform: #059669;
             --active-frequency: var(--freq-focus);
             --glow-intensity: 0.5;
-            
-            /* Dimensions */
             --meta-width: 1224px;
             --meta-height: 1536px;
-            
-            /* Transitions */
             --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* RTL Support */
         [dir="rtl"] {
             font-family: 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Inter', sans-serif;
         }
         
-        /* Consciousness State Animations */
         @keyframes breathe {
             0%, 100% { transform: scale(1); opacity: 0.8; }
             50% { transform: scale(1.02); opacity: 1; }
         }
         
         @keyframes frequencyPulse {
-            0%, 100% { 
-                box-shadow: 0 0 20px var(--active-frequency);
-                filter: hue-rotate(0deg);
-            }
-            50% { 
-                box-shadow: 0 0 60px var(--active-frequency);
-                filter: hue-rotate(5deg);
-            }
+            0%, 100% { box-shadow: 0 0 20px var(--active-frequency); filter: hue-rotate(0deg); }
+            50% { box-shadow: 0 0 60px var(--active-frequency); filter: hue-rotate(5deg); }
         }
         
         @keyframes consciousnessFlow {
@@ -78,7 +57,6 @@
             50% { opacity: 1; }
         }
         
-        /* Base Reset */
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -100,7 +78,6 @@
             transition: var(--transition-smooth);
         }
         
-        /* Consciousness State Background */
         .consciousness-bg {
             position: fixed;
             top: 0;
@@ -135,7 +112,6 @@
             pointer-events: none;
         }
         
-        /* Frequency Indicator (subtle consciousness cue) */
         .frequency-indicator {
             position: fixed;
             bottom: 2rem;
@@ -162,7 +138,6 @@
             animation: frequencyPulse 3s infinite;
         }
         
-        /* Language Switcher */
         .lang-switcher {
             position: fixed;
             top: 1.5rem;
@@ -202,13 +177,11 @@
             box-shadow: 0 4px 15px rgba(107, 33, 168, 0.4);
         }
         
-        /* RTL adjustment for language switcher */
         [dir="rtl"] .lang-switcher {
             right: auto;
             left: 1.5rem;
         }
         
-        /* Header with Logo */
         .header {
             padding: 2rem 1.5rem;
             display: flex;
@@ -245,7 +218,6 @@
             line-height: 1.7;
         }
         
-        /* Hero Section with Attraction Frequency */
         .hero {
             padding: 3rem 1.5rem 4rem;
             text-align: center;
@@ -279,7 +251,6 @@
             box-shadow: 0 0 40px rgba(234, 179, 8, 0.4);
         }
         
-        /* Campaign Cards with Consciousness States */
         .campaigns-section {
             padding: 4rem 1.5rem;
             max-width: 1400px;
@@ -335,7 +306,6 @@
             opacity: 0.1;
         }
         
-        /* Consciousness state colors for each campaign */
         .campaign-card[data-campaign="morning"] {
             --card-color: #60A5FA;
             --card-glow: rgba(96, 165, 250, 0.3);
@@ -426,7 +396,6 @@
             50% { transform: scaleY(0.6); }
         }
         
-        /* Form Section with Attraction Design */
         .form-section {
             padding: 4rem 1.5rem;
             max-width: 900px;
@@ -510,7 +479,6 @@
             animation: breathe 4s ease-in-out infinite;
         }
         
-        /* Form Fields with Attraction States */
         .form-group {
             margin-bottom: 2rem;
             position: relative;
@@ -555,7 +523,6 @@
             transform: translateY(-2px);
         }
         
-        /* Color Pickers with Frequency Feedback */
         .color-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -596,7 +563,6 @@
             cursor: pointer;
         }
         
-        /* File Upload with Attraction */
         .upload-zone {
             border: 2px dashed rgba(255, 255, 255, 0.2);
             border-radius: 1rem;
@@ -639,7 +605,6 @@
             transform: scale(1.2) translateY(-5px);
         }
         
-        /* Submit Button with Maximum Attraction */
         .submit-btn {
             width: 100%;
             padding: 1.25rem 2rem;
@@ -694,7 +659,6 @@
             to { transform: rotate(360deg); }
         }
         
-        /* Alerts */
         .alert {
             padding: 1.25rem;
             border-radius: 1rem;
@@ -719,7 +683,6 @@
             color: #FCA5A5;
         }
         
-        /* Toast Notifications */
         #toast {
             position: fixed;
             bottom: 2rem;
@@ -739,7 +702,6 @@
             transform: translateX(0);
         }
         
-        /* Footer */
         footer {
             text-align: center;
             padding: 4rem 2rem;
@@ -759,7 +721,6 @@
             font-weight: 600;
         }
         
-        /* Responsive */
         @media (max-width: 768px) {
             .lang-switcher {
                 top: 1rem;
@@ -801,7 +762,6 @@
             }
         }
         
-        /* Accessibility */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -810,7 +770,6 @@
             }
         }
         
-        /* Focus visible for keyboard navigation */
         *:focus-visible {
             outline: 2px solid var(--active-frequency);
             outline-offset: 2px;
@@ -818,27 +777,22 @@
     </style>
 </head>
 <body>
-    <!-- Consciousness Background Layers -->
     <div class="consciousness-bg" id="consciousnessBg"></div>
     <div class="neural-overlay"></div>
     
-    <!-- Frequency Indicator -->
     <div class="frequency-indicator" id="frequencyIndicator">
         <div class="frequency-dot"></div>
         <span id="frequencyText">Focus State: Alpha 8-13Hz</span>
     </div>
     
-    <!-- Language Switcher -->
     <div class="lang-switcher" id="langSwitcher">
         <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
         <button class="lang-btn" data-lang="fa" onclick="setLanguage('fa')">دری</button>
         <button class="lang-btn" data-lang="ps" onclick="setLanguage('ps')">پښتو</button>
     </div>
     
-    <!-- Header -->
     <header class="header">
         <div class="logo-container">
-            <!-- Maseer Logo - Replace src with your Google Drive image -->
             <img 
                 src="https://drive.google.com/uc?export=view&id=14un0-HKUIOVvlpH6X2_hcOchSKjn1buV" 
                 alt="Maseer Media" 
@@ -853,20 +807,18 @@
         </div>
     </header>
     
-    <!-- Hero -->
     <section class="hero">
-        <div class="hero-badge" id="heroBadge" onclick="scrollToForm()">
+        <div class="hero-badge" id="heroBadge" onclick="document.getElementById('formSection').scrollIntoView({behavior: 'smooth'})">
             <span>⚡</span>
             <span data-i18n="heroBadge">Sample Ready in 3 Minutes</span>
         </div>
     </section>
     
-    <!-- Campaigns -->
     <section class="campaigns-section">
         <h2 class="section-title" data-i18n="campaignTitle">Your Daily Campaign Schedule</h2>
         
         <div class="campaigns-grid">
-            <div class="campaign-card" data-campaign="morning" onclick="highlightCampaign('morning')">
+            <div class="campaign-card" data-campaign="morning">
                 <div class="campaign-time">6:00</div>
                 <span class="campaign-lang" data-i18n="morningLang">FA</span>
                 <h3 class="campaign-title" data-i18n="morningTitle">Morning Motivation</h3>
@@ -886,7 +838,7 @@
                 </div>
             </div>
             
-            <div class="campaign-card" data-campaign="midday" onclick="highlightCampaign('midday')">
+            <div class="campaign-card" data-campaign="midday">
                 <div class="campaign-time">12:00</div>
                 <span class="campaign-lang" data-i18n="middayLang">PS</span>
                 <h3 class="campaign-title" data-i18n="middayTitle">General Information</h3>
@@ -906,7 +858,7 @@
                 </div>
             </div>
             
-            <div class="campaign-card" data-campaign="evening" onclick="highlightCampaign('evening')">
+            <div class="campaign-card" data-campaign="evening">
                 <div class="campaign-time">18:00</div>
                 <span class="campaign-lang" data-i18n="eveningLang">FA</span>
                 <h3 class="campaign-title" data-i18n="eveningTitle">Service Promotion</h3>
@@ -926,7 +878,7 @@
                 </div>
             </div>
             
-            <div class="campaign-card" data-campaign="night" onclick="highlightCampaign('night')">
+            <div class="campaign-card" data-campaign="night">
                 <div class="campaign-time">00:00</div>
                 <span class="campaign-lang" data-i18n="nightLang">EN</span>
                 <h3 class="campaign-title" data-i18n="nightTitle">Brand Awareness</h3>
@@ -948,7 +900,6 @@
         </div>
     </section>
     
-    <!-- Form -->
     <section class="form-section" id="formSection">
         <div class="form-container">
             <div class="form-header">
@@ -974,8 +925,7 @@
             
             <div class="alert alert-error" id="errorAlert"></div>
             
-            <form id="registrationForm" onsubmit="return handleSubmit(event)">
-                <!-- Brand Info -->
+            <form id="registrationForm">
                 <div class="form-group">
                     <label for="brandName" class="required" data-i18n="labelBrand">Brand Name (English)</label>
                     <input type="text" id="brandName" required 
@@ -1012,7 +962,6 @@
                     </select>
                 </div>
                 
-                <!-- Visual Identity -->
                 <div class="form-group">
                     <label class="required" data-i18n="labelColors">Brand Colors</label>
                     <div class="color-group">
@@ -1023,7 +972,7 @@
                             <div class="color-preview" id="primaryPreview" 
                                  style="background: #6B21A8; --preview-color: #6B21A8"></div>
                             <input type="color" id="primaryColorPicker" value="#6B21A8"
-                                   onchange="updateColor('primary', this.value)">
+                                   onchange="App.updateColor('primary', this.value)">
                         </div>
                         <div class="color-wrapper">
                             <input type="text" id="secondaryColor" value="#EAB308"
@@ -1032,24 +981,20 @@
                             <div class="color-preview" id="secondaryPreview" 
                                  style="background: #EAB308; --preview-color: #EAB308"></div>
                             <input type="color" id="secondaryColorPicker" value="#EAB308"
-                                   onchange="updateColor('secondary', this.value)">
+                                   onchange="App.updateColor('secondary', this.value)">
                         </div>
                     </div>
                 </div>
                 
-                <!-- Logo Upload -->
                 <div class="form-group">
                     <label class="required" data-i18n="labelLogo">Brand Logo</label>
                     <div class="upload-zone" id="uploadZone" 
-                         ondragover="handleDragOver(event)" 
-                         ondragleave="handleDragLeave(event)"
-                         ondrop="handleDrop(event)"
                          onclick="document.getElementById('logoInput').click()">
                         <span class="upload-icon">📁</span>
                         <div class="upload-text" data-i18n="uploadText">Drop logo or click to browse</div>
                         <div class="upload-hint" data-i18n="uploadHint">PNG with transparency preferred (max 2MB)</div>
                         <input type="file" id="logoInput" accept="image/*" style="display: none" 
-                               onchange="handleFileSelect(event)" required>
+                               onchange="App.handleFileSelect(event)" required>
                     </div>
                     <div class="file-preview" id="filePreview" style="display: none;">
                         <img id="previewImg" src="" alt="Logo">
@@ -1057,11 +1002,10 @@
                             <div class="file-name" id="fileName"></div>
                             <div class="file-size" id="fileSize"></div>
                         </div>
-                        <button type="button" class="remove-file" onclick="removeFile()">✕</button>
+                        <button type="button" class="remove-file" onclick="App.removeFile()">✕</button>
                     </div>
                 </div>
                 
-                <!-- Marketing Info -->
                 <div class="form-group">
                     <label for="targetAudience" data-i18n="labelAudience">Target Audience</label>
                     <input type="text" id="targetAudience"
@@ -1091,7 +1035,6 @@
         </div>
     </section>
     
-    <!-- Footer -->
     <footer>
         <div class="footer-brand">
             <span>⚡</span>
@@ -1100,12 +1043,11 @@
         <p data-i18n="footer">© 2026 Maseer Media Inc. | Kabul, Afghanistan</p>
     </footer>
     
-    <!-- Toast -->
     <div id="toast"></div>
     
-    <!-- Application Logic -->
     <script src="assets/js/consciousness.js"></script>
     <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/color-picker.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>
