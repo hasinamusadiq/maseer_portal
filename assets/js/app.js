@@ -1,173 +1,393 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Success - Maseer Media</title>
+/**
+ * Maseer Portal - Main Application Logic
+ * Handles form submission, validation, and GitHub API integration
+ */
+
+const CONFIG = {
+    BACKEND_REPO: 'hasinamusadiq/maseer_automation',
+    GITHUB_API_BASE: 'https://api.github.com',
+    MAX_LOGO_SIZE: 2 * 1024 * 1024, // 2MB
+    SUPPORTED_FORMATS: ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml'],
+    REQUIRED_FIELDS: ['brandName', 'industry', 'primaryColor']
+};
+
+const App = (function() {
+    'use strict';
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+    let formData = {};
+    let logoFile = null;
     
-    <style>
-        :root {
-            --maseer-purple: #6B21A8;
-            --maseer-gold: #EAB308;
-            --maseer-dark: #0A0A0F;
-            --success: #10B981;
+    function init() {
+        setupEventListeners();
+        setupValidation();
+        loadSavedData();
+    }
+    
+    function setupEventListeners() {
+        const form = document.getElementById('registrationForm');
+        if (form) {
+            form.addEventListener('submit', handleSubmit);
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Inter', 'Noto Naskh Arabic', sans-serif;
-            background: var(--maseer-dark);
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
+        const logoInput = document.getElementById('logoInput');
+        if (logoInput) {
+            logoInput.addEventListener('change', handleFileSelect);
         }
         
-        .success-card {
-            background: linear-gradient(145deg, rgba(26, 26, 46, 0.95), rgba(18, 18, 26, 0.98));
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 2rem;
-            padding: 3rem;
-            max-width: 700px;
-            width: 100%;
-            text-align: center;
+        const uploadZone = document.getElementById('uploadZone');
+        if (uploadZone) {
+            uploadZone.addEventListener('dragover', handleDragOver);
+            uploadZone.addEventListener('dragleave', handleDragLeave);
+            uploadZone.addEventListener('drop', handleDrop);
         }
         
-        .checkmark {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05));
-            border: 3px solid var(--success);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 2rem;
-            font-size: 3.5rem;
-            animation: checkPulse 2s ease-in-out infinite;
+        setupColorPickers();
+    }
+    
+    function setupColorPickers() {
+        const primaryPicker = document.getElementById('primaryColorPicker');
+        const secondaryPicker = document.getElementById('secondaryColorPicker');
+        
+        if (primaryPicker) {
+            primaryPicker.addEventListener('change', (e) => updateColor('primary', e.target.value));
+        }
+        if (secondaryPicker) {
+            secondaryPicker.addEventListener('change', (e) => updateColor('secondary', e.target.value));
+        }
+    }
+    
+    function updateColor(type, value) {
+        const input = document.getElementById(`${type}Color`);
+        const preview = document.getElementById(`${type}Preview`);
+        
+        if (input) input.value = value.toUpperCase();
+        if (preview) {
+            preview.style.background = value;
+            preview.style.setProperty('--preview-color', value);
         }
         
-        @keyframes checkPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-            50% { box-shadow: 0 0 0 20px rgba(16, 185, 129, 0); }
+        if (type === 'primary' && window.ColorTools) {
+            ColorTools.applyHarmony(value.toUpperCase());
+        }
+    }
+    
+    function setupValidation() {
+        const inputs = document.querySelectorAll('input[required], select[required]');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => validateField(input));
+            input.addEventListener('input', () => clearError(input));
+        });
+    }
+    
+    function validateField(field) {
+        const value = field.value.trim();
+        let isValid = true;
+        let message = '';
+        
+        if (!value) {
+            isValid = false;
+            message = 'This field is required';
+        } else if (field.id === 'primaryColor' && !/^#[0-9A-F]{6}$/i.test(value)) {
+            isValid = false;
+            message = 'Please enter a valid hex color (e.g., #6B21A8)';
         }
         
-        h1 { font-size: 2rem; margin-bottom: 1rem; font-weight: 700; }
-        
-        .brand-name { color: var(--maseer-gold); font-weight: 800; }
-        
-        .subtitle { color: rgba(255,255,255,0.6); font-size: 1.125rem; margin-bottom: 2rem; line-height: 1.7; }
-        
-        .steps {
-            background: rgba(0,0,0,0.3);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            text-align: left;
+        if (!isValid) {
+            showFieldError(field, message);
+        } else {
+            markFieldValid(field);
         }
         
-        .step {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 0.75rem;
+        return isValid;
+    }
+    
+    function showFieldError(field, message) {
+        field.classList.add('error');
+        field.classList.remove('valid');
+        
+        let errorEl = field.parentElement.querySelector('.field-error');
+        if (!errorEl) {
+            errorEl = document.createElement('span');
+            errorEl.className = 'field-error';
+            field.parentElement.appendChild(errorEl);
+        }
+        errorEl.textContent = message;
+    }
+    
+    function clearError(field) {
+        field.classList.remove('error');
+        const errorEl = field.parentElement.querySelector('.field-error');
+        if (errorEl) errorEl.remove();
+    }
+    
+    function markFieldValid(field) {
+        field.classList.remove('error');
+        field.classList.add('valid');
+    }
+    
+    function handleDragOver(e) {
+        e.preventDefault();
+        e.currentTarget.classList.add('drag-active');
+    }
+    
+    function handleDragLeave(e) {
+        e.currentTarget.classList.remove('drag-active');
+    }
+    
+    function handleDrop(e) {
+        e.preventDefault();
+        e.currentTarget.classList.remove('drag-active');
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            processFile(files[0]);
+        }
+    }
+    
+    function handleFileSelect(e) {
+        const file = e.target.files[0];
+        if (file) {
+            processFile(file);
+        }
+    }
+    
+    function processFile(file) {
+        if (!CONFIG.SUPPORTED_FORMATS.includes(file.type)) {
+            showToast('Please upload PNG, JPG, or SVG', 'error');
+            return;
         }
         
-        .step:last-child { margin-bottom: 0; }
-        
-        .step-number {
-            width: 32px;
-            height: 32px;
-            background: var(--maseer-purple);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            flex-shrink: 0;
+        if (file.size > CONFIG.MAX_LOGO_SIZE) {
+            showToast('Logo must be under 2MB', 'error');
+            return;
         }
         
-        .step-content h3 { font-size: 1rem; margin-bottom: 0.25rem; color: #fff; }
-        .step-content p { font-size: 0.875rem; color: rgba(255,255,255,0.6); }
+        logoFile = file;
         
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: linear-gradient(135deg, var(--maseer-purple), #4C1D95);
-            color: white;
-            text-decoration: none;
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const preview = document.getElementById('filePreview');
+            const img = document.getElementById('previewImg');
+            const name = document.getElementById('fileName');
+            const size = document.getElementById('fileSize');
+            
+            if (img) img.src = e.target.result;
+            if (name) name.textContent = file.name;
+            if (size) size.textContent = formatFileSize(file.size);
+            if (preview) preview.classList.add('show');
+            
+            const uploadZone = document.getElementById('uploadZone');
+            if (uploadZone) uploadZone.classList.add('has-file');
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    function removeFile() {
+        logoFile = null;
+        const preview = document.getElementById('filePreview');
+        const uploadZone = document.getElementById('uploadZone');
+        const input = document.getElementById('logoInput');
+        
+        if (preview) preview.classList.remove('show');
+        if (uploadZone) uploadZone.classList.remove('has-file');
+        if (input) input.value = '';
+    }
+    
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    
+    async function handleSubmit(e) {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        const originalText = submitBtn.innerHTML;
+        
+        if (!validateForm()) {
+            showToast('Please fix the errors above', 'error');
+            return;
         }
         
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(107, 33, 168, 0.4); }
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner"></span> Creating your campaign...';
         
-        .note {
-            background: rgba(234, 179, 8, 0.1);
-            border: 1px solid rgba(234, 179, 8, 0.3);
-            border-radius: 0.75rem;
-            padding: 1rem;
-            margin-top: 1.5rem;
-            font-size: 0.875rem;
-            color: #EAB308;
+        try {
+            await submitToGitHub();
+            saveFormData();
+            window.location.href = 'success.html';
+        } catch (error) {
+            console.error('Submission error:', error);
+            showToast('Failed to submit. Please try again.', 'error');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
         }
-    </style>
-</head>
-<body>
-    <div class="success-card">
-        <div class="checkmark">✓</div>
+    }
+    
+    function validateForm() {
+        let isValid = true;
+        CONFIG.REQUIRED_FIELDS.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field && !validateField(field)) {
+                isValid = false;
+            }
+        });
+        return isValid;
+    }
+    
+    async function submitToGitHub() {
+        const brandName = document.getElementById('brandName').value.trim();
+        const localName = document.getElementById('localName').value.trim();
+        const industry = document.getElementById('industry').value;
+        const primaryColor = document.getElementById('primaryColor').value.toUpperCase();
+        const secondaryColor = document.getElementById('secondaryColor').value.toUpperCase();
+        const targetAudience = document.getElementById('targetAudience').value.trim();
+        const keyOfferings = document.getElementById('keyOfferings').value.trim();
+        const contact = document.getElementById('contact').value.trim();
         
-        <h1>You're Almost Done!</h1>
+        let logoBase64 = '';
+        if (logoFile) {
+            logoBase64 = await fileToBase64(logoFile);
+        }
         
-        <p class="subtitle">
-            Complete these final steps to get your sample video.
-        </p>
+        const issueBody = createIssueBody({
+            brand_name: brandName,
+            local_name: localName || 'N/A',
+            industry: industry,
+            primary_color: primaryColor,
+            secondary_color: secondaryColor || '#EAB308',
+            target_audience: targetAudience || 'General Afghan market',
+            key_offerings: keyOfferings || 'Premium products/services',
+            contact_info: contact || 'N/A',
+            logo_base64: logoBase64,
+            request_sample: true
+        });
         
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3>Review on GitHub</h3>
-                    <p>Check your pre-filled data and click "Create issue"</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3>Attach Your Logo</h3>
-                    <p>Reply to the created issue with your logo image</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h3>Get Your Video</h3>
-                    <p>Sample will be ready in ~3 minutes on Telegram</p>
-                </div>
-            </div>
-        </div>
+        const response = await fetch(`${CONFIG.GITHUB_API_BASE}/repos/${CONFIG.BACKEND_REPO}/issues`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `token ${await getGitHubToken()}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: `New Client: ${brandName}`,
+                body: issueBody,
+                labels: ['new-client']
+            })
+        });
         
-        <div class="note">
-            ⚠️ <strong>Important:</strong> If you haven't created the GitHub issue yet, 
-            <a href="index.html" style="color: #EAB308;">go back</a> and click "Continue to GitHub"
-        </div>
+        if (!response.ok) {
+            throw new Error(`GitHub API error: ${response.status}`);
+        }
         
-        <a href="index.html" class="btn">← Register Another Brand</a>
-    </div>
-</body>
-</html>
+        const data = await response.json();
+        sessionStorage.setItem('maseer_issue_number', data.number);
+        sessionStorage.setItem('maseer_registration', JSON.stringify({ brand_name: brandName }));
+        
+        return data;
+    }
+    
+    function createIssueBody(data) {
+        return `---
+name: New Client Registration
+about: Register a new brand for AI video marketing
+title: "New Client: ${data.brand_name}"
+labels: [new-client]
+---
+
+## New Brand Registration - Maseer Media Inc.
+
+**Submitted:** ${new Date().toISOString()}
+**Status:** Standard
+
+### Brand Information
+| Field | Value |
+|-------|-------|
+| **Brand Name** | ${data.brand_name} |
+| **Local Name** | ${data.local_name} |
+| **Industry** | ${data.industry} |
+| **Location** | Kabul, Afghanistan |
+
+### Visual Identity
+| Field | Value |
+|-------|-------|
+| **Primary Color** | ${data.primary_color} |
+| **Secondary Color** | ${data.secondary_color} |
+| **Logo** | ${data.logo_base64 ? 'Included (see JSON below)' : 'None'} |
+
+### Marketing Details
+| Field | Value |
+|-------|-------|
+| **Target Audience** | ${data.target_audience} |
+| **Key Offerings** | ${data.key_offerings} |
+| **Contact** | ${data.contact_info} |
+
+### Raw Data (JSON)
+\`\`\`json
+${JSON.stringify(data, null, 2)}
+\`\`\``;
+    }
+    
+    function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const base64 = reader.result.split(',')[1];
+                resolve(base64);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+    
+    async function getGitHubToken() {
+        return 'YOUR_GITHUB_TOKEN_HERE';
+    }
+    
+    function saveFormData() {
+        const data = {
+            brand_name: document.getElementById('brandName').value,
+            timestamp: Date.now()
+        };
+        localStorage.setItem('maseer_form_draft', JSON.stringify(data));
+    }
+    
+    function loadSavedData() {
+        const saved = localStorage.getItem('maseer_form_draft');
+        if (saved) {
+            const data = JSON.parse(saved);
+            if (Date.now() - data.timestamp < 24 * 60 * 60 * 1000) {
+                const brandName = document.getElementById('brandName');
+                if (brandName && !brandName.value) {
+                    brandName.value = data.brand_name || '';
+                }
+            }
+        }
+    }
+    
+    function showToast(message, type = 'info') {
+        const toast = document.getElementById('toast');
+        if (!toast) return;
+        
+        toast.textContent = message;
+        toast.style.background = type === 'error' ? 'rgba(239, 68, 68, 0.9)' : 'rgba(16, 185, 129, 0.9)';
+        toast.style.color = '#fff';
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+    
+    return {
+        init,
+        updateColor,
+        removeFile
+    };
+})();
+
+document.addEventListener('DOMContentLoaded', App.init);
