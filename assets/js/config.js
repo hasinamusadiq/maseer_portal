@@ -4,7 +4,7 @@
  */
 
 const CONFIG = {
-    // Firebase Config - Will be injected by GitHub Actions during deployment
+    // Firebase Config - Injected by GitHub Actions
     FIREBASE: {
         apiKey: window.ENV?.FIREBASE_API_KEY || '__FIREBASE_API_KEY__',
         authDomain: window.ENV?.FIREBASE_AUTH_DOMAIN || '__FIREBASE_AUTH_DOMAIN__',
@@ -17,8 +17,8 @@ const CONFIG = {
     // Backend Repository
     BACKEND_REPO: window.ENV?.BACKEND_REPO || 'hasinamusadiq/maseer_automation',
     
-    // API Proxy Worker (Cloudflare Worker URL for secure GitHub API calls)
-    API_PROXY_URL: window.ENV?.API_PROXY_URL || '__API_PROXY_URL__',
+    // Firebase Cloud Function URL
+    CLOUD_FUNCTION_URL: window.ENV?.CLOUD_FUNCTION_URL || '__CLOUD_FUNCTION_URL__',
     
     // SMS Subscription Number
     SMS_NUMBER: window.ENV?.SMS_NUMBER || '+93793535228',
@@ -27,13 +27,12 @@ const CONFIG = {
     MAX_CLIENTS: 24,
     
     // Video Polling Interval (ms)
-    VIDEO_POLL_INTERVAL: 30000, // 30 seconds
+    VIDEO_POLL_INTERVAL: 30000,
     
     // Debug Mode
     DEBUG: window.ENV?.DEBUG === 'true' || false
 };
 
-// Validate config
 function validateConfig() {
     const required = ['apiKey', 'authDomain', 'projectId'];
     const missing = required.filter(key => CONFIG.FIREBASE[key].includes('__'));
@@ -45,6 +44,5 @@ function validateConfig() {
     return true;
 }
 
-// Export for use in other modules
 window.CONFIG = CONFIG;
 window.validateConfig = validateConfig;
